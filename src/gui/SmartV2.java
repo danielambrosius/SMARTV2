@@ -16,8 +16,14 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JLabel;
 import java.awt.GridLayout;
+import java.awt.Color;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import javax.swing.JList;
 
 public class SmartV2 extends JFrame {
+	private JTextField textField;
+	private JTextField textField_1;
 	private JTable table;
 
 	/**
@@ -77,15 +83,50 @@ public class SmartV2 extends JFrame {
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		getContentPane().add(tabbedPane);
 		
-		table = new JTable();
-		tabbedPane.addTab("New tab", null, table, null);
+		JPanel panel = new JPanel();
+		panel.setBackground(Color.WHITE);
+		tabbedPane.addTab("New tab", null, panel, null);
+		panel.setLayout(null);
 		
-		JLabel lblNewLabel_1 = new JLabel("New label");
-		tabbedPane.addTab("New tab", null, lblNewLabel_1, null);
+		textField = new JTextField();
+		textField.setBounds(44, 46, 122, 22);
+		panel.add(textField);
+		textField.setColumns(10);
+		
+		JLabel lblNewLabel_1 = new JLabel("State Variable");
+		lblNewLabel_1.setBounds(55, 24, 91, 16);
+		panel.add(lblNewLabel_1);
+		
+		textField_1 = new JTextField();
+		textField_1.setBounds(188, 46, 320, 22);
+		panel.add(textField_1);
+		textField_1.setColumns(10);
+		
+		JLabel lblDifferentialEquation = new JLabel("Differential equation");
+		lblDifferentialEquation.setBounds(193, 24, 228, 16);
+		panel.add(lblDifferentialEquation);
+		
+		JLabel label = new JLabel("=");
+		label.setBounds(172, 49, 22, 16);
+		panel.add(label);
+		
+		JLabel lblDdt = new JLabel("d/dt");
+		lblDdt.setBounds(12, 49, 91, 16);
+		panel.add(lblDdt);
+		
+		JButton btnAdd = new JButton("Add");
+		btnAdd.setBounds(520, 45, 66, 25);
+		panel.add(btnAdd);
+		
+		table = new JTable();
+		table.setBounds(22, 88, 484, 282);
+		panel.add(table);
+		
+		JPanel panel_1 = new JPanel();
+		tabbedPane.addTab("New tab", null, panel_1, null);
 		
 		JLabel lblNewLabel = new JLabel("New label");
 		
 		
 	}
-
 }
