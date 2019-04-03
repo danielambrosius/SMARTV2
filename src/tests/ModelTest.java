@@ -26,6 +26,20 @@ public class ModelTest extends TestCase {
 		assertEquals("Tim", m.getName());
 	}
 	
+	public void testAddParameter() {
+		m.addParameter("a");
+		assertTrue(m.getParameters().contains("a"));
+	}
 	
+	public void testAddParameters() {
+		m.addParameter("a");
+		m.addParameter("b");
+		assertTrue(m.getParameters().contains("a"));
+		assertTrue(m.getParameters().contains("b"));
+	}	
 	
+	public void testDuplicateParameters() {
+		fail("not implemented");
+		
+	}
 }
