@@ -20,6 +20,7 @@ import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JList;
+import javax.swing.border.LineBorder;
 
 public class SmartV2 extends JFrame {
 	private JTextField textField;
@@ -118,8 +119,13 @@ public class SmartV2 extends JFrame {
 		btnAdd.setBounds(520, 45, 66, 25);
 		panel.add(btnAdd);
 		
-		table = new JTable();
+		Object rowData[][] = { { "Row1-Column1", "Row1-Column2"},
+                { "Row2-Column1", "Row2-Column2"} };
+		Object columnNames[] = { "Column One", "Column Two"};
+		table = new JTable(rowData,columnNames);
+		table.setBorder(new LineBorder(new Color(0, 0, 0)));
 		table.setBounds(22, 88, 484, 282);
+		
 		panel.add(table);
 		
 		JPanel panel_1 = new JPanel();
