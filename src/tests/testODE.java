@@ -5,7 +5,8 @@ import smrt2.Ode;
 
 public class testODE extends TestCase {
 	private String state = "E";
-	private String formula = "mc^2";
+	private String formula = "2mc";
+	private String stringOde = "dE/dt = 2mc";
 	
 	public void testOdeExists(){
 		Ode myOde = new Ode(null, null);
@@ -32,5 +33,10 @@ public class testODE extends TestCase {
 		Ode myOde = new Ode(null, null);
 		myOde.setState(state);
 		assertEquals(state, myOde.getState());
+	}
+	
+	public void testToString(){
+		Ode myOde = new Ode(state, formula);
+		assertEquals(stringOde, myOde.toString());
 	}
 }
