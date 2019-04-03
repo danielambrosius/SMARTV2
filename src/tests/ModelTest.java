@@ -26,12 +26,12 @@ public class ModelTest extends TestCase {
 		assertEquals("Tim", m.getName());
 	}
 	
-	public void testAddParameter() {
+	public void testAddParameter() throws Exception {
 		m.addParameter("a");
 		assertTrue(m.getParameters().contains("a"));
 	}
 	
-	public void testAddParameters() {
+	public void testAddParameters() throws Exception {
 		m.addParameter("a");
 		m.addParameter("b");
 		assertTrue(m.getParameters().contains("a"));
@@ -39,7 +39,42 @@ public class ModelTest extends TestCase {
 	}	
 	
 	public void testDuplicateParameters() {
-		fail("not implemented");
+		try {
+			m.addParameter("a");
+			m.addParameter("a");
+			fail("Exception not raised");
+		} catch (Exception e) {
+			String m = e.getMessage();
+			assertEquals("Duplicate parameters not allowed", m);
+		}
 		
 	}
+	
+	public void testAddState() throws Exception {
+		m.addState("a");
+		assertTrue(m.getStates().contains("a"));
+	}
+	
+	public void testAddStates() throws Exception {
+		m.addState("a");
+		m.addState("b");
+		assertTrue(m.getStates().contains("a"));
+		assertTrue(m.getStates().contains("b"));
+	}	
+	
+	public void testDuplicateStates() {
+		try {
+			m.addState("a");
+			m.addState("a");
+			fail("Exception not raised");
+		} catch (Exception e) {
+			String m = e.getMessage();
+			assertEquals("Duplicate states not allowed", m);
+		}
+		
+	}
+	
+	
+	
+
 }
