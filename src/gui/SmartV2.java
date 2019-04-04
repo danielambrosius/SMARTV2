@@ -1,4 +1,5 @@
 package gui;
+import smrt2.Model;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -21,11 +22,14 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.border.LineBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class SmartV2 extends JFrame {
 	private JTextField textField;
 	private JTextField textField_1;
-	private JTable table;
+	private JTable tableFormulas;
+	private JTable table_1;
 
 	/**
 	 * Launch the application.
@@ -86,7 +90,7 @@ public class SmartV2 extends JFrame {
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.WHITE);
-		tabbedPane.addTab("New tab", null, panel, null);
+		tabbedPane.addTab("Formulas", null, panel, null);
 		panel.setLayout(null);
 		
 		textField = new JTextField();
@@ -116,20 +120,50 @@ public class SmartV2 extends JFrame {
 		panel.add(lblDdt);
 		
 		JButton btnAdd = new JButton("Add");
+		btnAdd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//Model.setFormula();
+				//Model.setState();
+			}
+		});
 		btnAdd.setBounds(520, 45, 66, 25);
 		panel.add(btnAdd);
 		
 		Object rowData[][] = { { "Row1-Column1", "Row1-Column2"},
                 { "Row2-Column1", "Row2-Column2"} };
 		Object columnNames[] = { "Column One", "Column Two"};
-		table = new JTable(rowData,columnNames);
-		table.setBorder(new LineBorder(new Color(0, 0, 0)));
-		table.setBounds(22, 88, 484, 282);
+		tableFormulas = new JTable(rowData,columnNames);
+		tableFormulas.setBorder(new LineBorder(new Color(0, 0, 0)));
+		tableFormulas.setBounds(22, 88, 484, 282);
 		
-		panel.add(table);
+		panel.add(tableFormulas);
 		
 		JPanel panel_1 = new JPanel();
-		tabbedPane.addTab("New tab", null, panel_1, null);
+		tabbedPane.addTab("Parameters", null, panel_1, null);
+		panel_1.setLayout(null);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBackground(Color.WHITE);
+		panel_2.setBounds(0, 0, 602, 370);
+		panel_1.add(panel_2);
+		panel_2.setLayout(null);
+		
+		JLabel lblParameter = new JLabel("Parameter");
+		lblParameter.setBounds(12, 13, 85, 16);
+		panel_2.add(lblParameter);
+		
+		JButton btnRefresh = new JButton("Refresh");
+		btnRefresh.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		btnRefresh.setBounds(493, 25, 97, 25);
+		panel_2.add(btnRefresh);
+		
+		table_1 = new JTable();
+		table_1.setBorder(new LineBorder(new Color(0, 0, 0)));
+		table_1.setBounds(12, 66, 463, 291);
+		panel_2.add(table_1);
 		
 		JLabel lblNewLabel = new JLabel("New label");
 		
