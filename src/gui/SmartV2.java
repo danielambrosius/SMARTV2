@@ -3,7 +3,6 @@ import smrt2.Model;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -22,12 +21,14 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableCellRenderer;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class SmartV2 extends JFrame {
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField StateField;
+	private JTextField EquationField;
 	private JTable tableFormulas;
 	private JTable table_1;
 
@@ -88,64 +89,74 @@ public class SmartV2 extends JFrame {
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		getContentPane().add(tabbedPane);
 		
-		JPanel panel = new JPanel();
-		panel.setBackground(Color.WHITE);
-		tabbedPane.addTab("Formulas", null, panel, null);
-		panel.setLayout(null);
+		JPanel panelFormulas = new JPanel();
+		panelFormulas.setBackground(Color.WHITE);
+		tabbedPane.addTab("Formulas", null, panelFormulas, null);
+		panelFormulas.setLayout(null);
 		
-		textField = new JTextField();
-		textField.setBounds(44, 46, 76, 22);
-		panel.add(textField);
-		textField.setColumns(10);
+		StateField = new JTextField();
+		StateField.setBounds(44, 46, 76, 22);
+		panelFormulas.add(StateField);
+		StateField.setColumns(10);
 		
-		JLabel lblNewLabel_1 = new JLabel("State Variable");
-		lblNewLabel_1.setBounds(44, 24, 91, 16);
-		panel.add(lblNewLabel_1);
+		JLabel lblState = new JLabel("State Variable");
+		lblState.setBounds(44, 24, 91, 16);
+		panelFormulas.add(lblState);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(179, 46, 320, 22);
-		panel.add(textField_1);
-		textField_1.setColumns(10);
+		EquationField = new JTextField();
+		EquationField.setBounds(179, 46, 320, 22);
+		panelFormulas.add(EquationField);
+		EquationField.setColumns(10);
 		
 		JLabel lblDifferentialEquation = new JLabel("Differential equation");
 		lblDifferentialEquation.setBounds(179, 24, 228, 16);
-		panel.add(lblDifferentialEquation);
+		panelFormulas.add(lblDifferentialEquation);
 		
-		JLabel label = new JLabel("/dt = ");
+		JLabel label = new JLabel("/dt   = ");
 		label.setBounds(132, 49, 62, 16);
-		panel.add(label);
+		panelFormulas.add(label);
 		
 		JLabel lblDdt = new JLabel("d ");
 		lblDdt.setBounds(22, 49, 17, 16);
-		panel.add(lblDdt);
+		panelFormulas.add(lblDdt);
+		
+		Object rowData[][] = { { "A", "k"} };
+		Object columnNames[] = { "State", "Equation"};
+		tableFormulas = new JTable(rowData,columnNames);
+		tableFormulas.getColumnModel().getColumn(0).setMaxWidth(100);
+		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+		centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+		for (int x = 0; x < tableFormulas.getColumnModel().getColumnCount(); x++) {
+			tableFormulas.getColumnModel().getColumn(x).setCellRenderer(centerRenderer);
+		}
+
+		tableFormulas.setBorder(new LineBorder(new Color(0, 0, 0)));
+		tableFormulas.setBounds(22, 88, 484, 282);
+		
+		panelFormulas.add(tableFormulas);
 		
 		JButton btnAdd = new JButton("Add");
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//Model.setFormula();
-				//Model.setState();
+				String state = StateField.getText().replace(" ", "");
+				String equation = EquationField.getText().replace(" ", "");
+				if (!state.isEmpty() && !equation.isEmpty()) {
+					System.out.println(equation);
+					//Model.setFormula(state,equation);				
+
+				}
 			}
 		});
+		panelFormulas.add(btnAdd);
 		btnAdd.setBounds(520, 45, 66, 25);
-		panel.add(btnAdd);
-		
-		Object rowData[][] = { { "Row1-Column1", "Row1-Column2"},
-                { "Row2-Column1", "Row2-Column2"} };
-		Object columnNames[] = { "Column One", "Column Two"};
-		tableFormulas = new JTable(rowData,columnNames);
-		tableFormulas.setBorder(new LineBorder(new Color(0, 0, 0)));
-		tableFormulas.setBounds(22, 88, 484, 282);
-		
-		panel.add(tableFormulas);
-		
-		JPanel panel_1 = new JPanel();
-		tabbedPane.addTab("Parameters", null, panel_1, null);
-		panel_1.setLayout(null);
+		JPanel panelParameters = new JPanel();
+		tabbedPane.addTab("Parameters", null, panelParameters, null);
+		panelParameters.setLayout(null);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(Color.WHITE);
 		panel_2.setBounds(0, 0, 602, 370);
-		panel_1.add(panel_2);
+		panelParameters.add(panel_2);
 		panel_2.setLayout(null);
 		
 		JLabel lblParameter = new JLabel("Parameter");
@@ -165,7 +176,6 @@ public class SmartV2 extends JFrame {
 		table_1.setBounds(12, 66, 463, 291);
 		panel_2.add(table_1);
 		
-		JLabel lblNewLabel = new JLabel("New label");
 		
 		
 	}
