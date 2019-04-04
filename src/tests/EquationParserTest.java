@@ -11,11 +11,11 @@ public class EquationParserTest extends TestCase {
 		assertNotNull(myEP);
 	}
 	
-	public void testParseEquation() {
+	public void testParseParameters() {
 		String imput = "A*B";
 		EquationParser myEP = new EquationParser();
 		String[] parameters = myEP.parseParameters(imput);
-		//assertEquals(parameters[0], "A");
+		//assertEquals(myEP., "A");
 		//assertEquals(parameters[1], "B");
 	}
 	
