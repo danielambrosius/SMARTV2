@@ -24,6 +24,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 import java.awt.event.ActionEvent;
 
 public class SmartV2 extends JFrame {
@@ -47,6 +48,7 @@ public class SmartV2 extends JFrame {
 			}
 		});
 	}
+	Model myModel =new Model();
 
 	/**
 	 * Create the frame.
@@ -120,20 +122,22 @@ public class SmartV2 extends JFrame {
 		lblDdt.setBounds(22, 49, 17, 16);
 		panelFormulas.add(lblDdt);
 		
-		Object rowData[][] = { { "A", "k"} };
-		Object columnNames[] = { "State", "Equation"};
-		tableFormulas = new JTable(rowData,columnNames);
-		tableFormulas.getColumnModel().getColumn(0).setMaxWidth(100);
-		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-		centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-		for (int x = 0; x < tableFormulas.getColumnModel().getColumnCount(); x++) {
-			tableFormulas.getColumnModel().getColumn(x).setCellRenderer(centerRenderer);
-		}
+		//Object rowData[][] = { { "A", "k"} };
+		resetTable(panelFormulas);
+		//Object rowData[][]= myModel.displayOdeList();
+		//Object columnNames[] = { "State", "Equation"};
+		//tableFormulas = new JTable(rowData,columnNames);
+		//tableFormulas.getColumnModel().getColumn(0).setMaxWidth(100);
+		//DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+		//centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+		//for (int x = 0; x < tableFormulas.getColumnModel().getColumnCount(); x++) {
+			//tableFormulas.getColumnModel().getColumn(x).setCellRenderer(centerRenderer);
+		//}
 
-		tableFormulas.setBorder(new LineBorder(new Color(0, 0, 0)));
-		tableFormulas.setBounds(22, 88, 484, 282);
+		//tableFormulas.setBorder(new LineBorder(new Color(0, 0, 0)));
+		//tableFormulas.setBounds(22, 88, 484, 282);
 		
-		panelFormulas.add(tableFormulas);
+		//panelFormulas.add(tableFormulas);
 		
 		JButton btnAdd = new JButton("Add");
 		btnAdd.addActionListener(new ActionListener() {
@@ -141,9 +145,10 @@ public class SmartV2 extends JFrame {
 				String state = StateField.getText().replace(" ", "");
 				String equation = EquationField.getText().replace(" ", "");
 				if (!state.isEmpty() && !equation.isEmpty()) {
-					System.out.println(equation);
-					//Model.setFormula(state,equation);				
-
+					//System.out.println(equation);
+					myModel.addOde(state, equation);
+					//((DefaultTableModel)tableFormulas.getModel());
+					resetTable(panelFormulas);
 				}
 			}
 		});
@@ -176,7 +181,30 @@ public class SmartV2 extends JFrame {
 		table_1.setBounds(12, 66, 463, 291);
 		panel_2.add(table_1);
 		
+	}
+	public void resetTable(JPanel panelFormulas) {
+		// set the odelist to displaylist
+		Object displayList[][]= myModel.displayOdeList();
+		//Print text from odeList
+		//for (int i = 0; i < displayList.length; i++) {
+		//	for (int j = 0; j < displayList[i].length; j++) {
+		//	System.out.println(displayList[i][j]);
+		//	}
+		//}
+		//Table format
+		Object columnNames[] = { "State", "Equation"};
+		tableFormulas = new JTable(displayList,columnNames);
+		tableFormulas.getColumnModel().getColumn(0).setMaxWidth(100);
+		//center text
+		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+		centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+		for (int x = 0; x < tableFormulas.getColumnModel().getColumnCount(); x++) {
+			tableFormulas.getColumnModel().getColumn(x).setCellRenderer(centerRenderer);
+			}
 		
-		
+		tableFormulas.setBorder(new LineBorder(new Color(0, 0, 0)));
+		tableFormulas.setBounds(22, 88, 484, 282);
+		panelFormulas.remove(tableFormulas);
+		panelFormulas.add(tableFormulas);
 	}
 }
