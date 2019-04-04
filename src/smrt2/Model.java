@@ -22,6 +22,8 @@ public class Model {
 		params = new ArrayList<String>();
 		states = new ArrayList<String>();
 		odeList = new ArrayList<Ode>();
+		
+		
 	}
 
 	public String getName() {
@@ -56,16 +58,28 @@ public class Model {
 		return states;
 	}
 
-	public void addODE(Ode odeToAdd) {
+	
+	public void addOde(String state, String formula) {
+		Ode odeToAdd = new Ode(state, formula);
 		odeList.add(odeToAdd);
 	}
-	
-	public void readODE(String state, String formula) {
-		addODE(new Ode(state, formula));
-	}
 
-	public List<Ode> getODEs() {
+	public List<Ode> getOdeList() {
 		// Returns list of all Odes
 		return this.odeList;
+	}
+
+	public String[][] displayOdeList() {
+		int nrOdes = odeList.size();
+		System.out.println(nrOdes);
+		String[][] displayOdeList = new String[nrOdes][2];
+		
+		for (int i = 0; i < odeList.size(); i++) {
+			Ode currentOde = odeList.get(i);
+			displayOdeList[i][0] = currentOde.getState();
+			displayOdeList[i][1] = currentOde.getFormula();
+		}
+			
+		return displayOdeList;
 	}
 }

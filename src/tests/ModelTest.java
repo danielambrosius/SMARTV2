@@ -77,30 +77,29 @@ public class ModelTest extends TestCase {
 		
 	}
 	
-	public void testAddEquation() {
-		/* Model should be able to create instances of ODEs from string input,
-		 * Store them in an array.
-		 */
-		Ode testODE = new Ode("A", "2k + 3A^2");
+	public void testAddOde() {
 		
-		m.addODE(testODE);
-		
-		List<Ode> odesInModel = m.getODEs();
-		
-		assertTrue(odesInModel.contains(testODE));	
-	}
-	
-	public void testReadAndCreateOde() {
-		
-		Ode testODE = new Ode("A", "2k + 3A^2");
+		Ode testODE = new Ode("A", "k");
 		String expected = testODE.toString();
 		
-		m.readODE("A", "2k + 3A^2");
+		m.addOde("A", "k");
 		
-		String actual = m.getODEs().get(0).toString();
+		String actual = m.getOdeList().get(0).toString();
 		
-		assertEquals(expected, actual);
-		
+		assertEquals(expected, actual);	
+	}
+	
+	public void testDisplayOdes(){
+		m.addOde("A", "k1");
+		m.addOde("B", "k2");
+		String[][] actual = m.displayOdeList();
+		String[][] expected = {{"A", "k1"}, {"B", "k2"}}; 
+		for (int i = 0; i < actual.length; i++) {
+			for (int j = 0; j < actual[i].length; j++) {
+				assertEquals(expected[i][j], actual[i][j]);
+			}
+			
+		}
 	}
 	
 	public void testCompileModel() {
