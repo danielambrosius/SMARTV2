@@ -90,29 +90,29 @@ public class SmartV2 extends JFrame {
 		panel.setLayout(null);
 		
 		textField = new JTextField();
-		textField.setBounds(44, 46, 122, 22);
+		textField.setBounds(44, 46, 76, 22);
 		panel.add(textField);
 		textField.setColumns(10);
 		
 		JLabel lblNewLabel_1 = new JLabel("State Variable");
-		lblNewLabel_1.setBounds(55, 24, 91, 16);
+		lblNewLabel_1.setBounds(44, 24, 91, 16);
 		panel.add(lblNewLabel_1);
 		
 		textField_1 = new JTextField();
-		textField_1.setBounds(188, 46, 320, 22);
+		textField_1.setBounds(179, 46, 320, 22);
 		panel.add(textField_1);
 		textField_1.setColumns(10);
 		
 		JLabel lblDifferentialEquation = new JLabel("Differential equation");
-		lblDifferentialEquation.setBounds(193, 24, 228, 16);
+		lblDifferentialEquation.setBounds(179, 24, 228, 16);
 		panel.add(lblDifferentialEquation);
 		
-		JLabel label = new JLabel("=");
-		label.setBounds(172, 49, 22, 16);
+		JLabel label = new JLabel("/dt = ");
+		label.setBounds(132, 49, 62, 16);
 		panel.add(label);
 		
-		JLabel lblDdt = new JLabel("d/dt");
-		lblDdt.setBounds(12, 49, 91, 16);
+		JLabel lblDdt = new JLabel("d ");
+		lblDdt.setBounds(22, 49, 17, 16);
 		panel.add(lblDdt);
 		
 		JButton btnAdd = new JButton("Add");
