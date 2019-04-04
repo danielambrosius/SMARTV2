@@ -22,34 +22,14 @@ public class EquationParser {
 		boolean wasOp = true;	
 		for (int i = 0; i < equation.length(); i++){
 		    char c = equation.charAt(i);
-		    String sc = Character.toString(c);
-		    if (isOperator(sc)) {
-		    	if (first){
-		    		operators.add(sc);
-		    	}
-		    	else if (wasOp == true){
-		    		operators.add(operators.size()-1, operators.get(operators.size()-1) + sc);
-		    		operators.remove(operators.size() -1);
-		    	}
-		    	else {
-			    	operators.add(sc);
-		    	}
+		    String po = Character.toString(c);
+		    if (isOperator(po)) {
+		    	addOperator(po, wasOp, first);
 		    	wasOp = true;
 		    	
 		    }
-		    else if (isOperator(sc) == false){
-		    	
-		    	if (first){
-		    		parameters.add(sc);
-		    	}
-		    	else if (wasOp == false){
-		    		parameters.add(parameters.size() -1, parameters.get(parameters.size()-1) + sc);
-		    		parameters.remove(parameters.size() -1);
-
-		    	}
-		    	else{
-			    	parameters.add(sc);
-		    	}
+		    else if (isOperator(po) == false){
+		    	addParameter(po, wasOp, first);
 		    	wasOp = false;
 		    } 
 		    first = false;
@@ -74,6 +54,35 @@ public class EquationParser {
 
 	public List getParameters() {
 		return parameters;
+	}
+
+	public void addParameter(String param, boolean wasOp, boolean first) {
+		if (first){
+			parameters.add(param);
+    	}
+    	else if (wasOp == false){
+    		parameters.add(parameters.size() -1, parameters.get(parameters.size()-1) + param);
+    		parameters.remove(parameters.size() -1);
+
+    	}
+    	else{
+    		parameters.add(param);
+    	}
+		
+	}
+
+	public void addOperator(String oper, boolean wasOp, boolean first) {
+		// TODO Auto-generated method stub
+		if (first){
+    		operators.add(oper);
+    	}
+    	else if (wasOp == true){
+    		operators.add(operators.size()-1, operators.get(operators.size()-1) + oper);
+    		operators.remove(operators.size() -1);
+    	}
+    	else {
+	    	operators.add(oper);
+    	}
 	}
 
 	
