@@ -76,7 +76,7 @@ public class Model {
 		
 		for (int i = 0; i < odeList.size(); i++) {
 			Ode currentOde = odeList.get(i);
-			displayOdeList[i][0] = currentOde.getState();
+			displayOdeList[i][0] = "d" + currentOde.getState() + "/dt";
 			displayOdeList[i][1] = currentOde.getFormula();
 		}
 			
