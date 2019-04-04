@@ -1,9 +1,10 @@
 package smrt2;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Model {
+public class Model implements Serializable {
 	
 	private String name;
 	private List<String> params;

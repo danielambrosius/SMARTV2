@@ -1,5 +1,11 @@
 package tests;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.List;
 
 import junit.framework.TestCase;
@@ -9,10 +15,12 @@ import smrt2.Ode;
 public class ModelTest extends TestCase {
 	
 	private Model m;
+	private String pathToSave = "./data/ModelTestSave.dumb";
 	
 	public void setUp() {
 		m = new Model();
 	}
+	
 	
 	public void testModelCreation() {
 		Model m = new Model();
@@ -101,6 +109,40 @@ public class ModelTest extends TestCase {
 			
 		}
 	}
+	
+	public void testModelIsSavable() {
+		try {
+			FileOutputStream fileOut = new FileOutputStream(pathToSave);
+			ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
+			objectOut.writeObject(m);
+			objectOut.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			fail("File not found");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			fail("Something wrong with IO.");
+		}
+	}
+	
+	public void testModelLoadsCorrectly() {
+		m.setName("Name of this model");
+		testModelIsSavable();
+		
+		try {
+			FileInputStream fileIn = new FileInputStream(pathToSave);
+			ObjectInputStream objectIn = new ObjectInputStream(fileIn);
+			Model b = (Model) objectIn.readObject();
+			objectIn.close();
+			assertEquals(m.getName(), b.getName());
+		} catch (Exception e) {
+			// TODO: handle exception
+			fail("Something went wrong with loading model");
+		}
+	}
+	
 	
 	public void testCompileModel() {
 		// Will probably need subtests.
