@@ -74,6 +74,23 @@ public class ModelTest extends TestCase {
 		
 	}
 	
+	public void testAddEquation() {
+		/* Model should be able to create instances of equations from string input,
+		 * Store them in an array.
+		 */
+		fail("Not implemented");
+	}
+	
+	public void testCompileModel() {
+		// Will probably need subtests.
+		// Model should analyse all the contained equations and parse them for errors
+		
+		fail("Not implemented");
+	}
+	
+	
+	
+	
 	
 	
 
