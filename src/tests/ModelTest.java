@@ -143,20 +143,16 @@ public class ModelTest extends TestCase {
 		}
 	}
 	
-	
-	public void testCompileModel() {
-		// Will probably need subtests.
-		// Model should analyse all the contained equations and parse them for errors
-		
+	public void testSaveModel() {
+		// Model should have a method to save its own instance.
 		fail("Not implemented");
 	}
 	
-	
-	public void testSaveModel() {
-		fail("Note implemented");
+	public void testLoadModel() {
+		// model should have a static method that loads a saved model from file and returns THAT instance.
+		// Can sort of be used instead of the constructor.
+		fail("Not implemented");
 	}
-	
-	
 	
 	
 	
