@@ -8,6 +8,7 @@ public class Model {
 	private String name;
 	private List<String> params;
 	private List<String> states;
+	private List<Ode> odeList;
 	
 	
 	//Constructor for anonymous instance.
@@ -20,6 +21,7 @@ public class Model {
 		this.name = name;
 		params = new ArrayList<String>();
 		states = new ArrayList<String>();
+		odeList = new ArrayList<Ode>();
 	}
 
 	public String getName() {
@@ -52,5 +54,18 @@ public class Model {
 
 	public List<String> getStates() {
 		return states;
+	}
+
+	public void addODE(Ode odeToAdd) {
+		odeList.add(odeToAdd);
+	}
+	
+	public void readODE(String state, String formula) {
+		addODE(new Ode(state, formula));
+	}
+
+	public List<Ode> getODEs() {
+		// Returns list of all Odes
+		return this.odeList;
 	}
 }

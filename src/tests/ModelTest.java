@@ -1,7 +1,10 @@
 package tests;
 
+import java.util.List;
+
 import junit.framework.TestCase;
 import smrt2.Model;
+import smrt2.Ode;
 
 public class ModelTest extends TestCase {
 	
@@ -75,10 +78,29 @@ public class ModelTest extends TestCase {
 	}
 	
 	public void testAddEquation() {
-		/* Model should be able to create instances of equations from string input,
+		/* Model should be able to create instances of ODEs from string input,
 		 * Store them in an array.
 		 */
-		fail("Not implemented");
+		Ode testODE = new Ode("A", "2k + 3A^2");
+		
+		m.addODE(testODE);
+		
+		List<Ode> odesInModel = m.getODEs();
+		
+		assertTrue(odesInModel.contains(testODE));	
+	}
+	
+	public void testReadAndCreateOde() {
+		
+		Ode testODE = new Ode("A", "2k + 3A^2");
+		String expected = testODE.toString();
+		
+		m.readODE("A", "2k + 3A^2");
+		
+		String actual = m.getODEs().get(0).toString();
+		
+		assertEquals(expected, actual);
+		
 	}
 	
 	public void testCompileModel() {
@@ -88,6 +110,10 @@ public class ModelTest extends TestCase {
 		fail("Not implemented");
 	}
 	
+	
+	public void testSaveModel() {
+		fail("Note implemented");
+	}
 	
 	
 	
