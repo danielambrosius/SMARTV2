@@ -11,12 +11,17 @@ public class EquationParserTest extends TestCase {
 		assertNotNull(myEP);
 	}
 	
-	public void testParseParameters() {
-		String imput = "A*B";
+	public void testParseEquation() {
+		String imput = "A*-BC+";
 		EquationParser myEP = new EquationParser();
-		String[] parameters = myEP.parseParameters(imput);
-		//assertEquals(myEP., "A");
-		//assertEquals(parameters[1], "B");
+		myEP.parseEquation(imput);
+		System.out.print(myEP.getParameters());
+		System.out.print(myEP.getOperators());
+		assertEquals("A",myEP.getParameters().get(0));
+		assertEquals("BC", myEP.getParameters().get(1));
+		assertEquals("*-",myEP.getOperators().get(0));
+
+
 	}
 	
 	public void testIsOperator() {
@@ -26,6 +31,16 @@ public class EquationParserTest extends TestCase {
 		assertEquals(minus, true);
 		assertEquals(somea, false);
 		
+	}
+	
+	public void testGetOperators() {
+		EquationParser myEP = new EquationParser();
+		assertNotNull(myEP.getOperators());
+	}
+	
+	public void testGetParameters() {
+		EquationParser myEP = new EquationParser();
+		assertNotNull(myEP.getParameters());
 	}
 	
 }

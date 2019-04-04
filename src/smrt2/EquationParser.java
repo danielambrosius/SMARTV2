@@ -16,15 +16,20 @@ public class EquationParser {
 		
 	}
 
-	public String[] parseParameters(String equation) {
+	public void parseEquation(String equation) {
 		// TODO Auto-generated method stub
+		boolean first = true; 
 		boolean wasOp = true;	
 		for (int i = 0; i < equation.length(); i++){
 		    char c = equation.charAt(i);
 		    String sc = Character.toString(c);
 		    if (isOperator(sc)) {
-		    	if (wasOp == true){
-		    		operators.add(-1, operators.get(-1) + sc);
+		    	if (first){
+		    		operators.add(sc);
+		    	}
+		    	else if (wasOp == true){
+		    		operators.add(operators.size()-1, operators.get(operators.size()-1) + sc);
+		    		operators.remove(operators.size() -1);
 		    	}
 		    	else {
 			    	operators.add(sc);
@@ -33,16 +38,22 @@ public class EquationParser {
 		    	
 		    }
 		    else if (isOperator(sc) == false){
-		    	if (wasOp == false){
-		    		parameters.add(-1, parameters.get(-1) + sc);
+		    	
+		    	if (first){
+		    		parameters.add(sc);
 		    	}
-		    	else {
+		    	else if (wasOp == false){
+		    		parameters.add(parameters.size() -1, parameters.get(parameters.size()-1) + sc);
+		    		parameters.remove(parameters.size() -1);
+
+		    	}
+		    	else{
 			    	parameters.add(sc);
 		    	}
 		    	wasOp = false;
-		    }  
+		    } 
+		    first = false;
 		}
-		return null;
 	}
 
 	public boolean isOperator(String c ) {
@@ -56,5 +67,14 @@ public class EquationParser {
 		}
 		return false;
 	}
+	
+	public List getOperators() {
+		return operators;
+	}
+
+	public List getParameters() {
+		return parameters;
+	}
+
 	
 }
