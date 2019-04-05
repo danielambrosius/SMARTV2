@@ -22,6 +22,8 @@ import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 import java.awt.event.ActionListener;
 import java.util.Arrays;
@@ -32,6 +34,8 @@ public class SmartV2 extends JFrame {
 	private JTextField EquationField;
 	private JTable tableFormulas;
 	private JTable table_1;
+	
+	private String columnNames[] = {"State", "Equation"};
 
 	/**
 	 * Launch the application.
@@ -122,36 +126,42 @@ public class SmartV2 extends JFrame {
 		lblDdt.setBounds(22, 49, 17, 16);
 		panelFormulas.add(lblDdt);
 		
-		//Object rowData[][] = { { "A", "k"} };
-		resetTable(panelFormulas);
-		//Object rowData[][]= myModel.displayOdeList();
-		//Object columnNames[] = { "State", "Equation"};
-		//tableFormulas = new JTable(rowData,columnNames);
-		//tableFormulas.getColumnModel().getColumn(0).setMaxWidth(100);
-		//DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-		//centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-		//for (int x = 0; x < tableFormulas.getColumnModel().getColumnCount(); x++) {
-			//tableFormulas.getColumnModel().getColumn(x).setCellRenderer(centerRenderer);
-		//}
-
-		//tableFormulas.setBorder(new LineBorder(new Color(0, 0, 0)));
-		//tableFormulas.setBounds(22, 88, 484, 282);
 		
-		//panelFormulas.add(tableFormulas);
+		
+		
+		Object rowData[][] = { { "example state name", "example formula"} };
+		
+		// Creating table from default table model
+		TableModel tableModel = new DefaultTableModel(rowData, columnNames);
+		tableFormulas = new JTable(tableModel);
+		
+		tableFormulas.getColumnModel().getColumn(0).setMaxWidth(100);
+		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+		centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+		for (int x = 0; x < tableFormulas.getColumnModel().getColumnCount(); x++) {
+			tableFormulas.getColumnModel().getColumn(x).setCellRenderer(centerRenderer);
+		}
+
+		tableFormulas.setBorder(new LineBorder(new Color(0, 0, 0)));
+		tableFormulas.setBounds(22, 88, 484, 282);
+		panelFormulas.add(tableFormulas);
+		
+		
 		
 		JButton btnAdd = new JButton("Add");
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String state = StateField.getText().replace(" ", "");
 				String equation = EquationField.getText().replace(" ", "");
+				
+				// Tests if fields are empty before adding to model and updating table.
 				if (!state.isEmpty() && !equation.isEmpty()) {
-					//System.out.println(equation);
 					myModel.addOde(state, equation);
-					//((DefaultTableModel)tableFormulas.getModel());
-					resetTable(panelFormulas);
+					updateTable();
 				}
 			}
 		});
+		
 		panelFormulas.add(btnAdd);
 		btnAdd.setBounds(520, 45, 66, 25);
 		JPanel panelParameters = new JPanel();
@@ -182,29 +192,12 @@ public class SmartV2 extends JFrame {
 		panel_2.add(table_1);
 		
 	}
-	public void resetTable(JPanel panelFormulas) {
-		// set the odelist to displaylist
-		Object displayList[][]= myModel.displayOdeList();
-		//Print text from odeList
-		//for (int i = 0; i < displayList.length; i++) {
-		//	for (int j = 0; j < displayList[i].length; j++) {
-		//	System.out.println(displayList[i][j]);
-		//	}
-		//}
-		//Table format
-		Object columnNames[] = { "State", "Equation"};
-		tableFormulas = new JTable(displayList,columnNames);
-		tableFormulas.getColumnModel().getColumn(0).setMaxWidth(100);
-		//center text
-		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-		centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-		for (int x = 0; x < tableFormulas.getColumnModel().getColumnCount(); x++) {
-			tableFormulas.getColumnModel().getColumn(x).setCellRenderer(centerRenderer);
-			}
-		
-		tableFormulas.setBorder(new LineBorder(new Color(0, 0, 0)));
-		tableFormulas.setBounds(22, 88, 484, 282);
-		panelFormulas.remove(tableFormulas);
-		panelFormulas.add(tableFormulas);
+	
+	public void updateTable() {
+		// Updating table
+		DefaultTableModel tableModel = (DefaultTableModel) tableFormulas.getModel();
+		tableModel.setDataVector(myModel.displayOdeList(), columnNames);
+		tableFormulas.setModel(tableModel);
 	}
+
 }
