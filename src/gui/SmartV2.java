@@ -1,5 +1,6 @@
 package gui;
 import smrt2.Model;
+import gui.FileChooser;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -68,12 +69,31 @@ public class SmartV2 extends JFrame {
 		menuBar.add(mnModel);
 		
 		JMenuItem mntmNew = new JMenuItem("New...");
+		mntmNew.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+//				TO DO: let it make a new Model
+			}
+		});
 		mnModel.add(mntmNew);
 		
 		JMenuItem mntmOpen = new JMenuItem("Open...");
+		mntmOpen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String filePath = FileChooser.open("Model", "model");
+				System.out.println(filePath);
+				//	TO DO: Let the fileloader open the model
+			}
+		});
 		mnModel.add(mntmOpen);
 		
 		JMenuItem mntmSave = new JMenuItem("Save...");
+		mntmSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String filePath = FileChooser.save("Model", "model");
+				System.out.println(filePath);
+//				TO DO: Link to a file saver
+			}
+		});
 		mnModel.add(mntmSave);
 		
 		JMenu mnExperiment = new JMenu("Experiment");
@@ -83,9 +103,23 @@ public class SmartV2 extends JFrame {
 		mnExperiment.add(mntmNew_1);
 		
 		JMenuItem mntmOpen_1 = new JMenuItem("Open...");
+		mntmOpen_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String filePath = FileChooser.open("Experiment", "exp");
+				System.out.println(filePath);
+				//	TO DO: Let the fileloader open the model
+			}
+		});
 		mnExperiment.add(mntmOpen_1);
 		
 		JMenuItem mntmSave_1 = new JMenuItem("Save...");
+		mntmSave_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String filePath = FileChooser.save("Experiment", "exp");
+				System.out.println(filePath);
+//				TO DO: let the fileloader open the model
+			}
+		});
 		mnExperiment.add(mntmSave_1);
 		
 		JMenuItem mntmRun = new JMenuItem("Run...");
@@ -135,13 +169,16 @@ public class SmartV2 extends JFrame {
 		TableModel tableModel = new DefaultTableModel(rowData, columnNames);
 		tableFormulas = new JTable(tableModel);
 		
-		tableFormulas.getColumnModel().getColumn(0).setMaxWidth(100);
+		
+		// Center the text in the cells
 		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
 		centerRenderer.setHorizontalAlignment(JLabel.CENTER);
 		for (int x = 0; x < tableFormulas.getColumnModel().getColumnCount(); x++) {
 			tableFormulas.getColumnModel().getColumn(x).setCellRenderer(centerRenderer);
 		}
-
+		
+		// Set table lay-out
+		tableFormulas.getColumnModel().getColumn(0).setMaxWidth(100);
 		tableFormulas.setBorder(new LineBorder(new Color(0, 0, 0)));
 		tableFormulas.setBounds(22, 88, 484, 282);
 		panelFormulas.add(tableFormulas);
