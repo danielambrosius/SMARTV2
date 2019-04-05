@@ -43,7 +43,7 @@ public class FileChooser {
 			}
 			
 			
-			return filePath;
+			return filePath + "." + extension;
 
 		}
 	
