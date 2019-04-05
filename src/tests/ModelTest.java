@@ -91,7 +91,7 @@ public class ModelTest extends TestCase {
 		assertEquals(expected, actual);	
 	}
 	
-	public void testDisplayOdes(){
+	public void testDisplayOdes()  {
 		m.addOde("A", "k1");
 		m.addOde("B", "k2");
 		String[][] actual = m.displayOdeList();
@@ -103,6 +103,12 @@ public class ModelTest extends TestCase {
 			
 		}
 	}
+	public void testAddingDuplicateODE() {
+		// needs to be written, model should ignore duplicate states.
+		fail("not implemented");
+		}
+	}
+		
 	
 
 	
