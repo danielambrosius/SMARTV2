@@ -65,8 +65,12 @@ public class Model implements Serializable {
 
 	
 	public void addOde(String state, String formula) {
-		Ode odeToAdd = new Ode(state, formula);
-		odeList.add(odeToAdd);
+		try {
+			addState(state);
+			Ode odeToAdd = new Ode(state, formula);
+			odeList.add(odeToAdd);
+		} catch (Exception e) {
+		}
 	}
 
 	public List<Ode> getOdeList() {
