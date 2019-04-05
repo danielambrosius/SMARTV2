@@ -14,7 +14,7 @@ public class EquationParserTest extends TestCase {
 	public void testParseEquation() {
 		//if operater and parameter list are same lenght the equation starts whit a operator
 		//otherwise whit a parameter
-		String imput = "--A*-BC";
+		String imput = "--sin(A)*-BC";
 		EquationParser myEP = new EquationParser();
 		myEP.parseEquation(imput);
 		System.out.print(myEP.getParameters());

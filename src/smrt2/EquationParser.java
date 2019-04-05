@@ -17,7 +17,6 @@ public class EquationParser {
 	}
 
 	public void parseEquation(String equation) {
-		// TODO Auto-generated method stub
 		boolean first = true; 
 		boolean wasOp = true;	
 		for (int i = 0; i < equation.length(); i++){
@@ -26,7 +25,6 @@ public class EquationParser {
 		    if (isOperator(po)) {
 		    	addOperator(po, wasOp, first);
 		    	wasOp = true;
-		    	
 		    }
 		    else if (isOperator(po) == false){
 		    	addParameter(po, wasOp, first);
@@ -36,14 +34,13 @@ public class EquationParser {
 		}
 	}
 
-	public boolean isOperator(String c ) {
-		// TODO Auto-generated method stub
+	public boolean isOperator(String c) {
+		//operators as sin cos and tan log ln, sqrt are not acounted for yet
 		String[] operators = {"+", "-", "*", "/", "^", "!", "%", "(", ")"};
 		for (String op : operators){
 			if(op.equals(c)) {
 				return true;
 			}
-			
 		}
 		return false;
 	}
@@ -63,12 +60,10 @@ public class EquationParser {
     	else if (wasOp == false){
     		parameters.add(parameters.size() -1, parameters.get(parameters.size()-1) + param);
     		parameters.remove(parameters.size() -1);
-
     	}
     	else{
     		parameters.add(param);
     	}
-		
 	}
 
 	public void addOperator(String oper, boolean wasOp, boolean first) {
