@@ -89,7 +89,6 @@ public class Model implements Serializable {
 
 	public String[][] displayOdeList() {
 		int nrOdes = odeList.size();
-		System.out.println(nrOdes);
 		String[][] displayOdeList = new String[nrOdes][2];
 		
 		for (int i = 0; i < odeList.size(); i++) {
