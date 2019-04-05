@@ -1,5 +1,11 @@
 package smrt2;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,9 +28,20 @@ public class Model implements Serializable {
 		this.name = name;
 		params = new ArrayList<String>();
 		states = new ArrayList<String>();
-		odeList = new ArrayList<Ode>();
-		
-		
+		odeList = new ArrayList<Ode>();	
+	}
+	
+	public void save(String path){
+		try {
+			FileOutputStream fileOut = new FileOutputStream(path);
+			ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
+			objectOut.writeObject(this);
+			objectOut.close();
+		} catch (FileNotFoundException ex) {
+			ex.printStackTrace();
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
 	}
 
 	public String getName() {
