@@ -31,19 +31,6 @@ public class Model implements Serializable {
 		odeList = new ArrayList<Ode>();	
 	}
 	
-	public void save(String path){
-		try {
-			FileOutputStream fileOut = new FileOutputStream(path);
-			ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
-			objectOut.writeObject(this);
-			objectOut.close();
-		} catch (FileNotFoundException ex) {
-			ex.printStackTrace();
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		}
-	}
-
 	public String getName() {
 		return this.name;
 	}

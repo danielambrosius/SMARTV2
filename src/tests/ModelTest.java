@@ -4,7 +4,7 @@ package tests;
 
 import junit.framework.TestCase;
 import smrt2.Model;
-import smrt2.ModelLoader;
+import smrt2.SaverLoader;
 import smrt2.Ode;
 
 public class ModelTest extends TestCase {
@@ -104,14 +104,7 @@ public class ModelTest extends TestCase {
 		}
 	}
 	
-	public void testSaveLoadModel() {
-		String path = "./data/ModelTestSave.bin";
-		m.save(path);
-		ModelLoader loader = new ModelLoader();
-		Model loadedModel = loader.load(path);
-		assertEquals(m.getName(), loadedModel.getName());
-	}
-	
+
 	
 	
 	
