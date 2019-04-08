@@ -1,5 +1,7 @@
 package gui;
 
+// https://www.mkyong.com/swing/java-swing-jfilechooser-example/
+
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -26,6 +28,7 @@ public class FileChooser {
 	
 	// Opens a dialog to select a <type> to open, returns path of file.
 		public static String save(String type, String extension) {
+			// TODO: arg that can be the defualt name. 
 			
 			String filePath = null;
 			

@@ -16,6 +16,19 @@ public class App {
 			myModel.addOde(state, equation);
 		}
 	}
+
+	public String[][] displayModelOdeList() {
+		return myModel.displayOdeList();
+	}
+
+	public void openModel(String filePath) {
+		myModel = SaverLoader.load(filePath);
+	}
+
+	public void saveModel(String filePath) {
+		SaverLoader.save(myModel, filePath);
+		
+	}
 	
 	
 

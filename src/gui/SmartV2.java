@@ -75,7 +75,7 @@ public class SmartV2 extends JFrame {
 		JMenuItem mntmNew = new JMenuItem("New...");
 		mntmNew.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//				TO DO: let it make a new Model
+//				TODO: let it make a new Model
 			}
 		});
 		mnModel.add(mntmNew);
@@ -84,8 +84,7 @@ public class SmartV2 extends JFrame {
 		mntmOpen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String filePath = FileChooser.open("Model", "model");
-				System.out.println(filePath);
-				//	TODO: Let the fileloader open the model
+				app.openModel(filePath);
 			}
 		});
 		mnModel.add(mntmOpen);
@@ -94,8 +93,7 @@ public class SmartV2 extends JFrame {
 		mntmSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String filePath = FileChooser.save("Model", "model");
-				System.out.println(filePath);
-//				TODO: Link to a file saver
+				app.saveModel(filePath);
 			}
 		});
 		mnModel.add(mntmSave);
@@ -111,7 +109,7 @@ public class SmartV2 extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String filePath = FileChooser.open("Experiment", "exp");
 				System.out.println(filePath);
-				//	TODO: Let the fileloader open the model
+				//	TODO: Let the fileloader open the experiment
 			}
 		});
 		mnExperiment.add(mntmOpen_1);
@@ -121,7 +119,7 @@ public class SmartV2 extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String filePath = FileChooser.save("Experiment", "exp");
 				System.out.println(filePath);
-//				TODO: let the fileloader open the model
+//				TODO: let the fileloader open the experiment
 			}
 		});
 		mnExperiment.add(mntmSave_1);
@@ -234,7 +232,7 @@ public class SmartV2 extends JFrame {
 	public void updateTable() {
 		// Updating table
 		DefaultTableModel tableModel = (DefaultTableModel) tableFormulas.getModel();
-		tableModel.setDataVector(myModel.displayOdeList(), columnNames);
+		tableModel.setDataVector(app.displayModelOdeList(), columnNames);
 		tableFormulas.setModel(tableModel);
 	}
 
