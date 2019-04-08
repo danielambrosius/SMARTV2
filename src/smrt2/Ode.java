@@ -1,7 +1,10 @@
 package smrt2;
+import java.io.Serializable;
+
 import smrt2.EquationParser2;
 
-public class Ode {
+
+public class Ode implements Serializable{
 	// initialize variables
 	// State and formula should not contain trailing and leading white spaces.
 	private String equation;
