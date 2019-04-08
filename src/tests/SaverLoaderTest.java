@@ -14,10 +14,9 @@ public class SaverLoaderTest extends TestCase {
 	public void testSaveLoadModel() {
 		m.setName("Test");
 		String path = "./data/ModelTestSave.bin";
-		SaverLoader sl = new SaverLoader();
-		sl.save(m, path);
+		SaverLoader.save(m, path);
 		
-		Model loadedModel = sl.load(path);
+		Model loadedModel = (Model) SaverLoader.load(path);
 		assertEquals(m.getName(), loadedModel.getName());
 	}
 	
