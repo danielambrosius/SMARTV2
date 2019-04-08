@@ -21,5 +21,4 @@ public class ExperimentTest extends TestCase {
 		e = new Experiment(m);
 		assertEquals(0.0, e.getParameterValue("k"));
 	}
-	
 }

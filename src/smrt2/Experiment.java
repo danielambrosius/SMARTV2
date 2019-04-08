@@ -1,9 +1,10 @@
 package smrt2;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import smrt2.Parameter;
 
-public class Experiment {
+public class Experiment implements Serializable{
 	private Model model;
 	private List<Parameter> parameters;
 	
@@ -18,16 +19,17 @@ public class Experiment {
 		}
 	}
 
-	public double getParameterValue(String name) {
+	public double getParameterValue(String name) throws Exception {
 		for (int i = 0; i < parameters.size(); i++) {
 			if (parameters.get(i).getName() == name) {
 				return parameters.get(i).getValue();
 			}
 			
 		}
-		
-		return 1000.0;
+		throw new Exception("Parameter Name not found");
 		
 	}
+	
+	
 
 }
