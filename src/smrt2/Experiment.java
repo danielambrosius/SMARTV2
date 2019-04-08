@@ -18,11 +18,17 @@ public class Experiment implements Serializable{
 			
 		}
 	}
+		
+	
 
-	public double getParameterValue(String name) throws Exception {
+	public List<Parameter> getParameters() {
+		return parameters;
+	}
+
+	public int getParameterPosition(String name) throws Exception {
 		for (int i = 0; i < parameters.size(); i++) {
 			if (parameters.get(i).getName() == name) {
-				return parameters.get(i).getValue();
+				return i;
 			}
 			
 		}
