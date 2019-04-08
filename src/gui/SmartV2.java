@@ -77,7 +77,7 @@ public class SmartV2 extends JFrame {
 		mntmNew.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				app.newModel(null);
-				updateTable();
+				updateGraphics();
 			}
 		});
 		mnModel.add(mntmNew);
@@ -87,7 +87,7 @@ public class SmartV2 extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String filePath = FileChooser.open("Model", "model");
 				app.openModel(filePath);
-				updateTable();
+				updateGraphics();
 			}
 		});
 		mnModel.add(mntmOpen);
@@ -197,7 +197,7 @@ public class SmartV2 extends JFrame {
 				String state = StateField.getText();
 				String equation = EquationField.getText();
 				app.handleButtonAdd(state, equation);
-				updateTable();
+				updateGraphics();
 			}
 		});
 		
@@ -232,6 +232,10 @@ public class SmartV2 extends JFrame {
 		
 	}
 	
+	public void updateGraphics() {
+		updateTable();
+		clearTextFields();
+	}
 	
 	public void updateTable() {
 		// Updating table
@@ -239,5 +243,9 @@ public class SmartV2 extends JFrame {
 		tableModel.setDataVector(app.displayModelOdeList(), columnNames);
 		tableFormulas.setModel(tableModel);
 	}
-
+	
+	public void clearTextFields() {
+		StateField.setText("");
+		EquationField.setText("");
+	}
 }
