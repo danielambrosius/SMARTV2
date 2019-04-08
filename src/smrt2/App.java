@@ -1,7 +1,8 @@
 package smrt2;
 
 public class App {
-	Model myModel;
+	private Model myModel;
+	private Experiment myExperiment;
 	
 	
 	public App() {
@@ -22,11 +23,19 @@ public class App {
 	}
 
 	public void openModel(String filePath) {
-		myModel = SaverLoader.load(filePath);
+		myModel = (Model) SaverLoader.load(filePath);
+	}
+	
+	public void openExperiment(String filePath) {
+		myExperiment = (Experiment) SaverLoader.load(filePath);
 	}
 
 	public void saveModel(String filePath) {
 		SaverLoader.save(myModel, filePath);
+	}
+	
+	public void saveExperiment(String filePath) {
+		SaverLoader.save(myExperiment, filePath);
 	}
 
 	public void newModel(String name) {
@@ -38,10 +47,15 @@ public class App {
 		}
 		//TODO check the model is saved
 	}
+	
+	public void newExperiment() {
+		myExperiment = new Experiment(myModel);
+	}
+	
 
 	public void handleDeleteOde(int tableRow) {
 		//TODO implement method in model class
-//		myModel.removeOdeAtIndex(tableRow);
+		myModel.removeOdeAtIndex(tableRow);
 	}
 	
 	

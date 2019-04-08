@@ -109,14 +109,18 @@ public class SmartV2 extends JFrame {
 		menuBar.add(mnExperiment);
 		
 		JMenuItem mntmNew_1 = new JMenuItem("New...");
+		mntmNew_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				app.newExperiment();
+			}
+		});
 		mnExperiment.add(mntmNew_1);
 		
 		JMenuItem mntmOpen_1 = new JMenuItem("Open...");
 		mntmOpen_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String filePath = FileChooser.open("Experiment", "exp");
-				System.out.println(filePath);
-				//	TODO: Let the fileloader open the experiment
+				app.openExperiment(filePath);
 			}
 		});
 		mnExperiment.add(mntmOpen_1);
@@ -125,8 +129,7 @@ public class SmartV2 extends JFrame {
 		mntmSave_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String filePath = FileChooser.save("Experiment", "exp");
-				System.out.println(filePath);
-//				TODO: let the fileloader open the experiment
+				app.saveExperiment(filePath);
 			}
 		});
 		mnExperiment.add(mntmSave_1);
