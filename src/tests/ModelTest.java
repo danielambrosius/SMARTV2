@@ -104,8 +104,14 @@ public class ModelTest extends TestCase {
 		}
 	}
 	public void testAddingDuplicateODE() {
+		m.addOde("A", "k1");
+		m.addOde("A", "k2");		
+		String actual = m.getOdeList().toString();		
+		assertEquals("[dA/dt = k1]", actual);
+		m.addOde("B",  "k1");
+		actual = m.getOdeList().toString();
+		assertEquals("[dA/dt = k1, dB/dt = k1]", actual);
 		// needs to be written, model should ignore duplicate states.
-		fail("not implemented");
 	}
 }
 		
