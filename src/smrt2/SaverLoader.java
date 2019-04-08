@@ -11,7 +11,7 @@ import java.io.ObjectOutputStream;
 
 public class SaverLoader {
 	
-	public Model load(String path){
+	static public Model load(String path){
 	Model loadedModel = null;
 		try {
 			FileInputStream fileIn = new FileInputStream(path);
@@ -25,7 +25,7 @@ public class SaverLoader {
 	return loadedModel;
 	}
 
-	public void save(Model model, String path) {
+	static public void save(Model model, String path) {
 		try {
 			FileOutputStream fileOut = new FileOutputStream(path);
 			ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
