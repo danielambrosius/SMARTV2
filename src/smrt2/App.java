@@ -32,7 +32,6 @@ public class App {
 	public void newModel(String name) {
 		if (name == null) {
 			myModel = new Model("untitled");
-
 		}
 		else {
 			myModel = new Model(name);

@@ -36,7 +36,7 @@ public class SmartV2 extends JFrame {
 	private JTextField EquationField;
 	private JTable tableFormulas;
 	private JTable table_1;
-	private App app = new App();
+	private App app = new App(); //TODO: Why does this not work in the constructor??
 	
 	private String columnNames[] = {"State", "Equation"};
 
@@ -76,7 +76,8 @@ public class SmartV2 extends JFrame {
 		JMenuItem mntmNew = new JMenuItem("New...");
 		mntmNew.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//				TODO: let it make a new Model
+				app.newModel(null);
+				updateTable();
 			}
 		});
 		mnModel.add(mntmNew);
@@ -86,6 +87,7 @@ public class SmartV2 extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String filePath = FileChooser.open("Model", "model");
 				app.openModel(filePath);
+				updateTable();
 			}
 		});
 		mnModel.add(mntmOpen);
@@ -229,6 +231,7 @@ public class SmartV2 extends JFrame {
 		panel_2.add(table_1);
 		
 	}
+	
 	
 	public void updateTable() {
 		// Updating table
