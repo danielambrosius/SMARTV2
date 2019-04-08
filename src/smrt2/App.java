@@ -27,7 +27,17 @@ public class App {
 
 	public void saveModel(String filePath) {
 		SaverLoader.save(myModel, filePath);
-		
+	}
+
+	public void newModel(String name) {
+		if (name == null) {
+			myModel = new Model("untitled");
+
+		}
+		else {
+			myModel = new Model(name);
+		}
+		//TODO check the model is saved
 	}
 	
 	

@@ -36,7 +36,7 @@ public class SmartV2 extends JFrame {
 	private JTextField EquationField;
 	private JTable tableFormulas;
 	private JTable table_1;
-	private App app;
+	private App app = new App();
 	
 	private String columnNames[] = {"State", "Equation"};
 
@@ -56,12 +56,13 @@ public class SmartV2 extends JFrame {
 		});
 	}
 
+
 	/**
 	 * Create the frame.
 	 */
 	public SmartV2() {
 		
-		App app = new App();
+//		App app = new App();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 625, 486);
