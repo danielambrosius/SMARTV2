@@ -11,25 +11,25 @@ import java.io.ObjectOutputStream;
 
 public class SaverLoader {
 	
-	static public Model load(String path){
-	Model loadedModel = null;
+	static public Object load(String path){
+	Object loadedObject = null;
 		try {
 			FileInputStream fileIn = new FileInputStream(path);
 			ObjectInputStream objectIn = new ObjectInputStream(fileIn);
-			loadedModel = (Model) objectIn.readObject();
+			loadedObject = objectIn.readObject();
 			objectIn.close();
 			
 		} catch (IOException | ClassNotFoundException ex) {
 			ex.printStackTrace();
 		}
-	return loadedModel;
+	return loadedObject;
 	}
 
-	static public void save(Model model, String path) {
+	static public void save(Object object, String path) {
 		try {
 			FileOutputStream fileOut = new FileOutputStream(path);
 			ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
-			objectOut.writeObject(model);
+			objectOut.writeObject(object);
 			objectOut.close();
 		} catch (FileNotFoundException ex) {
 			ex.printStackTrace();
