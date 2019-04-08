@@ -111,7 +111,19 @@ public class ModelTest extends TestCase {
 		m.addOde("B",  "k1");
 		actual = m.getOdeList().toString();
 		assertEquals("[dA/dt = k1, dB/dt = k1]", actual);
-		// needs to be written, model should ignore duplicate states.
+		// model should ignore duplicate states.
+	}
+	public void testStartNewModel() throws Exception {
+		m.addOde("A", "k1");
+		m.addParameter("para");
+		m.setName("Kees");
+		m.startNewModel();
+		System.out.println(m.getOdeList().toString());
+		
+		assertEquals(null, m.getName());
+		assertEquals("[]" , m.getOdeList().toString());
+		assertEquals("[]" , m.getStates().toString());
+		assertEquals("[]" , m.getParameters().toString());
 	}
 }
 		

@@ -90,4 +90,11 @@ public class Model implements Serializable {
 			
 		return displayOdeList;
 	}
+
+	public void startNewModel() {
+		setName(null);
+		params = new ArrayList<String>();
+		states = new ArrayList<String>();
+		odeList = new ArrayList<Ode>();	
+	}
 }
