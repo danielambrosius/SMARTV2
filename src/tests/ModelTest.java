@@ -106,13 +106,8 @@ public class ModelTest extends TestCase {
 	public void testAddingDuplicateODE() {
 		// needs to be written, model should ignore duplicate states.
 		fail("not implemented");
-		}
 	}
-		
-	
-
-	
-	
-	
-
 }
+		
+
+
