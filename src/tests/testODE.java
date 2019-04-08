@@ -1,11 +1,13 @@
 package tests;
 
+import java.util.Arrays;
+
 import junit.framework.TestCase;
 import smrt2.Ode;
 
 public class testODE extends TestCase {
 	private String state = "E";
-	private String formula = "2mc";
+	private String equation = "2mc";
 	private String stringOde = "dE/dt = 2mc";
 	
 	public void testOdeExists(){
@@ -14,14 +16,14 @@ public class testODE extends TestCase {
 	}
 	
 	public void testGetFormula(){
-		Ode myOde = new Ode(null, formula);
-		assertEquals(formula, myOde.getFormula());
+		Ode myOde = new Ode(null, equation);
+		assertEquals(equation, myOde.getFormula());
 	}
 	
 	public void testSetFormula(){
 		Ode myOde = new Ode(null, null);
-		myOde.setFormula(formula);
-		assertEquals(formula, myOde.getFormula());
+		myOde.setFormula(equation);
+		assertEquals(equation, myOde.getFormula());
 	}
 	
 	public void testGetState(){
@@ -36,7 +38,24 @@ public class testODE extends TestCase {
 	}
 	
 	public void testToString(){
-		Ode myOde = new Ode(state, formula);
+		Ode myOde = new Ode(state, equation);
 		assertEquals(stringOde, myOde.toString());
+	}
+	public void testEquationParser2Parameters() {
+		equation = "-sin(A)*-BCd";
+		Ode myOde = new Ode(state, equation);
+		String[] actualParameters = myOde.getParameters();
+		String[] expectedListParameters = {"A","-BCd"};
+		assertEquals(Arrays.toString(expectedListParameters), 
+				Arrays.toString(actualParameters));
+
+	}
+	public void testEquationParser2Operators() {
+		equation = "-sin(A)*-BCd";
+		Ode myOde = new Ode(state, equation);
+		String[] actualOperators = myOde.getOperators();
+		String[] expectedListOperators = {"-sin(",")*"};
+		assertEquals(Arrays.toString(expectedListOperators), 
+				Arrays.toString(actualOperators));
 	}
 }

@@ -20,23 +20,27 @@ public class EquationParser2 {
 
 	public EquationParser2(String equation) {
 		this.equation = equation;
+		this.parameters = parseParameters();
+		this.operators = parseOperators();
 	}
 
-	public void parseParameters() {
+	public String[] parseParameters() {
 		parameters = equation.split(consideredOperators);
 		parameters = removeUnwantedMatches(parameters);
-	}
-
-	public String[] getParameters() {
 		return parameters;
 	}
 
-	public String[] getOperators() {
-		return operators;
+	public String[] getParameters() {
+		return this.parameters;
 	}
 
-	public void parseOperators() {
+	public String[] getOperators() {
+		return this.operators;
+	}
+
+	public String[] parseOperators() {
 		operators = equation.split(consideredParameters);
+		return operators;
 	}
 
 	public String[] removeUnwantedMatches(String[] parameterList) {
