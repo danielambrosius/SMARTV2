@@ -4,6 +4,8 @@ package tests;
 import java.awt.List;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import junit.framework.TestCase;
 import smrt2.Model;
@@ -138,6 +140,17 @@ public class ModelTest extends TestCase {
 		
 		assertEquals(expected, m.getParameters());
 		}
+	public void testBuildParamDict() {
+		m.addOde("A", "k1*A+B");
+		m.addOde("B", "B-A+k2-k1");
+		m.findParameters();
+		
+		double[] paramValues = {10.0,2.5};
+		Map<String, Double> paramDict = m.buildParamDict(paramValues);
+		
+		String expected = "{k1=10.0, k2=2.5}";
+		assertEquals(expected, paramDict.toString());
+	}
 
 }
 		

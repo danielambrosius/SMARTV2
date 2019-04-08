@@ -2,7 +2,9 @@ package smrt2;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Model implements Serializable {
 	
@@ -105,5 +107,17 @@ public class Model implements Serializable {
 			
 		}
 		
+	}
+	
+	public void removeOdeAtIndex(int index) {
+		//TODO add fucntionality
+	}
+
+	public Map<String, Double> buildParamDict(double[] paramValues) {
+		Map<String,Double> paramDict = new HashMap<String,Double>();
+		for (int i = 0; i < paramValues.length;i++) {
+			paramDict.put(getParameters().get(i), paramValues[i]);
+		}
+		return paramDict;
 	}
 }
