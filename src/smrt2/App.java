@@ -6,10 +6,10 @@ public class App {
 	
 	
 	public App() {
-		myModel = new Model("untitled");
+		myModel = new Model("untitled"); // App gets constructed w. a new model by default.
 	}
 
-	public void handleButtonAdd(String state, String equation) {
+	public void handleButtonAddOde(String state, String equation) {
 		// Tests if fields are empty before adding to model and updating table.
 		state = state.replace(" ", "");
 		equation = equation.replace(" ", "");

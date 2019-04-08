@@ -210,7 +210,7 @@ public class SmartV2 extends JFrame {
 				
 				String state = StateField.getText();
 				String equation = EquationField.getText();
-				app.handleButtonAdd(state, equation);
+				app.handleButtonAddOde(state, equation);
 				updateGraphics();
 			}
 		});
