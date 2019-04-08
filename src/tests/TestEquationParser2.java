@@ -15,13 +15,13 @@ public class TestEquationParser2 extends TestCase {
 		assertNotNull(myParser2);
 	}
 	
-	public void testParseParameters() {
+	public void testParseVariables() {
 		equation = "-A*B-(C*D)";
 		EquationParser2 myParser2 = new EquationParser2(equation);
-		myParser2.parseParameters();
+		myParser2.parseVariables();
 		String[] expectedList = new String[]  {"","A","B","C","D"};
-		System.out.println(Arrays.toString(myParser2.getParameters()));
-		assertEquals(Arrays.toString(expectedList), Arrays.toString(myParser2.getParameters()));
+		System.out.println(Arrays.toString(myParser2.getVariables()));
+		assertEquals(Arrays.toString(expectedList), Arrays.toString(myParser2.getVariables()));
 	}
 	
 	public void testParseOperators() {

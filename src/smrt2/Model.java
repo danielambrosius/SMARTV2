@@ -1,11 +1,5 @@
 package smrt2;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -96,5 +90,20 @@ public class Model implements Serializable {
 		params = new ArrayList<String>();
 		states = new ArrayList<String>();
 		odeList = new ArrayList<Ode>();	
+	}
+	
+	public void findParameters() {
+		String[] variables;
+		for (Ode ode : odeList) {
+			variables = ode.getVariables();
+			for (String variable : variables) {
+				// Check if variable is not a state and not already in parameters (params)
+				if (!states.contains(variable) && !params.contains(variable)) {
+					params.add(variable);
+				}
+			}
+			
+		}
+		
 	}
 }

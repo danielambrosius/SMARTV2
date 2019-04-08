@@ -41,13 +41,13 @@ public class testODE extends TestCase {
 		Ode myOde = new Ode(state, equation);
 		assertEquals(stringOde, myOde.toString());
 	}
-	public void testEquationParser2Parameters() {
+	public void testEquationParser2Variables() {
 		equation = "-A*B-(C*D)";
 		Ode myOde = new Ode(state, equation);
-		String[] actualParameters = myOde.getParameters();
-		String[] expectedListParameters = {"","A","B","C","D"};
-		assertEquals(Arrays.toString(expectedListParameters), 
-				Arrays.toString(actualParameters));
+		String[] actualVariables = myOde.getVariables();
+		String[] expectedListVariables = {"","A","B","C","D"};
+		assertEquals(Arrays.toString(expectedListVariables), 
+				Arrays.toString(actualVariables));
 
 	}
 	public void testEquationParser2Operators() {

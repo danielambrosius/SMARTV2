@@ -1,6 +1,9 @@
 package tests;
 
 
+import java.awt.List;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import junit.framework.TestCase;
 import smrt2.Model;
@@ -125,6 +128,17 @@ public class ModelTest extends TestCase {
 		assertEquals("[]" , m.getStates().toString());
 		assertEquals("[]" , m.getParameters().toString());
 	}
+	public void testFindParameters() {
+		m.addOde("A", "k1*A+B");
+		m.addOde("B", "B-A+k2-k1");
+		m.findParameters();
+		
+		ArrayList<String> expected = new ArrayList<String>(
+			    Arrays.asList("k1","k2"));
+		
+		assertEquals(expected, m.getParameters());
+		}
+
 }
 		
 

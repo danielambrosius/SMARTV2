@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class EquationParser2 {
-	private String[] parameters;
+	private String[] variables;
 	private String[] operators;
 	private String equation;
 	//regex pattern to split on all operators
@@ -15,23 +15,23 @@ public class EquationParser2 {
 	private final String consideredOperators = "[\\+|\\*|\\/|\\-|\\(|\\)|\\^"
 			+ "|sin|cos|tan|log|ln|sqrt]+";
 	//regex pattern to split on all non operators.
-	private final String consideredParameters = "[^\\+|\\-|\\*|\\/|\\(|\\)|\\^"
+	private final String consideredVariables = "[^\\+|\\-|\\*|\\/|\\(|\\)|\\^"
 			+ "|sin|cos|tan|log|ln|sqrt]+";
 
 	public EquationParser2(String equation) {
 		this.equation = equation;
-		this.parameters = parseParameters();
+		this.variables = parseVariables();
 		this.operators = parseOperators();
 	}
 
-	public String[] parseParameters() {
-		parameters = equation.split(consideredOperators);
-		//parameters = removeUnwantedMatches(parameters);
-		return parameters;
+	public String[] parseVariables() {
+		variables = equation.split(consideredOperators);
+		//variables = removeUnwantedMatches(variables);
+		return variables;
 	}
 
-	public String[] getParameters() {
-		return this.parameters;
+	public String[] getVariables() {
+		return this.variables;
 	}
 
 	public String[] getOperators() {
@@ -39,13 +39,13 @@ public class EquationParser2 {
 	}
 
 	public String[] parseOperators() {
-		operators = equation.split(consideredParameters);
+		operators = equation.split(consideredVariables);
 		return operators;
 	}
 
-//	public String[] removeUnwantedMatches(String[] parameterList) {
+//	public String[] removeUnwantedMatches(String[] variableList) {
 //		//stream that will remove empty matches and - sign using filters.
-//		List<String> nonEmptyList = Arrays.asList(parameterList).
+//		List<String> nonEmptyList = Arrays.asList(variableList).
 //				stream().filter(i -> !i.equals("") && !i.equals("-")).
 //				collect(Collectors.toList()); 
 //		return nonEmptyList.toArray(new String[nonEmptyList.size()]);

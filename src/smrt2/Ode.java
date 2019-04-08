@@ -9,7 +9,7 @@ public class Ode implements Serializable{
 	// State and formula should not contain trailing and leading white spaces.
 	private String equation;
 	private String state;
-	private String[] parameters;
+	private String[] variables;
 	private String[] operators;
 	
 	// create constructor
@@ -19,7 +19,7 @@ public class Ode implements Serializable{
 		
 		if (this.equation != null) {
 			EquationParser2 parser = new EquationParser2(equation);
-			this.parameters = parser.getParameters();
+			this.variables = parser.getVariables();
 			this.operators = parser.getOperators();
 		}
 	}
@@ -47,8 +47,8 @@ public class Ode implements Serializable{
 		stringOde = "d" + this.state + "/dt = " + this.equation;
 		return stringOde;
 	}
-	public String[] getParameters() {
-		return this.parameters;
+	public String[] getVariables() {
+		return this.variables;
 	}
 	public String[] getOperators() {
 		return this.operators;
