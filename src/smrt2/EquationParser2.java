@@ -12,10 +12,10 @@ public class EquationParser2 {
 	private String equation;
 	//regex pattern to split on all operators
 	
-	private final String consideredOperators = "[\\+|\\*|\\/|\\(|\\)|\\^"
+	private final String consideredOperators = "[\\+|\\*|\\/|\\-|\\(|\\)|\\^"
 			+ "|sin|cos|tan|log|ln|sqrt]+";
 	//regex pattern to split on all non operators.
-	private final String consideredParameters = "-?[^\\+|\\-|\\*|\\/|\\(|\\)|\\^"
+	private final String consideredParameters = "[^\\+|\\-|\\*|\\/|\\(|\\)|\\^"
 			+ "|sin|cos|tan|log|ln|sqrt]+";
 
 	public EquationParser2(String equation) {
@@ -26,7 +26,7 @@ public class EquationParser2 {
 
 	public String[] parseParameters() {
 		parameters = equation.split(consideredOperators);
-		parameters = removeUnwantedMatches(parameters);
+		//parameters = removeUnwantedMatches(parameters);
 		return parameters;
 	}
 
@@ -43,12 +43,12 @@ public class EquationParser2 {
 		return operators;
 	}
 
-	public String[] removeUnwantedMatches(String[] parameterList) {
-		//stream that will remove empty matches and - sign using filters.
-		List<String> nonEmptyList = Arrays.asList(parameterList).
-				stream().filter(i -> !i.equals("") && !i.equals("-")).
-				collect(Collectors.toList()); 
-		return nonEmptyList.toArray(new String[nonEmptyList.size()]);
-	}
+//	public String[] removeUnwantedMatches(String[] parameterList) {
+//		//stream that will remove empty matches and - sign using filters.
+//		List<String> nonEmptyList = Arrays.asList(parameterList).
+//				stream().filter(i -> !i.equals("") && !i.equals("-")).
+//				collect(Collectors.toList()); 
+//		return nonEmptyList.toArray(new String[nonEmptyList.size()]);
+//	}
 
 }

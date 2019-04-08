@@ -42,19 +42,19 @@ public class testODE extends TestCase {
 		assertEquals(stringOde, myOde.toString());
 	}
 	public void testEquationParser2Parameters() {
-		equation = "-sin(A)*-BCd";
+		equation = "-A*B-(C*D)";
 		Ode myOde = new Ode(state, equation);
 		String[] actualParameters = myOde.getParameters();
-		String[] expectedListParameters = {"A","-BCd"};
+		String[] expectedListParameters = {"","A","B","C","D"};
 		assertEquals(Arrays.toString(expectedListParameters), 
 				Arrays.toString(actualParameters));
 
 	}
 	public void testEquationParser2Operators() {
-		equation = "-sin(A)*-BCd";
+		equation = "A)";
 		Ode myOde = new Ode(state, equation);
 		String[] actualOperators = myOde.getOperators();
-		String[] expectedListOperators = {"-sin(",")*"};
+		String[] expectedListOperators = {"",")"};
 		assertEquals(Arrays.toString(expectedListOperators), 
 				Arrays.toString(actualOperators));
 	}
