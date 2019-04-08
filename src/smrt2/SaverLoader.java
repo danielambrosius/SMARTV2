@@ -9,7 +9,11 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 
+
 public class SaverLoader {
+	// NOTE: This implementation brakes when the source code defining the
+	// 		 the serialized class is changed. (e.g. the user will not be able to load
+	//		  models generated with an earlier release of the code. Consider fixing.)	
 	
 	static public Object load(String path){
 	Object loadedObject = null;
