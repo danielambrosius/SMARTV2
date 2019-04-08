@@ -30,6 +30,9 @@ import javax.swing.table.TableModel;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.lang.annotation.Target;
 
 public class SmartV2 extends JFrame {
 	private JTextField StateField;
@@ -37,6 +40,7 @@ public class SmartV2 extends JFrame {
 	private JTable tableFormulas;
 	private JTable table_1;
 	private App app = new App(); //TODO: Why does this not work in the constructor??
+	private int selectedTableRow;
 	
 	private String columnNames[] = {"State", "Equation"};
 
@@ -173,6 +177,13 @@ public class SmartV2 extends JFrame {
 		// Creating table from default table model
 		TableModel tableModel = new DefaultTableModel(rowData, columnNames);
 		tableFormulas = new JTable(tableModel);
+		tableFormulas.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				JTable table = (JTable) e.getSource();
+				selectedTableRow =  table.getSelectedRow();
+			}
+		});
 		
 		
 		// Center the text in the cells
@@ -203,6 +214,15 @@ public class SmartV2 extends JFrame {
 		
 		panelFormulas.add(btnAdd);
 		btnAdd.setBounds(520, 45, 66, 25);
+		
+		JButton btnDelete = new JButton("Delete");
+		btnDelete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				app.handleDeleteOde(selectedTableRow);
+			}
+		});
+		btnDelete.setBounds(505, 83, 97, 25);
+		panelFormulas.add(btnDelete);
 		JPanel panelParameters = new JPanel();
 		tabbedPane.addTab("Parameters", null, panelParameters, null);
 		panelParameters.setLayout(null);
@@ -228,8 +248,7 @@ public class SmartV2 extends JFrame {
 		table_1 = new JTable();
 		table_1.setBorder(new LineBorder(new Color(0, 0, 0)));
 		table_1.setBounds(12, 66, 463, 291);
-		panel_2.add(table_1);
-		
+		panel_2.add(table_1);	
 	}
 	
 	public void updateGraphics() {

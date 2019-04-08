@@ -38,6 +38,11 @@ public class App {
 		}
 		//TODO check the model is saved
 	}
+
+	public void handleDeleteOde(int tableRow) {
+		//TODO implement method in model class
+//		myModel.removeOdeAtIndex(tableRow);
+	}
 	
 	
 
