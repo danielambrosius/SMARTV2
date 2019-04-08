@@ -1,4 +1,5 @@
 package gui;
+import smrt2.App;
 import smrt2.Model;
 import gui.FileChooser;
 
@@ -35,6 +36,7 @@ public class SmartV2 extends JFrame {
 	private JTextField EquationField;
 	private JTable tableFormulas;
 	private JTable table_1;
+	private App app;
 	
 	private String columnNames[] = {"State", "Equation"};
 
@@ -53,12 +55,14 @@ public class SmartV2 extends JFrame {
 			}
 		});
 	}
-	Model myModel =new Model();
 
 	/**
 	 * Create the frame.
 	 */
 	public SmartV2() {
+		
+		App app = new App();
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 625, 486);
 		
@@ -81,7 +85,7 @@ public class SmartV2 extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String filePath = FileChooser.open("Model", "model");
 				System.out.println(filePath);
-				//	TO DO: Let the fileloader open the model
+				//	TODO: Let the fileloader open the model
 			}
 		});
 		mnModel.add(mntmOpen);
@@ -91,7 +95,7 @@ public class SmartV2 extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String filePath = FileChooser.save("Model", "model");
 				System.out.println(filePath);
-//				TO DO: Link to a file saver
+//				TODO: Link to a file saver
 			}
 		});
 		mnModel.add(mntmSave);
@@ -107,7 +111,7 @@ public class SmartV2 extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String filePath = FileChooser.open("Experiment", "exp");
 				System.out.println(filePath);
-				//	TO DO: Let the fileloader open the model
+				//	TODO: Let the fileloader open the model
 			}
 		});
 		mnExperiment.add(mntmOpen_1);
@@ -117,7 +121,7 @@ public class SmartV2 extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String filePath = FileChooser.save("Experiment", "exp");
 				System.out.println(filePath);
-//				TO DO: let the fileloader open the model
+//				TODO: let the fileloader open the model
 			}
 		});
 		mnExperiment.add(mntmSave_1);
@@ -188,14 +192,11 @@ public class SmartV2 extends JFrame {
 		JButton btnAdd = new JButton("Add");
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String state = StateField.getText().replace(" ", "");
-				String equation = EquationField.getText().replace(" ", "");
 				
-				// Tests if fields are empty before adding to model and updating table.
-				if (!state.isEmpty() && !equation.isEmpty()) {
-					myModel.addOde(state, equation);
-					updateTable();
-				}
+				String state = StateField.getText();
+				String equation = EquationField.getText();
+				app.handleButtonAdd(state, equation);
+				updateTable();
 			}
 		});
 		
