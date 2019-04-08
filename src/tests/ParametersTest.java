@@ -22,9 +22,13 @@ public class ParametersTest extends TestCase {
 		p = new Parameter("p", 0.92);
 		p.setValue(0.93);
 		double got = p.getValue();
-		assertEquals(0.93, got);
-		
-		
-		
+		assertEquals(0.93, got);	
 	}
+	
+	public void testGetName() {
+		p = new Parameter("p", 0.92);
+		String got = p.getName();
+		assertEquals("p", got);	
+	}
+	
 }

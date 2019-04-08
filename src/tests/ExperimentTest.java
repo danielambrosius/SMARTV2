@@ -15,4 +15,11 @@ public class ExperimentTest extends TestCase {
 		assertNotNull(e);
 	}
 	
+	public void testGetValueFromParameter() throws Exception {
+		m = new Model();
+		m.addParameter("k");
+		e = new Experiment(m);
+		assertEquals(0.0, e.getParameterValue("k"));
+	}
+	
 }

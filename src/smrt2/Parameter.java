@@ -16,4 +16,8 @@ public class Parameter {
 		this.value = d;
 	}
 
+	public String getName() {
+		return this.name;
+	}
+
 }
