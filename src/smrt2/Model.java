@@ -120,4 +120,33 @@ public class Model implements Serializable {
 		}
 		return paramDict;
 	}
+	
+	public Map<String, String> buildStatesDict(){
+		Map<String, String> statesDict = new HashMap<String, String>();
+		for (int i = 0; i < states.size();i++) {
+			String value = "S" + "[" + i + "]";
+			statesDict.put(states.get(i), value);
+		}
+	return statesDict;
+	}
+
+//	public String[] reconstructFormulas(double[] paramValues) {
+//		Map<String,Double> paramDict = buildParamDict(paramValues);
+//		Map<String,String> statesDict = buildStatesDict();
+//		for (int i = 0; i < odeList.size(); i++) {
+//			String currentFormula = "";
+//			Ode currentOde = odeList.get(i);
+//			String[] currentVariables = currentOde.getVariables();
+//			String[] currentOperators = currentOde.getOperators();
+//			
+//			if (currentVariables.length == currentOperators.length){
+//				for (int j = 0; j < currentVariables.length; j++) {
+//					currentFormula += currentVariables[j] + currentOperators[j];
+//				}
+//			
+//			}
+//		}
+//		
+//		
+//	}
 }

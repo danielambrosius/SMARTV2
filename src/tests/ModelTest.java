@@ -1,15 +1,10 @@
 package tests;
 
-
-import java.awt.List;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Map;
-
 import junit.framework.TestCase;
 import smrt2.Model;
-import smrt2.SaverLoader;
 import smrt2.Ode;
 
 public class ModelTest extends TestCase {
@@ -142,7 +137,7 @@ public class ModelTest extends TestCase {
 		}
 	public void testBuildParamDict() {
 		m.addOde("A", "k1*A+B");
-		m.addOde("B", "B-A+k2-k1");
+		m.addOde("B", "B-A+k2");
 		m.findParameters();
 		
 		double[] paramValues = {10.0,2.5};
@@ -151,7 +146,27 @@ public class ModelTest extends TestCase {
 		String expected = "{k1=10.0, k2=2.5}";
 		assertEquals(expected, paramDict.toString());
 	}
+	
+	public void testBuildStatesDict() {
+		m.addOde("A", "k1*A+B");
+		m.addOde("B", "B-A+k2-k1");
+		m.findParameters();
 
+		Map<String, String> statesDict = m.buildStatesDict();
+		
+		String expected = "{A=S[0], B=S[1]}";
+		assertEquals(expected, statesDict.toString());
+	}
+	
+//	public void testReconstuctFormulas(){
+//		m.addOde("A", "k1*A+B");
+//		m.addOde("B", "B-A+k2-k1");
+//		m.findParameters();
+//		
+//		String[] actual = m.reconstructFormulas();
+//		String[] expected = {"10.0*S[0]+S[1]", "S[1]-S[0]+2.5"};
+//		assertEquals(expected.toString(), actual.toString());
+//	}
 }
 		
 
