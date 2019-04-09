@@ -64,10 +64,7 @@ public class SmartV2 extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public SmartV2() {
-		
-//		App app = new App();
-		
+	public SmartV2() {		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 625, 486);
 		
@@ -82,6 +79,7 @@ public class SmartV2 extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				app.newModel(null);
 				updateGraphics();
+				//TODO: add a way of giving a name to name a model.
 			}
 		});
 		mnModel.add(mntmNew);
@@ -173,8 +171,6 @@ public class SmartV2 extends JFrame {
 		panelFormulas.add(lblDdt);
 		
 		
-		
-		
 		Object rowData[][] = { { "example state name", "example formula"} };
 		
 		// Creating table from default table model
@@ -224,7 +220,7 @@ public class SmartV2 extends JFrame {
 				app.handleDeleteOde(selectedTableRow);
 			}
 		});
-		btnDelete.setBounds(505, 83, 97, 25);
+		btnDelete.setBounds(518, 83, 75, 25);
 		panelFormulas.add(btnDelete);
 		JPanel panelParameters = new JPanel();
 		tabbedPane.addTab("Parameters", null, panelParameters, null);
