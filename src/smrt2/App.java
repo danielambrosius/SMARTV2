@@ -1,5 +1,9 @@
 package smrt2;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Vector;
+
 public class App {
 	private Model myModel;
 	private Experiment myExperiment;
@@ -20,6 +24,17 @@ public class App {
 
 	public String[][] displayModelOdeList() {
 		return myModel.displayOdeList();
+	}
+
+	
+	public String[][] displayVariablesList() {
+		String[][] myVariables = new String[5][5];
+		for (int i = 0; i < 5; i++) {
+			myVariables[i][0] = "k" + i;
+			myVariables[i][1] = "" + i;
+		}
+//		return myExperiment.displayVariableList();
+		return myVariables;
 	}
 
 	public void openModel(String filePath) {
@@ -56,6 +71,11 @@ public class App {
 	public void handleDeleteOde(int tableRow) {
 		//TODO implement method in model class
 		myModel.removeOdeAtIndex(tableRow);
+	}
+
+	public void setVariablesList(Vector myVectors) {
+		//TODO: call the map function in experiment and convert the Vector to array of doubles.
+		
 	}
 	
 	

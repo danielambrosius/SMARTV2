@@ -29,6 +29,7 @@ import javax.swing.table.TableModel;
 
 import java.awt.event.ActionListener;
 import java.util.Arrays;
+import java.util.Vector;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -38,7 +39,7 @@ public class SmartV2 extends JFrame {
 	private JTextField StateField;
 	private JTextField EquationField;
 	private JTable tableFormulas;
-	private JTable table_1;
+	private JTable tableVariables;
 	private App app = new App(); //TODO: Why does this not work in the constructor??
 	private int selectedTableRow;
 	
@@ -236,30 +237,42 @@ public class SmartV2 extends JFrame {
 		lblParameter.setBounds(12, 13, 85, 16);
 		panel_2.add(lblParameter);
 		
-		JButton btnRefresh = new JButton("Refresh");
-		btnRefresh.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		tableVariables = new JTable();
+		tableVariables.setBorder(new LineBorder(new Color(0, 0, 0)));
+		tableVariables.setBounds(12, 66, 463, 291);
+		panel_2.add(tableVariables);	
+		
+		JButton btnSet = new JButton("Set");
+		btnSet.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DefaultTableModel tableModel = (DefaultTableModel) tableVariables.getModel();
+				Vector myVectors = tableModel.getDataVector();
+				app.setVariablesList(myVectors);
+				//TODO: add functionality for collecting table paramaters.
 			}
 		});
-		btnRefresh.setBounds(493, 25, 97, 25);
-		panel_2.add(btnRefresh);
-		
-		table_1 = new JTable();
-		table_1.setBorder(new LineBorder(new Color(0, 0, 0)));
-		table_1.setBounds(12, 66, 463, 291);
-		panel_2.add(table_1);	
+		btnSet.setBounds(493, 41, 97, 25);
+		panel_2.add(btnSet);
 	}
 	
 	public void updateGraphics() {
-		updateTable();
+		updateOdeTable();
 		clearTextFields();
+		updateParamTable();
 	}
 	
-	public void updateTable() {
+	public void updateOdeTable() {
 		// Updating table
 		DefaultTableModel tableModel = (DefaultTableModel) tableFormulas.getModel();
 		tableModel.setDataVector(app.displayModelOdeList(), columnNames);
 		tableFormulas.setModel(tableModel);
+	}
+	
+	public void updateParamTable() {
+		// Updating table
+		DefaultTableModel tableModel = (DefaultTableModel) tableVariables.getModel();
+		tableModel.setDataVector(app.displayVariablesList(), columnNames);
+		tableVariables.setModel(tableModel);
 	}
 	
 	public void clearTextFields() {
