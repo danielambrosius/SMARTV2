@@ -2,18 +2,13 @@ package tests;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import junit.framework.TestCase;
 import smrt2.Model;
 import smrt2.Ode;
 
 public class ModelTest extends TestCase {
-	
-	private Model m;
-	
-	public void setUp() {
-		m = new Model();
-	}
 	
 	
 	public void testModelCreation() {
@@ -27,60 +22,13 @@ public class ModelTest extends TestCase {
 	}
 	
 	public void testModelSetName() {
+		Model m = new Model("Name");
 		m.setName("Tim");
 		assertEquals("Tim", m.getName());
 	}
 	
-	public void testAddParameter() throws Exception {
-		m.addParameter("a");
-		assertTrue(m.getParameters().contains("a"));
-	}
-	
-	public void testAddParameters() throws Exception {
-		m.addParameter("a");
-		m.addParameter("b");
-		assertTrue(m.getParameters().contains("a"));
-		assertTrue(m.getParameters().contains("b"));
-	}	
-	
-	public void testDuplicateParameters() {
-		try {
-			m.addParameter("a");
-			m.addParameter("a");
-			fail("Exception not raised");
-		} catch (Exception e) {
-			String m = e.getMessage();
-			assertEquals("Duplicate parameters not allowed", m);
-		}
-		
-	}
-	
-	public void testAddState() throws Exception {
-		m.addState("a");
-		assertTrue(m.getStates().contains("a"));
-	}
-	
-	public void testAddStates() throws Exception {
-		m.addState("a");
-		m.addState("b");
-		assertTrue(m.getStates().contains("a"));
-		assertTrue(m.getStates().contains("b"));
-	}	
-	
-	public void testDuplicateStates() {
-		try {
-			m.addState("a");
-			m.addState("a");
-			fail("Exception not raised");
-		} catch (Exception e) {
-			String m = e.getMessage();
-			assertEquals("Duplicate states not allowed", m);
-		}
-		
-	}
-	
 	public void testAddOde() {
-		
+		Model m = new Model("Name");
 		Ode testODE = new Ode("A", "k");
 		String expected = testODE.toString();
 		
@@ -92,6 +40,7 @@ public class ModelTest extends TestCase {
 	}
 	
 	public void testDisplayOdes()  {
+		Model m = new Model("Name");
 		m.addOde("A", "k1");
 		m.addOde("B", "k2");
 		String[][] actual = m.displayOdeList();
@@ -103,19 +52,12 @@ public class ModelTest extends TestCase {
 			
 		}
 	}
-	public void testAddingDuplicateODE() {
-		m.addOde("A", "k1");
-		m.addOde("A", "k2");		
-		String actual = m.getOdeList().toString();		
-		assertEquals("[dA/dt = k1]", actual);
-		m.addOde("B",  "k1");
-		actual = m.getOdeList().toString();
-		assertEquals("[dA/dt = k1, dB/dt = k1]", actual);
-		// model should ignore duplicate states.
+	public void testAddingDuplicateStates() {
+		//TODO test duplicate states
 	}
 	public void testStartNewModel() throws Exception {
+		Model m = new Model("Name");
 		m.addOde("A", "k1");
-		m.addParameter("para");
 		m.setName("Kees");
 		m.startNewModel();
 		
@@ -125,9 +67,10 @@ public class ModelTest extends TestCase {
 		assertEquals("[]" , m.getParameters().toString());
 	}
 	public void testFindParameters() {
+		Model m = new Model("Name");
 		m.addOde("A", "k1*A+B");
 		m.addOde("B", "B-A+k2-k1");
-		m.findParameters();
+		m.getParameters();
 		
 		ArrayList<String> expected = new ArrayList<String>(
 			    Arrays.asList("k1","k2"));
@@ -135,9 +78,9 @@ public class ModelTest extends TestCase {
 		assertEquals(expected, m.getParameters());
 		}
 	public void testBuildParamDict() {
+		Model m = new Model("Name");
 		m.addOde("A", "k1*A+B");
 		m.addOde("B", "B-A+k2");
-		m.findParameters();
 		
 		Map<String, String> paramDict = m.buildParamDict();
 		
@@ -146,9 +89,10 @@ public class ModelTest extends TestCase {
 	}
 	
 	public void testBuildStatesDict() {
+		Model m = new Model("Name");
 		m.addOde("A", "k1*A+B");
 		m.addOde("B", "B-A+k2-k1");
-		m.findParameters();
+		m.getParameters();
 
 		Map<String, String> statesDict = m.buildStatesDict();
 		
@@ -157,13 +101,35 @@ public class ModelTest extends TestCase {
 	}
 	
 	public void testReconstuctFormulas(){
+		Model m = new Model("Name");
 		m.addOde("A", "k1*((A+B)+k1)");
 		m.addOde("B", "B-A+k2");
-		m.findParameters();
 		
 		String[] actual = m.reconstructFormulas();
 		String[] expected = {"P[0]*((S[0]+S[1])+P[0])", "S[1]-S[0]+P[1]"};
 		assertTrue(Arrays.equals(expected, actual));
+	}
+	
+	public void testGetStates(){
+		Model m = new Model("Name");
+		m.addOde("A", "k1*((A+B)+k1)");
+		m.addOde("B", "B-A+k2");
+		
+		List<String> actual = m.getStates();
+		ArrayList<String> expected = new ArrayList<String>(
+			    Arrays.asList("A","B"));
+		assertEquals(expected, actual);
+	}
+	
+	public void testGetParameters(){
+		Model m = new Model("Name");
+		m.addOde("A", "k1*((A+B)+k1)");
+		m.addOde("B", "B-A+k2");
+		
+		List<String> actual = m.getParameters();
+		ArrayList<String> expected = new ArrayList<String>(
+			    Arrays.asList("k1","k2"));
+		assertEquals(expected, actual);
 	}
 	
 }
