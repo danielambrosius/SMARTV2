@@ -118,7 +118,6 @@ public class ModelTest extends TestCase {
 		m.addParameter("para");
 		m.setName("Kees");
 		m.startNewModel();
-		System.out.println(m.getOdeList().toString());
 		
 		assertEquals(null, m.getName());
 		assertEquals("[]" , m.getOdeList().toString());
@@ -140,10 +139,9 @@ public class ModelTest extends TestCase {
 		m.addOde("B", "B-A+k2");
 		m.findParameters();
 		
-		double[] paramValues = {10.0,2.5};
-		Map<String, Double> paramDict = m.buildParamDict(paramValues);
+		Map<String, String> paramDict = m.buildParamDict();
 		
-		String expected = "{k1=10.0, k2=2.5}";
+		String expected = "{k1=P[0], k2=P[1]}";
 		assertEquals(expected, paramDict.toString());
 	}
 	
@@ -158,16 +156,16 @@ public class ModelTest extends TestCase {
 		assertEquals(expected, statesDict.toString());
 	}
 	
-//	public void testReconstuctFormulas(){
-//		m.addOde("A", "k1*A+B");
-//		m.addOde("B", "B-A+k2-k1");
-//		m.findParameters();
-//		
-//		String[] actual = m.reconstructFormulas();
-//		String[] expected = {"10.0*S[0]+S[1]", "S[1]-S[0]+2.5"};
-//		assertEquals(expected.toString(), actual.toString());
-//	}
+	public void testReconstuctFormulas(){
+		m.addOde("A", "k1*((A+B)+k1)");
+		m.addOde("B", "B-A+k2");
+		m.findParameters();
+		
+		String[] actual = m.reconstructFormulas();
+		String[] expected = {"P[0]*((S[0]+S[1])+P[0])", "S[1]-S[0]+P[1]"};
+		assertTrue(Arrays.equals(expected, actual));
+	}
+	
 }
 		
-
 

@@ -113,10 +113,11 @@ public class Model implements Serializable {
 		//TODO add fucntionality
 	}
 
-	public Map<String, Double> buildParamDict(double[] paramValues) {
-		Map<String,Double> paramDict = new HashMap<String,Double>();
-		for (int i = 0; i < paramValues.length;i++) {
-			paramDict.put(getParameters().get(i), paramValues[i]);
+	public Map<String, String> buildParamDict() {
+		Map<String,String> paramDict = new HashMap<String,String>();
+		for (int i = 0; i < states.size();i++) {
+			String value = "P" + "[" + i + "]";
+			paramDict.put(params.get(i), value);
 		}
 		return paramDict;
 	}
@@ -130,23 +131,40 @@ public class Model implements Serializable {
 	return statesDict;
 	}
 
-//	public String[] reconstructFormulas(double[] paramValues) {
-//		Map<String,Double> paramDict = buildParamDict(paramValues);
-//		Map<String,String> statesDict = buildStatesDict();
-//		for (int i = 0; i < odeList.size(); i++) {
-//			String currentFormula = "";
-//			Ode currentOde = odeList.get(i);
-//			String[] currentVariables = currentOde.getVariables();
-//			String[] currentOperators = currentOde.getOperators();
-//			
-//			if (currentVariables.length == currentOperators.length){
-//				for (int j = 0; j < currentVariables.length; j++) {
-//					currentFormula += currentVariables[j] + currentOperators[j];
-//				}
-//			
-//			}
-//		}
-//		
-//		
-//	}
+	public String[] reconstructFormulas() {
+		String[] reconstuctedFormulaList = new String[odeList.size()];
+		Map<String,String> varDict = buildParamDict();
+		varDict.putAll(buildStatesDict());
+		
+		for (int i = 0; i < odeList.size(); i++) {
+			String reconstructedFormula = "";
+			Ode currentOde = odeList.get(i);
+			String[] currentVariables = currentOde.getVariables();
+			String[] currentOperators = currentOde.getOperators();
+			
+			if (currentVariables[0].isEmpty()){
+				for (int j = 0; j < currentOperators.length; j++) {
+					reconstructedFormula += varDict.get(currentVariables[j]) + currentOperators[j];
+				}
+			}
+			
+			if (currentOperators[0].isEmpty()){
+				for (int j = 0; j < currentVariables.length; j++) {
+					reconstructedFormula += currentOperators[j] + varDict.get(currentVariables[j]);
+				}
+			}
+			
+			if (currentVariables.length < currentOperators.length){
+				reconstructedFormula += currentOperators[currentOperators.length-1];
+			}
+			
+			if (currentVariables.length > currentOperators.length){
+				reconstructedFormula += varDict.get(currentVariables[currentVariables.length-1]);
+			}
+			
+		reconstuctedFormulaList[i] = reconstructedFormula;
+		}
+		
+	return reconstuctedFormulaList;	
+	}
 }
