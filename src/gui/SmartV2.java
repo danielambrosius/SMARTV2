@@ -34,12 +34,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.lang.annotation.Target;
+import javax.swing.JTextArea;
 
 public class SmartV2 extends JFrame {
 	private JTextField StateField;
 	private JTextField EquationField;
 	private JTable tableFormulas;
-	private JTable tableVariables;
+	private JTextArea txtParameterDisplay;
+	private JTextArea txtStateDisplay;
 	private App app = new App(); //TODO: Why does this not work in the constructor??
 	private int selectedTableRow;
 	
@@ -234,33 +236,39 @@ public class SmartV2 extends JFrame {
 		panel_2.setLayout(null);
 		
 		JLabel lblParameter = new JLabel("Parameter");
-		lblParameter.setBounds(12, 13, 85, 16);
+		lblParameter.setBounds(33, 13, 85, 16);
 		panel_2.add(lblParameter);
 		
-		tableVariables = new JTable();
-		tableVariables.setBorder(new LineBorder(new Color(0, 0, 0)));
-		tableVariables.setBounds(12, 66, 463, 291);
-		panel_2.add(tableVariables);	
+		JLabel lblStates = new JLabel("States");
+		lblStates.setBounds(327, 13, 56, 16);
+		panel_2.add(lblStates);
 		
-		JButton btnSet = new JButton("Set");
-		btnSet.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				DefaultTableModel tableModel = (DefaultTableModel) tableVariables.getModel();
-				Vector myVectors = tableModel.getDataVector();
-				app.setVariablesList(myVectors);
-				//TODO: add functionality for collecting table paramaters.
-			}
-		});
-		btnSet.setBounds(493, 41, 97, 25);
-		panel_2.add(btnSet);
+		txtParameterDisplay = new JTextArea();
+		txtParameterDisplay.setEditable(false);
+		txtParameterDisplay.setBounds(33, 42, 184, 315);
+		panel_2.add(txtParameterDisplay);
+		
+		txtStateDisplay = new JTextArea();
+		txtStateDisplay.setEditable(false);
+		txtStateDisplay.setBounds(323, 42, 184, 315);
+		panel_2.add(txtStateDisplay);
 	}
 	
 	public void updateGraphics() {
 		updateOdeTable();
 		clearTextFields();
-		updateParamTable();
+		updateParamStateTextFields();
+//		updateParamTable();
 	}
 	
+	public void updateParamStateTextFields() {
+		String parameters = app.getVariableString();
+		String states = app.getStateString();
+		txtParameterDisplay.setText(parameters);
+		txtStateDisplay.setText(states);
+	}
+
+
 	public void updateOdeTable() {
 		// Updating table
 		DefaultTableModel tableModel = (DefaultTableModel) tableFormulas.getModel();
@@ -268,12 +276,13 @@ public class SmartV2 extends JFrame {
 		tableFormulas.setModel(tableModel);
 	}
 	
-	public void updateParamTable() {
-		// Updating table
-		DefaultTableModel tableModel = (DefaultTableModel) tableVariables.getModel();
-		tableModel.setDataVector(app.displayVariablesList(), columnNames);
-		tableVariables.setModel(tableModel);
-	}
+//	public void updateParamTable() {
+//		// Updating table
+//		DefaultTableModel tableModel = (DefaultTableModel) tableVariables.getModel();
+//		tableModel.setDataVector(app.displayVariablesList(), columnNames);
+//		tableVariables.setModel(tableModel);
+//	}
+
 	
 	public void clearTextFields() {
 		StateField.setText("");

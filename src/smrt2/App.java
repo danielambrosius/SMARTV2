@@ -1,6 +1,7 @@
 package smrt2;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
@@ -89,6 +90,24 @@ public class App {
 		return experimentSaved;
 	}
 	
+	public String getStateString() {
+		List<String> states = myModel.getStates();
+		String oneStateString = "";
+		for (String s :states) {
+			oneStateString += s + "\n";
+		}
+		return oneStateString;
+	}
+
+	public String getVariableString() {
+		List<String> paramaters = myModel.getParameters();
+		String oneParamString = "";
+		for (String p :paramaters) {
+			oneParamString += p + "\n";
+		}
+		return oneParamString;
+	}
 	
 
 }
+
