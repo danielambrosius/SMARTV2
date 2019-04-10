@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 
-public class GeneralAlert extends JDialog {
+public class GeneralBinaryAlert extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 
@@ -17,7 +17,7 @@ public class GeneralAlert extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public GeneralAlert(String alertMessage) {
+	public GeneralBinaryAlert(String alertMessage) {
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setLayout(new FlowLayout());
