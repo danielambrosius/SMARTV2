@@ -18,7 +18,7 @@ public class ExperimentTest extends TestCase {
 	
 	public void testGetValueFromParameter() throws Exception {
 		m = new Model();
-		m.addParameter("k");
+		m.addOde("A", "k");
 		e = new Experiment(m);
 
 		double got = e.getParameters().get(e.getParameterPosition("k")).getValue();
@@ -27,7 +27,7 @@ public class ExperimentTest extends TestCase {
 	
 	public void testChangeParameterValue() throws Exception {
 		m = new Model();
-		m.addParameter("k");
+		m.addOde("A", "k");
 		e = new Experiment(m);
 		
 		e.getParameters().get(e.getParameterPosition("k")).setValue(1.96);
