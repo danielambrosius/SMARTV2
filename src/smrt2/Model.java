@@ -106,7 +106,7 @@ public class Model implements Serializable {
 		Map<String, String> statesDict = new HashMap<String, String>();
 		List<String> states = getStates();
 		for (int i = 0; i < states.size();i++) {
-			String value = "S" + "[" + i + "]";
+			String value = "S" + "[" + (i+1) + "]";
 			statesDict.put(states.get(i), value);
 		}
 	return statesDict;

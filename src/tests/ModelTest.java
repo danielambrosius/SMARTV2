@@ -96,7 +96,7 @@ public class ModelTest extends TestCase {
 
 		Map<String, String> statesDict = m.buildStatesDict();
 		
-		String expected = "{A=S[0], B=S[1]}";
+		String expected = "{A=S[1], B=S[2]}";
 		assertEquals(expected, statesDict.toString());
 	}
 	
@@ -106,7 +106,7 @@ public class ModelTest extends TestCase {
 		m.addOde("B", "B-A+k2");
 		
 		String[] actual = m.reconstructFormulas();
-		String[] expected = {"P[0]*((S[0]+S[1])+P[0])", "S[1]-S[0]+P[1]"};
+		String[] expected = {"P[0]*((S[1]+S[2])+P[0])", "S[2]-S[1]+P[1]"};
 		assertTrue(Arrays.equals(expected, actual));
 	}
 	
