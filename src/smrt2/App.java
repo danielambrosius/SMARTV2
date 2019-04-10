@@ -7,6 +7,8 @@ import java.util.Vector;
 public class App {
 	private Model myModel;
 	private Experiment myExperiment;
+	private boolean modelSaved;
+	private boolean experimentSaved;
 	
 	
 	public App() {
@@ -19,6 +21,7 @@ public class App {
 		equation = equation.replace(" ", "");
 		if (!state.isEmpty() && !equation.isEmpty()) {
 			myModel.addOde(state, equation);
+			
 		}
 	}
 
@@ -76,6 +79,14 @@ public class App {
 	public void setVariablesList(Vector myVectors) {
 		//TODO: call the map function in experiment and convert the Vector to array of doubles.
 		
+	}
+
+	public boolean isModelSaved() {
+		return modelSaved;
+	}
+
+	public boolean isExperimentSaved() {
+		return experimentSaved;
 	}
 	
 	
