@@ -5,6 +5,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
+import javax.swing.JOptionPane;
+
+import gui.FileChooser;
+import gui.GeneralBinaryAlert;
+
 public class App {
 	private Model myModel;
 	private Experiment myExperiment;
@@ -13,6 +18,7 @@ public class App {
 	
 	
 	public App() {
+		modelSaved = false;
 		myModel = new Model("untitled"); // App gets constructed w. a new model by default.
 	}
 
@@ -41,23 +47,28 @@ public class App {
 		return myVariables;
 	}
 
-	public void openModel(String filePath) {
+	public void openModel() {
+		String filePath = FileChooser.open("Model", "model");
 		myModel = (Model) SaverLoader.load(filePath);
 	}
 	
-	public void openExperiment(String filePath) {
-		myExperiment = (Experiment) SaverLoader.load(filePath);
+	public void openExperiment() {
+		String filePath = FileChooser.open("Experiment", "exp");
+		myExperiment = (Experiment) SaverLoader.load(filePath);	
 	}
 
-	public void saveModel(String filePath) {
+	public void saveModel() {
+		String filePath = FileChooser.save("Model", "model");
 		SaverLoader.save(myModel, filePath);
 	}
 	
-	public void saveExperiment(String filePath) {
+	public void saveExperiment() {
+		String filePath = FileChooser.save("Experiment", "exp");
 		SaverLoader.save(myExperiment, filePath);
 	}
 
 	public void newModel(String name) {
+		closeModel();
 		if (name == null) {
 			myModel = new Model("untitled");
 		}
@@ -79,15 +90,21 @@ public class App {
 
 	public void setVariablesList(Vector myVectors) {
 		//TODO: call the map function in experiment and convert the Vector to array of doubles.
-		
 	}
 
-	public boolean isModelSaved() {
-		return modelSaved;
-	}
-
-	public boolean isExperimentSaved() {
-		return experimentSaved;
+	private void closeModel() {
+		if (!modelSaved) {
+			System.out.println("AAAA");
+			String input = JOptionPane.showInputDialog("HELLO");
+			if (input != null) { 
+				System.out.println("OK WAS CLICKED");
+			} else {
+				System.out.println("Cancel was clicked");
+			}
+			// TODO Continue tomorrow.
+			//GeneralBinaryAlert prompt = new GeneralBinaryAlert("Open Model is not saved");
+			// prompt.setVisible(true);
+		}
 	}
 	
 	public String getStateString() {
@@ -108,6 +125,5 @@ public class App {
 		return oneParamString;
 	}
 	
-
 }
 
