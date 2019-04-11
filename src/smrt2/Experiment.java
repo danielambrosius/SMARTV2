@@ -6,28 +6,24 @@ import smrt2.Parameter;
 
 public class Experiment implements Serializable{
 	private Model model;
-	private List<Parameter> parameters;
+	private List<Double> parameterValues;
 	
 	public Experiment(Model m) {
 		model = m;
-		parameters = new ArrayList<Parameter>();
-		for (int i = 0; i < m.getParameters().size(); i++) {
-			
-			Parameter p = new Parameter(m.getParameters().get(i), 0.0);
-			parameters.add(p);
-			
+		parameterValues = new ArrayList<Double>();
+		for (int i=0; m.getParameters().size()!=i; i++){
+			setParameterValue(i,1.0);
 		}
 	}
-		
-	
 
-	public List<Parameter> getParameters() {
-		return parameters;
+	public void setParameterValue(int i, double value) {
+		parameterValues.add(i,value);		
 	}
 
 	public int getParameterPosition(String name) throws Exception {
+		List<String> parameters= model.getParameters();
 		for (int i = 0; i < parameters.size(); i++) {
-			if (parameters.get(i).getName() == name) {
+			if (parameters.get(i).equals(name)) {
 				return i;
 			}
 			
@@ -36,13 +32,14 @@ public class Experiment implements Serializable{
 		
 	}
 
-
-
+	public double getParameterValue(int pos) {
+		double value = parameterValues.get(pos);
+		return value;
+	}
+	
 	public String getName() {
 		
 		return "Experiment";
 	}
-	
-	
 
 }
