@@ -1,5 +1,6 @@
 package smrt2;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -193,6 +194,17 @@ public class App {
 			stateNamesValues[i][1] = "" + myExperiment.getStateValue(i);
 		}
 		return stateNamesValues;
+	}
+
+	public void setValues(ArrayList stateList, ArrayList paramList) {
+		for (int i = 0; i < stateList.size(); i++) {
+			myExperiment.setStateValue(i, Double.parseDouble((String) stateList.get(i)));
+		}
+		for (int i = 0; i < paramList.size(); i++) {
+			myExperiment.setParameterValue(i, Double.parseDouble((String) paramList.get(i)));
+		}
+		
+		
 	}
 	
 }

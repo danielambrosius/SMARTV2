@@ -14,6 +14,7 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 
 import smrt2.App;
@@ -22,6 +23,7 @@ import smrt2.Experiment;
 import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
 public class ExperimentView extends JFrame {
@@ -89,6 +91,16 @@ public class ExperimentView extends JFrame {
 		JButton btnAdd = new JButton("Add");
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				ArrayList stateList = new ArrayList();
+				ArrayList paramList = new ArrayList();
+				for(int i = 0; i < stateTable.getModel().getRowCount();i++){
+					stateList.add(stateTable.getModel().getValueAt(i,1)); //get the all row values at column index 0
+				}
+				for(int i = 0; i < parameterTable.getModel().getRowCount();i++){
+					paramList.add(parameterTable.getModel().getValueAt(i,1)); //get the all row values at column index 0
+				}
+				myApp.setValues(stateList,paramList);
+				updateGraphics();
 			}
 		});
 		btnAdd.setBounds(474, 39, 76, 25);
