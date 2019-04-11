@@ -17,6 +17,9 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 import java.awt.Color;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ExperimentView extends JFrame {
 
@@ -49,7 +52,7 @@ public class ExperimentView extends JFrame {
 	 */
 	public ExperimentView() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 555, 414);
+		setBounds(100, 100, 575, 414);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -69,7 +72,7 @@ public class ExperimentView extends JFrame {
 		scrollPaneParameters.setBounds(32, 35, 430, 132);
 		contentPane.add(scrollPaneParameters);
 		
-		Object rowData[][] = { { "example state name", "example formula"} };
+		Object rowData[][] = { { "example name", "example value"} };
 		
 		
 		// Creating table from default table model
@@ -90,7 +93,14 @@ public class ExperimentView extends JFrame {
 		stateTable.setFillsViewportHeight(true);
 		scrollPaneStates.setViewportView(stateTable);
 		
+		JButton btnAdd = new JButton("Add");
+		btnAdd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnAdd.setBounds(474, 39, 76, 25);
+		contentPane.add(btnAdd);
+		
 		
 	}
-
 }
