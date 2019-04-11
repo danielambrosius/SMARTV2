@@ -1,6 +1,8 @@
 package smrt2;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -185,6 +187,15 @@ public class App {
 		return paramNamesValues;
 		
 	}
+
+	public String[] handleEditOde(Integer selectedTableRow) {
+		Ode ode = myModel.getOdeAtIndex(selectedTableRow);
+		String[] odeArray = ode.toArray();
+		System.out.println(Arrays.toString(odeArray));
+		myModel.removeOdeAtIndex(selectedTableRow);
+		return odeArray;
+	}
+
 
 	public String[][] getStateNamesValues() {
 		List<String> stateNames = myModel.getStates();
