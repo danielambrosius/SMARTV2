@@ -30,6 +30,9 @@ public class SaverLoader {
 	}
 
 	static public void save(Object object, String path) {
+		if (path == null) {
+			return;
+		}
 		try {
 			FileOutputStream fileOut = new FileOutputStream(path);
 			ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);

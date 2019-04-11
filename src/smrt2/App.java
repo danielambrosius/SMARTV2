@@ -51,16 +51,20 @@ public class App {
 	public void openModel() {
 		if (closeModel()) {
 			String filePath = FileChooser.open("Model", "model");
-			myModel = (Model) SaverLoader.load(filePath);
-			modelSaved = true;
+			if (filePath != null) {
+				myModel = (Model) SaverLoader.load(filePath);
+				modelSaved = true;
+			}
 		}
 	}
 	
 	public void openExperiment() {
 		if (closeExperiment()) {
 			String filePath = FileChooser.open("Experiment", "exp");
-			myExperiment = (Experiment) SaverLoader.load(filePath);	
-			experimentSaved = true;
+			if (filePath != null) {
+				myExperiment = (Experiment) SaverLoader.load(filePath);
+				experimentSaved = true;
+			} 
 		}
 	}
 

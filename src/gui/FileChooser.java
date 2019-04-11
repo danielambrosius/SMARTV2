@@ -34,7 +34,7 @@ public class FileChooser {
 		public static String save(String type, String extension) throws NullPointerException {
 		    boolean acceptable = false;
 		    String filePath = null;
-
+		    
 		    do {
 		        filePath = null;
 		        File f = null;
@@ -60,7 +60,8 @@ public class FileChooser {
 		                acceptable = true;
 		            }
 		        } else {
-		            acceptable = true;
+		        	acceptable = true;
+		        	return null;
 		        }
 		    } while (!acceptable);
 		    if (!filePath.endsWith(extension)) {
@@ -69,8 +70,6 @@ public class FileChooser {
 		    else {
 		    	return filePath;
 		    }
-		    
-
 		}
 	
 	
