@@ -35,6 +35,13 @@ public class Experiment implements Serializable{
 		throw new Exception("Parameter Name not found");
 		
 	}
+
+
+
+	public String getName() {
+		
+		return "Experiment";
+	}
 	
 	
 

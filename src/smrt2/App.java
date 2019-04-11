@@ -19,6 +19,7 @@ public class App {
 	
 	public App() {
 		modelSaved = false;
+		experimentSaved = false;
 		myModel = new Model("untitled"); // App gets constructed w. a new model by default.
 	}
 
@@ -28,7 +29,7 @@ public class App {
 		equation = equation.replace(" ", "");
 		if (!state.isEmpty() && !equation.isEmpty()) {
 			myModel.addOde(state, equation);
-			
+			modelSaved = false;
 		}
 	}
 
@@ -48,65 +49,96 @@ public class App {
 	}
 
 	public void openModel() {
-		String filePath = FileChooser.open("Model", "model");
-		myModel = (Model) SaverLoader.load(filePath);
+		if (closeModel()) {
+			String filePath = FileChooser.open("Model", "model");
+			myModel = (Model) SaverLoader.load(filePath);
+			modelSaved = true;
+		}
 	}
 	
 	public void openExperiment() {
-		String filePath = FileChooser.open("Experiment", "exp");
-		myExperiment = (Experiment) SaverLoader.load(filePath);	
+		if (closeExperiment()) {
+			String filePath = FileChooser.open("Experiment", "exp");
+			myExperiment = (Experiment) SaverLoader.load(filePath);	
+			experimentSaved = true;
+		}
 	}
 
 	public void saveModel() {
 		String filePath = FileChooser.save("Model", "model");
 		SaverLoader.save(myModel, filePath);
+		modelSaved = true;
 	}
 	
 	public void saveExperiment() {
 		String filePath = FileChooser.save("Experiment", "exp");
 		SaverLoader.save(myExperiment, filePath);
+		experimentSaved = true;
 	}
 
 	public void newModel(String name) {
-		closeModel();
-		if (name == null) {
-			myModel = new Model("untitled");
+		if (closeModel()) {
+			if (name == null) {
+				myModel = new Model("untitled");
+			}
+			else {
+				myModel = new Model(name);
+			}
+			modelSaved = false;
 		}
-		else {
-			myModel = new Model(name);
-		}
-		//TODO check the model is saved
 	}
 	
 	public void newExperiment() {
-		myExperiment = new Experiment(myModel);
+		if (closeExperiment()) {
+			myExperiment = new Experiment(myModel);
+			experimentSaved = false;
+		}
+
 	}
 	
 
 	public void handleDeleteOde(int tableRow) {
 		//TODO implement method in model class
 		myModel.removeOdeAtIndex(tableRow);
+		modelSaved = false;
 	}
 
 	public void setVariablesList(Vector myVectors) {
 		//TODO: call the map function in experiment and convert the Vector to array of doubles.
 	}
 
-	private void closeModel() {
-		if (!modelSaved) {
-			System.out.println("AAAA");
-			String input = JOptionPane.showInputDialog("HELLO");
-			if (input != null) { 
-				System.out.println("OK WAS CLICKED");
-			} else {
-				System.out.println("Cancel was clicked");
+	private boolean closeModel() {
+		if (!modelSaved && myModel != null) {
+			int result = JOptionPane.showConfirmDialog(null, myModel.getName() + " is not saved, continue?",
+                    "Existing file", JOptionPane.OK_CANCEL_OPTION);
+			if (result == JOptionPane.OK_OPTION) {
+				
+				return true;
+				}
+			else {
+				 return false;
 			}
-			// TODO Continue tomorrow.
-			//GeneralBinaryAlert prompt = new GeneralBinaryAlert("Open Model is not saved");
-			// prompt.setVisible(true);
+		}
+		else {
+			return true;
 		}
 	}
 	
+	private boolean closeExperiment() {
+		if (!experimentSaved && myExperiment != null) {
+			int result = JOptionPane.showConfirmDialog(null, myExperiment.getName() + " is not saved, continue?",
+                    "Existing file", JOptionPane.OK_CANCEL_OPTION);
+			if (result == JOptionPane.OK_OPTION) {
+				return true;
+				}
+			else {
+				 return false;
+			}
+		}
+		else {
+			return true;
+		}
+	}
 	public String getStateString() {
 		List<String> states = myModel.getStates();
 		String oneStateString = "";
