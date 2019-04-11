@@ -117,10 +117,18 @@ public class App {
 	}
 
 	public String getVariableString() {
-		List<String> paramaters = myModel.getParameters();
+		List<String> parameters = myModel.getParameters();
+		System.out.println(parameters.toString());
 		String oneParamString = "";
-		for (String p :paramaters) {
+		for (String p :parameters) {
+			if (p.equals("")) {
+				continue;
+			}
 			oneParamString += p + "\n";
+		}
+		System.out.println(oneParamString);
+		if (oneParamString.equals("")) {
+			return "";
 		}
 		return oneParamString;
 	}
