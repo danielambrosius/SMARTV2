@@ -67,7 +67,8 @@ public class SmartV2 extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public SmartV2() {		
+	public SmartV2() {
+		setResizable(false);		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 625, 486);
 		
