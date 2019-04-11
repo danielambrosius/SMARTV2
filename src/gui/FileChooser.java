@@ -1,8 +1,11 @@
 package gui;
 
+import java.io.File;
+
 // https://www.mkyong.com/swing/java-swing-jfilechooser-example/
 
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class FileChooser {
@@ -28,33 +31,52 @@ public class FileChooser {
 	}
 	
 	// Opens a dialog to select a <type> to open, returns path of file.
-		public static String save(String type, String extension) {
-			// TODO: arg that can be the defualt name. 
-			
-			String filePath = null;
-			
-			JFileChooser jfc = new JFileChooser("./data/");
-			jfc.setDialogTitle("Save the " + type);
-			jfc.setAcceptAllFileFilterUsed(false);
-			FileNameExtensionFilter filter = new FileNameExtensionFilter(type + " files", extension);
-			jfc.addChoosableFileFilter(filter);
-			
-			int returnValue = jfc.showSaveDialog(null);
+		public static String save(String type, String extension) throws NullPointerException {
+		    boolean acceptable = false;
+		    String filePath = null;
 
-			//int returnValue = jfc.showOpenDialog(null);
-			if (returnValue == JFileChooser.APPROVE_OPTION) {
-				filePath = jfc.getSelectedFile().getPath();
-			}
-			
-			
-			return filePath + "." + extension;
+		    do {
+		        filePath = null;
+		        File f = null;
+		        String fn = null;
+		        
+		        JFileChooser jfc = new JFileChooser("./data/");
+		        jfc.setDialogTitle("Save the " + type);
+				jfc.setAcceptAllFileFilterUsed(false);
+				FileNameExtensionFilter filter = new FileNameExtensionFilter(type + " files", extension);
+				jfc.addChoosableFileFilter(filter);
+				
+		        if (jfc.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+		            filePath = jfc.getSelectedFile().getAbsolutePath();
+		            f = jfc.getSelectedFile();
+		            jfc.setSelectedFile(f);
+		            if (f.exists()) {
+		                int result = JOptionPane.showConfirmDialog(null, filePath.split("\\\\")[filePath.split("\\\\").length-1] + " exists, overwrite?",
+		                        "Existing file", JOptionPane.YES_NO_CANCEL_OPTION);
+		                if (result == JOptionPane.YES_OPTION) {
+		                    acceptable = true;
+		                }
+		            } else {
+		                acceptable = true;
+		            }
+		        } else {
+		            acceptable = true;
+		        }
+		    } while (!acceptable);
+		    if (!filePath.endsWith(extension)) {
+		    	return filePath + "." + extension;
+		    }
+		    else {
+		    	return filePath;
+		    }
+		    
 
 		}
 	
 	
 	// Main method just for test purposes.
 	public static void main(String[] args) {
-		open("experiment", "exp");
+		save("experiment", "exp");
 	}
 
 }
