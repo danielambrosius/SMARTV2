@@ -7,6 +7,7 @@ import java.util.Vector;
 
 import javax.swing.JOptionPane;
 
+import gui.ExperimentView;
 import gui.FileChooser;
 import gui.GeneralBinaryAlert;
 
@@ -97,6 +98,7 @@ public class App {
 			myExperiment = new Experiment(myModel);
 			experimentSaved = false;
 		}
+		ExperimentView expGui = new ExperimentView(this);
 
 	}
 	
@@ -167,6 +169,17 @@ public class App {
 			return "";
 		}
 		return oneParamString;
+	}
+
+	public String[][] getParameterNamesValues() {
+		List<String> parameterNames = myModel.getParameters();
+		String[][] paramNamesValues = new String[parameterNames.size()][2];
+		for (int i = 0; parameterNames.size() != i; i++ ) {
+			paramNamesValues[i][0] = "" + parameterNames.get(i);
+			paramNamesValues[i][1] = "" + myExperiment.getParameterValue(i);
+		}
+		return paramNamesValues;
+		
 	}
 	
 }

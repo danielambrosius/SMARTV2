@@ -16,6 +16,9 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
+import smrt2.App;
+import smrt2.Experiment;
+
 import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -28,29 +31,19 @@ public class ExperimentView extends JFrame {
 	private JTable parameterTable;
 	private JScrollPane scrollPaneStates;
 	private JTable stateTable;
-	private final String[] paramaterColumnNames = {"Parameter","value"};
+	private final String[] parameterColumnNames = {"Parameter","value"};
 	private final String[] stateColumnNames = {"State","value"};
+	private App myApp;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ExperimentView frame = new ExperimentView();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+
+	public ExperimentView(App app) {
+		this.myApp = app;
+		buildGui();
+		this.setVisible(true);
+		parameterTableUpdate();
 	}
 
-	/**
-	 * Create the frame.
-	 */
-	public ExperimentView() {
+	private void buildGui() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 575, 414);
 		contentPane = new JPanel();
@@ -76,7 +69,7 @@ public class ExperimentView extends JFrame {
 		
 		
 		// Creating table from default table model
-		TableModel tableParamModel = new DefaultTableModel(rowData, paramaterColumnNames);
+		TableModel tableParamModel = new DefaultTableModel(rowData, parameterColumnNames);
 		parameterTable = new JTable(tableParamModel);
 		parameterTable.setFillsViewportHeight(true);
 		parameterTable.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -100,7 +93,11 @@ public class ExperimentView extends JFrame {
 		});
 		btnAdd.setBounds(474, 39, 76, 25);
 		contentPane.add(btnAdd);
-		
-		
+	}
+	
+	public void parameterTableUpdate() {
+		DefaultTableModel tableModel = (DefaultTableModel) parameterTable.getModel();
+		tableModel.setDataVector(myApp.getParameterNamesValues(), parameterColumnNames);
+		parameterTable.setModel(tableModel);
 	}
 }
