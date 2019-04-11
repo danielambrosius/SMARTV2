@@ -40,7 +40,7 @@ public class ExperimentView extends JFrame {
 		this.myApp = app;
 		buildGui();
 		this.setVisible(true);
-		parameterTableUpdate();
+		updateGraphics();
 	}
 
 	private void buildGui() {
@@ -93,6 +93,17 @@ public class ExperimentView extends JFrame {
 		});
 		btnAdd.setBounds(474, 39, 76, 25);
 		contentPane.add(btnAdd);
+	}
+	
+	public void updateGraphics() {
+		stateTableUpdate();
+		parameterTableUpdate();
+	}
+	
+	public void stateTableUpdate() {
+		DefaultTableModel tableModel = (DefaultTableModel) stateTable.getModel();
+		tableModel.setDataVector(myApp.getStateNamesValues(), stateColumnNames);
+		stateTable.setModel(tableModel);
 	}
 	
 	public void parameterTableUpdate() {

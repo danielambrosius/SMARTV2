@@ -158,7 +158,6 @@ public class App {
 
 	public String getVariableString() {
 		List<String> parameters = myModel.getParameters();
-		System.out.println(parameters.toString());
 		String oneParamString = "";
 		for (String p :parameters) {
 			if (p.equals("")) {
@@ -166,7 +165,6 @@ public class App {
 			}
 			oneParamString += p + "\n";
 		}
-		System.out.println(oneParamString);
 		if (oneParamString.equals("")) {
 			return "";
 		}
@@ -177,11 +175,24 @@ public class App {
 		List<String> parameterNames = myModel.getParameters();
 		String[][] paramNamesValues = new String[parameterNames.size()][2];
 		for (int i = 0; parameterNames.size() != i; i++ ) {
+			if(parameterNames.get(i).isEmpty()) {
+					
+			}
 			paramNamesValues[i][0] = "" + parameterNames.get(i);
 			paramNamesValues[i][1] = "" + myExperiment.getParameterValue(i);
 		}
 		return paramNamesValues;
 		
+	}
+
+	public String[][] getStateNamesValues() {
+		List<String> stateNames = myModel.getStates();
+		String[][] stateNamesValues = new String[stateNames.size()][2];
+		for (int i = 0; stateNames.size() != i; i++ ) {
+			stateNamesValues[i][0] = "" + stateNames.get(i);
+			stateNamesValues[i][1] = "" + myExperiment.getStateValue(i);
+		}
+		return stateNamesValues;
 	}
 	
 }
