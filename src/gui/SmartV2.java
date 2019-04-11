@@ -203,7 +203,6 @@ public class SmartV2 extends JFrame {
 		JButton btnAdd = new JButton("Add");
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
 				String state = StateField.getText();
 				String equation = EquationField.getText();
 				app.handleButtonAddOde(state, equation);
@@ -212,7 +211,7 @@ public class SmartV2 extends JFrame {
 		});
 		
 		panelFormulas.add(btnAdd);
-		btnAdd.setBounds(520, 45, 66, 25);
+		btnAdd.setBounds(518, 45, 68, 25);
 		
 		JButton btnDelete = new JButton("Delete");
 		btnDelete.addActionListener(new ActionListener() {
@@ -222,8 +221,21 @@ public class SmartV2 extends JFrame {
 				updateGraphics();
 			}
 		});
-		btnDelete.setBounds(518, 83, 75, 25);
+		btnDelete.setBounds(518, 118, 68, 25);
 		panelFormulas.add(btnDelete);
+		
+		JButton btnEdit = new JButton("Edit");
+		btnEdit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String[] odeArray = app.handleEditOde(selectedTableRow);
+				StateField.setText(odeArray[0]);
+				EquationField.setText(odeArray[1]);
+				selectedTableRow = null;
+				//updateGraphics();
+			}
+		});
+		btnEdit.setBounds(518, 81, 68, 25);
+		panelFormulas.add(btnEdit);
 		JPanel panelParameters = new JPanel();
 		tabbedPane.addTab("Parameters", null, panelParameters, null);
 		panelParameters.setLayout(null);

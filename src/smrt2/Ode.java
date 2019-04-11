@@ -53,4 +53,8 @@ public class Ode implements Serializable{
 	public String[] getOperators() {
 		return this.operators;
 	}
+	public String[] toArray() {
+		String[] odeArray = {this.getState(),this.getFormula()};
+		return odeArray;
+	}
 }

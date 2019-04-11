@@ -148,4 +148,10 @@ public class Model implements Serializable {
 		
 	return reconstuctedFormulaList;	
 	}
+
+	public Ode getOdeAtIndex(Integer selectedTableRow) {
+		Ode ode = odeList.get(selectedTableRow);
+		return ode;
+		
+	}
 }
