@@ -34,5 +34,22 @@ public class ExperimentTest extends TestCase {
 		double got = e.getParameterValue((e.getParameterPosition("k")));
 		assertEquals(1.96, got);
 	}
+	public void testGetInitialFromState() throws Exception {
+		m = new Model();
+		m.addOde("A", "k");
+		e = new Experiment(m);
+		int pos=e.getStatePosition("A");
+		double got = e.getStateValue(pos);
+		assertEquals(1.0, got);
+	}
 	
+	public void testChangeInitialStateValue() throws Exception {
+		m = new Model();
+		m.addOde("A", "k");
+		e = new Experiment(m);
+		int pos = e.getStatePosition("A");
+		e.setStateValue(pos, 25.09);
+		double got = e.getStateValue((e.getStatePosition("A")));
+		assertEquals(25.09, got);
+	}
 }
