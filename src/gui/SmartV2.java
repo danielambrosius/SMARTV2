@@ -43,7 +43,7 @@ public class SmartV2 extends JFrame {
 	private JTextArea txtParameterDisplay;
 	private JTextArea txtStateDisplay;
 	private App app = new App(); //TODO: Why does this not work in the constructor??
-	private int selectedTableRow;
+	private Integer selectedTableRow;
 	
 	private String columnNames[] = {"State", "Equation"};
 
@@ -218,6 +218,8 @@ public class SmartV2 extends JFrame {
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				app.handleDeleteOde(selectedTableRow);
+				selectedTableRow = null;
+				updateGraphics();
 			}
 		});
 		btnDelete.setBounds(518, 83, 75, 25);

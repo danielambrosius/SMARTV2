@@ -103,10 +103,12 @@ public class App {
 	}
 	
 
-	public void handleDeleteOde(int tableRow) {
+	public void handleDeleteOde(Integer tableRow) {
 		//TODO implement method in model class
-		myModel.removeOdeAtIndex(tableRow);
-		modelSaved = false;
+		if (tableRow != null) {
+			myModel.removeOdeAtIndex(tableRow);
+			modelSaved = false;
+		}
 	}
 
 	public void setVariablesList(Vector myVectors) {

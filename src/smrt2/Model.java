@@ -89,7 +89,7 @@ public class Model implements Serializable {
 	}
 	
 	public void removeOdeAtIndex(int index) {
-		//TODO add fucntionality
+		odeList.remove(index);
 	}
 
 	public Map<String, String> buildParamDict() {
