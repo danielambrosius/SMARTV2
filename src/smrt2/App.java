@@ -19,12 +19,14 @@ public class App {
 	private Experiment myExperiment;
 	private boolean modelSaved;
 	private boolean experimentSaved;
+	private String modelName;
 	
 	
 	public App() {
 		modelSaved = false;
 		experimentSaved = false;
 		myModel = new Model("untitled"); // App gets constructed w. a new model by default.
+		setModelName(myModel.getName());
 	}
 
 	public void handleButtonAddOde(String state, String equation) {
@@ -216,6 +218,14 @@ public class App {
 		}
 		
 		
+	}
+
+	public String getModelName() {
+		return modelName;
+	}
+
+	private void setModelName(String modelName) {
+		this.modelName = modelName;
 	}
 	
 }

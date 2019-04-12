@@ -72,6 +72,8 @@ public class SmartV2 extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 625, 486);
 		
+		this.setTitle("SmartV2 - "+ app.getModelName());
+		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
