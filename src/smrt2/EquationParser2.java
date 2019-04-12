@@ -4,6 +4,8 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class EquationParser2 {
@@ -12,11 +14,9 @@ public class EquationParser2 {
 	private String equation;
 	//regex pattern to split on all operators
 	
-	private final String consideredOperators = "[\\+|\\*|\\/|\\-|\\(|\\)|\\^"
-			+ "|sin|cos|tan|log|ln|sqrt]+";
+	private final String consideredOperators = "(\\+|\\-|\\*|\\/|=|>|<|>=|<=|&|\\||%|!|\\^|\\(|\\))+|(sin\\(|cos\\(|tan\\(|log\\(|ln\\()";
 	//regex pattern to split on all non operators.
-	private final String consideredVariables = "[^\\+|\\-|\\*|\\/|\\(|\\)|\\^"
-			+ "|sin|cos|tan|log|ln|sqrt]+";
+	//private final String consideredVariables = "";
 
 	public EquationParser2(String equation) {
 		this.equation = equation;
@@ -39,7 +39,14 @@ public class EquationParser2 {
 	}
 
 	public String[] parseOperators() {
-		operators = equation.split(consideredVariables);
+		Pattern MY_PATTERN = Pattern.compile(consideredOperators);
+		Matcher m = MY_PATTERN.matcher(equation);
+		List<String> operatorList = new ArrayList<String>();
+		while(m.find())
+        {
+			operatorList.add(m.group(0));
+        }
+		operators = operatorList.toArray(new String[operatorList.size()]);
 		return operators;
 	}
 

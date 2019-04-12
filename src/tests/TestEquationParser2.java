@@ -16,19 +16,19 @@ public class TestEquationParser2 extends TestCase {
 	}
 	
 	public void testParseVariables() {
-		equation = "-A*B-(C*D)";
+		equation = "-A*B-(C*D)+sin(s)";
 		EquationParser2 myParser2 = new EquationParser2(equation);
 		myParser2.parseVariables();
-		String[] expectedList = new String[]  {"","A","B","C","D"};
+		String[] expectedList = new String[]  {"","A","B","C","D","","s"};
 		System.out.println(Arrays.toString(myParser2.getVariables()));
 		assertEquals(Arrays.toString(expectedList), Arrays.toString(myParser2.getVariables()));
 	}
 	
 	public void testParseOperators() {
-		equation = "-A*B-(C*D)";
+		equation = "-A*B-(C*D)+sin(s)";
 		EquationParser2 myParser2 = new EquationParser2(equation);
 		myParser2.parseOperators();
-		String[] expectedList = new String[] {"-","*","-(","*",")"};
+		String[] expectedList = new String[] {"-","*","-(","*",")+","sin(",")"};
 		System.out.println(Arrays.toString(myParser2.getOperators()));
 		assertEquals(Arrays.toString(expectedList), Arrays.toString(myParser2.getOperators()));
 	}
