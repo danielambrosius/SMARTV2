@@ -79,8 +79,8 @@ public class App {
 
 	public void saveModel() {
 		String filePath = FileChooser.save("Model", "model");
+		myModel.setName(filePath.split("/+")[filePath.split("[\\\\/]+").length-1]); 
 		SaverLoader.save(myModel, filePath);
-		myModel.setName(filePath); // Can be way nicer
 		modelSaved = true;
 	}
 	

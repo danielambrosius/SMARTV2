@@ -72,7 +72,6 @@ public class SmartV2 extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 625, 486);
 		
-		this.setTitle("SmartV2 - "+ app.getModelName());
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -103,6 +102,7 @@ public class SmartV2 extends JFrame {
 		mntmSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				app.saveModel();
+				updateGraphics();
 			}
 		});
 		mnModel.add(mntmSave);
@@ -122,6 +122,7 @@ public class SmartV2 extends JFrame {
 		mntmOpen_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				app.openExperiment();
+				updateGraphics();
 			}
 		});
 		mnExperiment.add(mntmOpen_1);
@@ -276,6 +277,8 @@ public class SmartV2 extends JFrame {
 		txtStateDisplay.setEditable(false);
 		txtStateDisplay.setBounds(323, 42, 184, 315);
 		panel_2.add(txtStateDisplay);
+		
+		updateGraphics(); // Makes the graphics nice
 	}
 	
 	public void updateGraphics() {
