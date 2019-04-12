@@ -92,66 +92,21 @@ public class Model implements Serializable {
 		odeList.remove(index);
 	}
 
-	public Map<String, String> buildParamDict() {
-		Map<String,String> paramDict = new HashMap<String,String>();
-		List<String> params = getParameters();
-		for (int i = 0; i < params.size();i++) {
-			String value = "P" + "[" + i + "]";
-			paramDict.put(params.get(i), value);
-		}
-		return paramDict;
-	}
-	
-	public Map<String, String> buildStatesDict(){
-		Map<String, String> statesDict = new HashMap<String, String>();
-		List<String> states = getStates();
-		for (int i = 0; i < states.size();i++) {
-			String value = "S" + "[" + (i+1) + "]";
-			statesDict.put(states.get(i), value);
-		}
-	return statesDict;
-	}
 
-	public String[] reconstructFormulas() {
-		String[] reconstuctedFormulaList = new String[odeList.size()];
-		Map<String,String> varDict = buildParamDict();
-		varDict.putAll(buildStatesDict());
-		
-		for (int i = 0; i < odeList.size(); i++) {
-			String reconstructedFormula = "";
-			Ode currentOde = odeList.get(i);
-			String[] currentVariables = currentOde.getVariables();
-			String[] currentOperators = currentOde.getOperators();
-			
-			if (currentVariables[0].isEmpty()){
-				for (int j = 0; j < currentOperators.length; j++) {
-					reconstructedFormula += varDict.get(currentVariables[j]) + currentOperators[j];
-				}
-			}
-			
-			if (currentOperators[0].isEmpty()){
-				for (int j = 0; j < currentVariables.length; j++) {
-					reconstructedFormula += currentOperators[j] + varDict.get(currentVariables[j]);
-				}
-			}
-			
-			if (currentVariables.length < currentOperators.length){
-				reconstructedFormula += currentOperators[currentOperators.length-1];
-			}
-			
-			if (currentVariables.length > currentOperators.length){
-				reconstructedFormula += varDict.get(currentVariables[currentVariables.length-1]);
-			}
-			
-		reconstuctedFormulaList[i] = reconstructedFormula;
-		}
-		
-	return reconstuctedFormulaList;	
-	}
 
 	public Ode getOdeAtIndex(Integer selectedTableRow) {
 		Ode ode = odeList.get(selectedTableRow);
 		return ode;
 		
+	}
+
+	public String[] getVariablesOfOde(int i) {
+		Ode myOde = odeList.get(i);
+		return myOde.getVariables();
+	}
+
+	public String[] getOperatorsOfOde(int i) {
+		Ode myOde = odeList.get(i);
+		return myOde.getOperators();
 	}
 }
