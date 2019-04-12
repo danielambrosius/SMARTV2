@@ -11,11 +11,12 @@ public class Experiment implements Serializable{
 	private Double[] parameterValues;
 	private Double[] stateInitialValues;
 	private double tStart;
-	private double tEnd = 10;
-	private double tStep = 1;
+	private double tEnd;
+	private double tStep;
 	
 	public Experiment(Model m) {
 		model = m;
+		setTimeFrame(0, 10, 1);
 		stateInitialValues = new Double[m.getStates().size()];
 		Arrays.fill(stateInitialValues, 1.0);
 		parameterValues = new Double[m.getParameters().size()];
@@ -137,5 +138,10 @@ public class Experiment implements Serializable{
 
 	public String[] getStateNames() {
 		return (String[]) model.getStates().toArray(new String[0]);
+	}
+
+	public double[] getTimeValues() {
+		double [] timeValues = {this.tStart, this.tEnd, this.tStep};
+		return timeValues;
 	}
 }

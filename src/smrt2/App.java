@@ -212,13 +212,14 @@ public class App {
 		return stateNamesValues;
 	}
 
-	public void setValues(ArrayList stateList, ArrayList paramList) {
+	public void setValues(ArrayList stateList, ArrayList paramList, String timeStep, String timeStart, String timeEnd) {
 		for (int i = 0; i < stateList.size(); i++) {
 			myExperiment.setStateValue(i, Double.parseDouble((String) stateList.get(i)));
 		}
 		for (int i = 0; i < paramList.size(); i++) {
 			myExperiment.setParameterValue(i, Double.parseDouble((String) paramList.get(i)));
 		}
+		myExperiment.setTimeFrame(Double.parseDouble(timeStart), Double.parseDouble(timeEnd), Double.parseDouble(timeStep));
 	}
 
 	public String getModelName() {
@@ -239,6 +240,10 @@ public class App {
 		table.setVisible(true);
 	}
 
+	public double[] getTimeValues() {
+		double [] timeValues = myExperiment.getTimeValues();
+		return timeValues;
+	}
 
 }
 
