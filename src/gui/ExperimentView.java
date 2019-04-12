@@ -117,6 +117,11 @@ public class ExperimentView extends JFrame {
 		contentPane.add(btnEdit);
 		
 		JButton btnRun = new JButton("Run");
+		btnRun.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				myApp.runExperiment();
+			}
+		});
 		btnRun.setBounds(474, 77, 76, 25);
 		contentPane.add(btnRun);
 		
