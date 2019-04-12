@@ -14,64 +14,39 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
-public class GraphBuilder extends Application {
+public class GraphBuilder{
 
-public static void main(String[] args) {
-   launch(args);
+//public static void main(String[] args) {
+//   launch(args);
+//}
+
+//@Override
+//public void start(Stage stage) throws Exception {
+//	stage.setTitle("Chart");
+//   StackPane pane = new StackPane();
+//   pane.getChildren().add(createLineChart());
+//   stage.setScene(new Scene(pane, 400, 200));
+//   stage.show();
+//}
+
+private Series<Double, Double> ArraysToSeries(int xNumber, Double[][] inputdata){
+	Series<Double, Double> chartdata = new Series<Double, Double>();
+	for (int i=0; i<=inputdata[0].length; i++) {
+	chartdata.getData().add(new XYChart.Data(inputdata[xNumber][i], inputdata[0][i]));
+	}
+	return chartdata;
 }
 
-@Override
-public void start(Stage stage) throws Exception {
-   stage.setTitle("JavaFX Chart Demo");
-   StackPane pane = new StackPane();
-   pane.getChildren().add(createLineChart());
-   stage.setScene(new Scene(pane, 400, 200));
-   stage.show();
-}
 
-public ObservableList<XYChart.Series<String, Double>>
-      getDummyChartData() {
-	ObservableList<XYChart.Series<String, Double>> data =
-	         FXCollections.observableArrayList();
-	      Series<String, Double> as = new Series<>();
-	      Series<String, Double> bs = new Series<>();
-	      Series<String, Double> cs = new Series<>();
-	      Series<String, Double> ds = new Series<>();
-	      Series<String, Double> es = new Series<>();
-	      Series<String, Double> fs = new Series<>();
-	      as.setName("A-Series");
-	      bs.setName("B-Series");
-	      cs.setName("C-Series");
-	      ds.setName("D-Series");
-	      es.setName("E-Series");
-	      fs.setName("F-Series");
 
-	      Random r = new Random();
-
-	      for (int i = 1900; i < 2017; i += 10) {
-
-	         as.getData().add(new XYChart.Data<>
-	         (Integer.toString(i), r.nextDouble()));
-	         bs.getData().add(new XYChart.Data<>
-	         (Integer.toString(i), r.nextDouble()));
-	         cs.getData().add(new XYChart.Data<>
-	         (Integer.toString(i), r.nextDouble()));
-	         ds.getData().add(new XYChart.Data<>
-	         (Integer.toString(i), r.nextDouble()));
-	         es.getData().add(new XYChart.Data<>
-	         (Integer.toString(i), r.nextDouble()));
-	         fs.getData().add(new XYChart.Data<>
-	         (Integer.toString(i), r.nextDouble()));
-	      }
-	      data.addAll(as, bs, cs, ds, es, fs);
-	      return data;
-	   }
-
-public XYChart<CategoryAxis, NumberAxis> createLineChart() {
-   CategoryAxis xAxis = new CategoryAxis();
+public XYChart<CategoryAxis, NumberAxis> createLineChart(int xNumber, Double[][] inputdata) {
+   NumberAxis xAxis = new NumberAxis();
    NumberAxis yAxis = new NumberAxis();
    LineChart lc = new LineChart<>(xAxis, yAxis);
-   lc.setData(getDummyChartData());
+   ObservableList<XYChart.Series<Double, Double>> data =FXCollections.observableArrayList();
+   Series<Double, Double> chartData = ArraysToSeries(xNumber, inputdata);
+   data.add(chartData);
+   lc.setData(data);
    lc.setTitle("Line chart on random data");
    return lc;
 }
