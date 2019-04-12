@@ -94,7 +94,6 @@ public class App {
 			else {
 				myModel = new Model(name);
 			}
-			modelSaved = false;
 		}
 	}
 	
