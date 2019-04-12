@@ -9,10 +9,12 @@ import java.util.Map;
 import java.util.Vector;
 
 import javax.swing.JOptionPane;
+import javax.swing.text.TableView;
 
 import gui.ExperimentView;
 import gui.FileChooser;
 import gui.GeneralBinaryAlert;
+import gui.TableViewer;
 
 public class App {
 	private Model myModel;
@@ -20,6 +22,7 @@ public class App {
 	private boolean modelSaved;
 	private boolean experimentSaved;
 	private String modelName;
+	private Object[][] dataFromLastRun;
 	
 	
 	public App() {
@@ -216,12 +219,22 @@ public class App {
 		for (int i = 0; i < paramList.size(); i++) {
 			myExperiment.setParameterValue(i, Double.parseDouble((String) paramList.get(i)));
 		}
-		
-		
 	}
 
 	public String getModelName() {
 		return myModel.getName();
+	}
+
+	public void runExperiment() {
+		dataFromLastRun = myExperiment.run();
+		String[] headers = new String[dataFromLastRun[0].length];
+		headers[0] = "time";
+		for (int i = 1; i < headers.length; i++) {
+			headers[i] = "state" + i;
+		} // TODO: fix, so that these are actually the state names
+		
+		TableViewer table = new TableViewer(dataFromLastRun, headers);
+		table.setVisible(true);
 	}
 
 
