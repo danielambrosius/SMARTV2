@@ -198,20 +198,23 @@ public class SmartV2 extends JFrame {
 		tableFormulas.setBounds(22, 88, 484, 282);
 		panelFormulas.add(tableFormulas);
 		
-		
+		JLabel lblEditMode = new JLabel("");
+		lblEditMode.setBounds(379, 17, 99, 16);
+		panelFormulas.add(lblEditMode);
 		
 		JButton btnAdd = new JButton("Add");
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String state = StateField.getText();
 				String equation = EquationField.getText();
+				lblEditMode.setText("");
 				app.handleButtonAddOde(state, equation);
 				updateGraphics();
 			}
 		});
 		
 		panelFormulas.add(btnAdd);
-		btnAdd.setBounds(518, 45, 68, 25);
+		btnAdd.setBounds(518, 45, 84, 25);
 		
 		JButton btnDelete = new JButton("Delete");
 		btnDelete.addActionListener(new ActionListener() {
@@ -221,21 +224,24 @@ public class SmartV2 extends JFrame {
 				updateGraphics();
 			}
 		});
-		btnDelete.setBounds(518, 118, 68, 25);
+		btnDelete.setBounds(518, 118, 84, 25);
 		panelFormulas.add(btnDelete);
+		
 		
 		JButton btnEdit = new JButton("Edit");
 		btnEdit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String[] odeArray = app.handleEditOde(selectedTableRow);
 				StateField.setText(odeArray[0]);
+				lblEditMode.setText("Edit mode...");
 				EquationField.setText(odeArray[1]);
 				selectedTableRow = null;
 				//updateGraphics();
 			}
 		});
-		btnEdit.setBounds(518, 81, 68, 25);
+		btnEdit.setBounds(518, 81, 84, 25);
 		panelFormulas.add(btnEdit);
+		
 		JPanel panelParameters = new JPanel();
 		tabbedPane.addTab("Parameters", null, panelParameters, null);
 		panelParameters.setLayout(null);
