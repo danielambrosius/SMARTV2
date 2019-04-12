@@ -46,7 +46,7 @@ public class EquationParser2 {
         {
 			operatorList.add(m.group(0));
         }
-		if (!(operatorList.get(0) == equation.substring(0))) {
+		if (operatorList.size() > 0 && !operatorList.get(0).equals(equation.substring(0,1))) {
 			operatorList.add(0, "");
 			}
 		operators = operatorList.toArray(new String[operatorList.size()]);
