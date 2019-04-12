@@ -26,7 +26,7 @@ public class App {
 		modelSaved = false;
 		experimentSaved = false;
 		myModel = new Model("untitled"); // App gets constructed w. a new model by default.
-		setModelName(myModel.getName());
+		
 	}
 
 	public void handleButtonAddOde(String state, String equation) {
@@ -77,6 +77,7 @@ public class App {
 	public void saveModel() {
 		String filePath = FileChooser.save("Model", "model");
 		SaverLoader.save(myModel, filePath);
+		myModel.setName(filePath); // Can be way nicer
 		modelSaved = true;
 	}
 	
@@ -220,12 +221,9 @@ public class App {
 	}
 
 	public String getModelName() {
-		return modelName;
+		return myModel.getName();
 	}
 
-	private void setModelName(String modelName) {
-		this.modelName = modelName;
-	}
-	
+
 }
 

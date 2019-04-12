@@ -277,7 +277,8 @@ public class SmartV2 extends JFrame {
 		updateOdeTable();
 		clearTextFields();
 		updateParamStateTextFields();
-//		updateParamTable();
+		this.setTitle("SmartV2 - "+ app.getModelName());
+
 	}
 	
 	public void updateParamStateTextFields() {
