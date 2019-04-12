@@ -29,7 +29,7 @@ public class GraphBuilder{
 //   stage.show();
 //}
 
-private Series<Double, Double> ArraysToSeries(int xNumber, Double[][] inputdata){
+private static Series<Double, Double> ArraysToSeries(int xNumber, Object[][] inputdata){
 	Series<Double, Double> chartdata = new Series<Double, Double>();
 	for (int i=0; i<=inputdata[0].length; i++) {
 	chartdata.getData().add(new XYChart.Data(inputdata[xNumber][i], inputdata[0][i]));
@@ -39,7 +39,7 @@ private Series<Double, Double> ArraysToSeries(int xNumber, Double[][] inputdata)
 
 
 
-public XYChart<CategoryAxis, NumberAxis> createLineChart(int xNumber, Double[][] inputdata) {
+public static XYChart<CategoryAxis, NumberAxis> createLineChart(int xNumber, Object[][] inputdata) {
    NumberAxis xAxis = new NumberAxis();
    NumberAxis yAxis = new NumberAxis();
    LineChart lc = new LineChart<>(xAxis, yAxis);
