@@ -8,17 +8,17 @@ import java.util.Map;
 
 public class Experiment implements Serializable{
 	private Model model;
-	private double[] parameterValues;
-	private double[] stateInitialValues;
+	private Double[] parameterValues;
+	private Double[] stateInitialValues;
 	private double tStart;
-	private double tEnd;
-	private double tStep;
+	private double tEnd = 10;
+	private double tStep = 1;
 	
 	public Experiment(Model m) {
 		model = m;
-		stateInitialValues = new double[m.getStates().size()];
+		stateInitialValues = new Double[m.getStates().size()];
 		Arrays.fill(stateInitialValues, 1.0);
-		parameterValues = new double[m.getParameters().size()];
+		parameterValues = new Double[m.getParameters().size()];
 		Arrays.fill(parameterValues, 1.0);
 	}
 
@@ -130,8 +130,12 @@ public class Experiment implements Serializable{
 		this.tStep = tStep;		
 	}
 
-	public double[][] run() {
+	public Double[][] run() {
 		Solver s = new Solver(reconstructFormulas(), this.stateInitialValues, this.parameterValues, this.tEnd, this.tStep);
 		return s.solve();
+	}
+
+	public String[] getStateNames() {
+		return (String[]) model.getStates().toArray(new String[0]);
 	}
 }

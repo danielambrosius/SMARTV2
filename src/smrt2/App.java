@@ -226,7 +226,7 @@ public class App {
 	}
 
 	public void runExperiment() {
-		dataFromLastRun = myExperiment.run();
+		dataFromLastRun = (Object[][]) myExperiment.run();
 		
 		String[] stateNames = myExperiment.getStateNames();
 		String[] headers = new String[dataFromLastRun[0].length];

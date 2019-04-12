@@ -6,13 +6,13 @@ import javax.script.ScriptException;
 
 public class Solver {
 	private String[] odeFormulas;
-	private double[] S0;
+	private Double[] S0;
 	private String P;
 	private double tStep;
 	private double nTimesteps; 
-	private double[][] S;
+	private Double[][] S;
 
-	public Solver(String[] odeFormulas, double[] S0, double[] P, double tEnd, double tStep) {
+	public Solver(String[] odeFormulas, Double[] S0, Double[] P, double tEnd, double tStep) {
 		this.odeFormulas = odeFormulas;
 		this.S0 = S0;
 		this.tStep = tStep;
@@ -20,7 +20,7 @@ public class Solver {
 		if(odeFormulas.length != S0.length ) {
 			throw new IllegalArgumentException("Number of odeFormulas and State variables do not match");			
 		}
-		this.S = new double[(int) nTimesteps+1][odeFormulas.length+1];
+		this.S = new Double[(int) nTimesteps+1][odeFormulas.length+1];
 		this.P = "";
 		
 		for (int i = 0; i < P.length; i++) {
@@ -35,10 +35,10 @@ public class Solver {
 		
 	}
 	
-	private double[] eulerForeward(String[] odeFormulas ,double[] S, String P, double dt) {
+	private Double[] eulerForeward(String[] odeFormulas ,Double[] S, String P, double dt) {
 		ScriptEngineManager mgr = new ScriptEngineManager();
 		ScriptEngine engine = mgr.getEngineByName("JavaScript");
-		double[] results = new double[S.length];
+		Double[] results = new Double[S.length];
 		double dxdt;
 		String states = "";
 		
@@ -67,9 +67,9 @@ public class Solver {
 	return results;
 	}
 	
-	public double[][] solve(){
+	public Double[][] solve(){
 		//make first variable of first row 0 because we start at t = 0;
-		S[0][0] = 0;
+		S[0][0] = 0.0;
 		//add the initial conditions as the first row;
 		for (int i = 0; i < S0.length; i++) {
 			S[0][i+1] = S0[i];	
