@@ -9,38 +9,43 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 
-
 public class SaverLoaderJSON {
+	private static SaverLoaderJSON instance = null;
 	
-	public static void main(String[] args) {
-		//Model myOde  = (Model) SaverLoader.load("./data/model_for_json.model");
-		
-		Ode myOde = new Ode("A", "hello some text");
-		ObjectMapper mapper = new ObjectMapper();
-		try {
-			mapper.writeValue(new File("./data/test_Json.json"), myOde);
-			String jsonString = mapper.writeValueAsString(myOde);
-			System.out.println(jsonString);
-		} catch (Exception e) {
-			e.printStackTrace();
+	private ObjectMapper mapper;
+	
+	private SaverLoaderJSON() {
+		mapper = new ObjectMapper();
+	}
+	
+	public static SaverLoaderJSON getInstance() {
+		if (instance == null) {
+			instance = new SaverLoaderJSON();
 		}
-	
-		
+		return instance;
+	}
+
+	public void save(String savePath, Object obj) {
 		try {
-			Ode yourOde = mapper.readValue(new File("./data/test_Json.json"), Ode.class);
-			String jsonString = mapper.writeValueAsString(yourOde);
-			System.out.println(jsonString);
-			
+			mapper.writeValue(new File(savePath), obj);
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-		
+	}
+
+	public Object load(String savePath, Class<?> cls) {
+		Object myClass = null;
+		try {
+			myClass = mapper.readValue(new File("./data/test_Json.json"), cls);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return myClass;
 		
 	}
 	
 	
-	private ObjectMapper mapper;
-	//TODO create a saver loader that can handle JSON
+
 }
