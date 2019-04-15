@@ -6,10 +6,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Model implements Serializable {
 	
 	private String name;
-	private List<String> states;
 	private List<Ode> odeList;
 	
 	
@@ -23,6 +26,14 @@ public class Model implements Serializable {
 		this.name = name;
 		odeList = new ArrayList<Ode>();	
 	}
+	
+	@JsonCreator
+	public Model (@JsonProperty("name") String name,
+				  @JsonProperty("odeList") List<Ode> odeList) {
+		this.name = name;
+		this.odeList = odeList;
+	}
+	
 	
 	public String getName() {
 		return this.name;
@@ -63,6 +74,7 @@ public class Model implements Serializable {
 		odeList = new ArrayList<Ode>();	
 	}
 	
+	@JsonIgnore
 	public List<String> getParameters() {
 		List<String> params = new ArrayList<String>();
 		List<String> states = getStates();
@@ -80,6 +92,7 @@ public class Model implements Serializable {
 		return params;
 	}
 	
+	@JsonIgnore
 	public List<String> getStates() {
 		List<String> states = new ArrayList<String>();
 		for (Ode ode : odeList) {

@@ -2,6 +2,7 @@ package smrt2;
 import java.io.Serializable;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import smrt2.EquationParser2;
@@ -16,27 +17,17 @@ public class Ode implements Serializable{
 	private String[] operators;
 	
 	// create constructor
-	public Ode(String state, String equation){
-		this.formula = equation;
+	@JsonCreator
+	public Ode(@JsonProperty("state") String state,
+			   @JsonProperty("formula") String formula){
+		this.formula = formula;
 		this.state = state;
 		
 		if (this.formula != null) {
-			EquationParser2 parser = new EquationParser2(equation);
+			EquationParser2 parser = new EquationParser2(this.formula);
 			this.variables = parser.getVariables();
 			this.operators = parser.getOperators();
 		}
-	}
-	
-	// Constructor for JSONifier, this makes Jackson able to reconstruct the class.
-	@JsonCreator
-	public Ode(@JsonProperty("formula") String formula, 
-			   @JsonProperty("state") String state, 
-			   @JsonProperty("variables") String[] variables,
-			   @JsonProperty("operators") String[] operators) {
-		this.formula = formula;
-		this.state = state;
-		this.variables = variables;
-		this.operators = operators;
 	}
 	
 	// Getters and setters for variables
@@ -63,9 +54,11 @@ public class Ode implements Serializable{
 		stringOde = "d" + this.state + "/dt = " + this.formula;
 		return stringOde;
 	}
+	@JsonIgnore
 	public String[] getVariables() {
 		return this.variables;
 	}
+	@JsonIgnore
 	public String[] getOperators() {
 		return this.operators;
 	}

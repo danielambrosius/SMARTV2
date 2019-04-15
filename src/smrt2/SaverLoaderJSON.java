@@ -5,7 +5,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 
 
@@ -16,6 +18,7 @@ public class SaverLoaderJSON {
 	
 	private SaverLoaderJSON() {
 		mapper = new ObjectMapper();
+		//mapper.enable(SerializationFeature.INDENT_OUTPUT);
 	}
 	
 	public static SaverLoaderJSON getInstance() {
