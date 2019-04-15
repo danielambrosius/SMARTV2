@@ -40,10 +40,6 @@ public class ExperimentView extends JFrame {
 	private JTextField textTimeStep;
 	private JTextField textTimeStart;
 	private JTextField textTimeEnd;
-	private JLabel lblTimeStart;
-	private JLabel lblTimeEnd;
-	private JLabel lblTimeStep;
-
 
 	public ExperimentView(App app) {
 		this.myApp = app;
@@ -75,7 +71,6 @@ public class ExperimentView extends JFrame {
 		contentPane.add(scrollPaneParameters);
 		
 		Object rowData[][] = { { "example name", "example value"} };
-		
 		
 		// Creating table from default table model
 		TableModel tableParamModel = new DefaultTableModel(rowData, parameterColumnNames);
@@ -130,11 +125,11 @@ public class ExperimentView extends JFrame {
 		contentPane.add(textTimeStep);
 		textTimeStep.setColumns(10);
 		
-		lblTimeStep = new JLabel("Time Step");
+		JLabel lblTimeStep = new JLabel("Time Step");
 		lblTimeStep.setBounds(32, 352, 66, 16);
 		contentPane.add(lblTimeStep);
 		
-		lblTimeStart = new JLabel("Time Start");
+		JLabel lblTimeStart = new JLabel("Time Start");
 		lblTimeStart.setBounds(169, 355, 66, 16);
 		contentPane.add(lblTimeStart);
 		
@@ -143,7 +138,7 @@ public class ExperimentView extends JFrame {
 		contentPane.add(textTimeStart);
 		textTimeStart.setColumns(10);
 		
-		lblTimeEnd = new JLabel("Time End");
+		JLabel lblTimeEnd = new JLabel("Time End");
 		lblTimeEnd.setBounds(310, 355, 56, 16);
 		contentPane.add(lblTimeEnd);
 		
