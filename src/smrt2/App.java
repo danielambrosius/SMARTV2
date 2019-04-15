@@ -1,6 +1,7 @@
 package smrt2;
 
 import java.util.ArrayList;
+import gui.GraphBuilder;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,6 +16,7 @@ import gui.ExperimentView;
 import gui.FileChooser;
 import gui.GeneralBinaryAlert;
 import gui.TableViewer;
+import javafx.stage.Stage;
 
 public class App {
 	private Model myModel;
@@ -22,7 +24,7 @@ public class App {
 	private boolean modelSaved;
 	private boolean experimentSaved;
 	private String modelName;
-	private Object[][] dataFromLastRun;
+	private Double[][] dataFromLastRun;
 	
 	
 	public App() {
@@ -228,7 +230,7 @@ public class App {
 
 	public void runExperiment() {
 		// TODO Check if experiment exists. If it doesn't, display error message.
-		dataFromLastRun = (Object[][]) myExperiment.run();
+		dataFromLastRun = myExperiment.run();
 		
 		String[] stateNames = myExperiment.getStateNames();
 		String[] headers = new String[dataFromLastRun[0].length];
@@ -236,7 +238,7 @@ public class App {
 		for (int i = 1; i < headers.length; i++) {
 			headers[i] = stateNames[i-1];
 		} // TODO: fix, so that these are actually the state names
-		
+				
 		TableViewer table = new TableViewer(dataFromLastRun, headers);
 		table.setVisible(true);
 	}

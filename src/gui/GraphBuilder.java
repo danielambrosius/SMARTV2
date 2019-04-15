@@ -12,15 +12,19 @@ import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-
-
-
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 
 
-public class GraphBuilder extends Application{
+
+public class GraphBuilder{
+	
+	private Double[][] data;
+	private int xNumber;
+	public GraphBuilder(int xNumber, Double[][] inputData) {
+		this.data = inputData;
+	}
 
 
 public static XYChart.Series<Number, Number> ArraysToSeries(int xNumber, Double[][] inputdata){
@@ -32,31 +36,24 @@ public static XYChart.Series<Number, Number> ArraysToSeries(int xNumber, Double[
 }
 
 
-public static void main(String[] args) {
-    launch(args);
-}
-
-@Override
-public void start(Stage primaryStage) {
+public LineChart<Number, Number> start() {
     NumberAxis xAxis = new NumberAxis();
     NumberAxis yAxis = new NumberAxis();
     final LineChart<Number, Number> lineChart = new LineChart<Number, Number>(xAxis, yAxis);
-    //TEST
-    Double[][] testData = {{0.0, 0.0, 0.0}, {1.0, 1.0, 0.0}, {2.0, 2.0, 2.0}, {3.0, 3.0, 6.0}, {4.0, 4.0, 12.0}, {5.0, 5.0, 20.0}, {6.0, 6.0, 30.0},
-			{7.0, 7.0, 42.0}, {8.0, 8.0, 56.0}, {9.0, 9.0, 72.0}, {10.0, 10.0, 90.0}};
 
     lineChart.setTitle("Test");
-    XYChart.Series<Number, Number> seriesData = ArraysToSeries(2, testData);
+    XYChart.Series<Number, Number> seriesData = ArraysToSeries(xNumber, data);
     seriesData.setName("testSeries");
     
-    Scene scene = new Scene(lineChart, 700, 800);
     lineChart.getData().add(seriesData);
     lineChart.setTitle("Chart");
-    primaryStage.setTitle("LineChart example");
-
-    StackPane root = new StackPane();
-    root.getChildren().add(lineChart);
-    primaryStage.setScene(new Scene(root, 400, 250));
-    primaryStage.show();
+    
+    return lineChart;
+    
+    //primaryStage.setTitle("LineChart example");
+    
+    //StackPane root = new StackPane();
+    //root.getChildren().add(lineChart);
+    //primaryStage.setScene(new Scene(root, 400, 250));
 }
 }
