@@ -79,7 +79,7 @@ public class App {
 
 	public void saveModel() {
 		String filePath = FileChooser.save("Model", "model");
-		myModel.setName(filePath.split("/+")[filePath.split("[\\\\/]+").length-1]); 
+		myModel.setName(filePath.split("[\\\\/]+")[filePath.split("[\\\\/]+").length-1]); 
 		SaverLoader.save(myModel, filePath);
 		modelSaved = true;
 	}
@@ -227,6 +227,7 @@ public class App {
 	}
 
 	public void runExperiment() {
+		// TODO Check if experiment exists. If it doesn't, display error message.
 		dataFromLastRun = (Object[][]) myExperiment.run();
 		
 		String[] stateNames = myExperiment.getStateNames();
