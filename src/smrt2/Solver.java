@@ -46,8 +46,8 @@ public class Solver {
 		ScriptEngineManager mgr = new ScriptEngineManager();
 		ScriptEngine engine = mgr.getEngineByName("JavaScript");
 		//states and parameters are passed to the script engine as a string representation
-		String states = listDoubleToString(S);
-		String parameters = listDoubleToString(P);
+		String states = arrayDoubleToString(S);
+		String parameters = arrayDoubleToString(P);
 		//create an array to store the results
 		Double[] results = new Double[S.length];
 		double dxdt;
@@ -70,7 +70,7 @@ public class Solver {
 	return results;
 	}
 	
-	private static String listDoubleToString(Double[] listDouble){
+	private static String arrayDoubleToString(Double[] listDouble){
 		/**
 		 * Returns a sting representation of a Double[]
 		 */
