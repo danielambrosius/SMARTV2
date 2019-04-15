@@ -5,8 +5,6 @@ import java.util.Arrays;
 import junit.framework.TestCase;
 import smrt2.Experiment;
 import smrt2.Model;
-import smrt2.Solver;
-
 
 public class ExperimentTest extends TestCase {
 	private Model m;
@@ -71,7 +69,7 @@ public class ExperimentTest extends TestCase {
 		Model mo = new Model("Name");
 		mo.addOde("A", "k1");
 		mo.addOde("B", "k2*A");
-		Experiment ex = new Experiment(mo);
+		Experiment ex = new Experiment(mo, null);
 		ex.setParameterValue(0, 1);
 		ex.setParameterValue(1, 2);
 		ex.setStateValue(0, 0);
@@ -84,7 +82,7 @@ public class ExperimentTest extends TestCase {
 		
 		for (int i = 0; i < actual.length; i++) {
 			for (int j = 0; j < actual[i].length; j++) {
-				System.out.printf("%s = %s | ", expected[i][j], actual[i][j]);
+				System.out.printf("%5s = %5s | ", expected[i][j], actual[i][j]);
 				assertEquals(expected[i][j], actual[i][j]);
 			}
 		System.out.println();

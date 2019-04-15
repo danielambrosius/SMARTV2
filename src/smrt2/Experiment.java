@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Experiment implements Serializable{
+	private String name;
 	private Model model;
 	private Double[] parameterValues;
 	private Double[] stateInitialValues;
@@ -14,9 +15,15 @@ public class Experiment implements Serializable{
 	private double tEnd;
 	private double tStep;
 	
-	public Experiment(Model m) {
+	public Experiment(Model m){
+		//TODO never call experiment without a name
+		this(m, "Default experiment name");
+	}
+	
+	public Experiment(Model m, String name) {
+		this.model = m; //store the passed on model inside the class
+		setName(name);
 		setTimeFrame(0, 10, 1); //default timeframe values
-		model = m; //store the passed on model inside the class
 		
 		//Create an array for initial conditions of states and fill it with default values
 		stateInitialValues = new Double[m.getStates().size()];
@@ -25,6 +32,32 @@ public class Experiment implements Serializable{
 		//Create an array to store the parameter values, with default values
 		parameterValues = new Double[m.getParameters().size()];
 		Arrays.fill(parameterValues, 1.0);
+	}
+
+	public Double[][] run() {
+		/**
+		 * Returns the solution of the experiment, with time in the first column.
+		 * Uses the solver class which employs the Euler foreward method.
+		 */
+		return Solver.solveEulerForeward(reconstructFormulas(), this.stateInitialValues, this.parameterValues, this.tEnd, this.tStep);
+	}
+
+	public void setTimeFrame(double tStart, double tEnd, double tStep) {
+		/**
+		 * Used to set the time frame used by the solver. 
+		 * The solver always starts at t=0, but tStart is used by the gui to display a potential subset.
+		 * @param tStart used by gui to shows the desired time frame
+		 * @param tEND determines at what time point the solver should stop
+		 * @param tStep determines the step size the solver uses
+		 */
+		this.tStart = tStart;
+		this.tEnd = tEnd;
+		this.tStep = tStep;		
+	}
+
+	public double[] getTimeValues() {
+		double [] timeValues = {this.tStart, this.tEnd, this.tStep};
+		return timeValues;
 	}
 
 	public void setParameterValue(int i, double value) {
@@ -46,11 +79,15 @@ public class Experiment implements Serializable{
 		return value;
 	}
 	
-	public String getName() {
-		//TODO add ability to set the experiment name
-		return "Experiment";
+	public void setName(String name) {
+		//TODO check if name is valid
+		this.name = name;
 	}
 
+	public String getName() {
+		return this.name;
+	}
+	
 	public void setStateValue(int i, double value) {
 		stateInitialValues[i] = value;		
 	}
@@ -70,34 +107,8 @@ public class Experiment implements Serializable{
 		return value;
 	}
 
-	private Map<String, String> buildParamDict() {
-		/**
-		 * Returns a HashMap that links a parameter name to a reference of an index in array P.
-		 * Array P will hold user specified parameter values.
-		 * This method is used by the reconstructFormula method.
-		 */
-		Map<String,String> paramDict = new HashMap<String,String>();
-		List<String> params = model.getParameters();
-		for (int i = 0; i < params.size();i++) {
-			String value = "P" + "[" + i + "]";
-			paramDict.put(params.get(i), value);
-		}
-		return paramDict;
-	}
-	
-	private Map<String, String> buildStatesDict(){
-		/**
-		 * Returns a HashMap that links a state name to a reference of an index in array S.
-		 * Array S contains the solutions of the model at the previous step in time.
-		 * This method is used by the reconstructFormula method.
-		 */
-		Map<String, String> statesDict = new HashMap<String, String>();
-		List<String> states = model.getStates();
-		for (int i = 0; i < states.size();i++) {
-			String value = "S" + "[" + (i+1) + "]";
-			statesDict.put(states.get(i), value);
-		}
-	return statesDict;
+	public String[] getStateNames() {
+		return (String[]) model.getStates().toArray(new String[0]);
 	}
 
 	public String[] reconstructFormulas() {
@@ -150,33 +161,33 @@ public class Experiment implements Serializable{
 	return reconstuctedFormulaList;	
 	}
 
-	public void setTimeFrame(double tStart, double tEnd, double tStep) {
+	private Map<String, String> buildParamDict() {
 		/**
-		 * Used to set the time frame used by the solver. 
-		 * The solver always starts at t=0, but tStart is used by the gui to display a potential subset.
-		 * @param tStart used by gui to shows the desired time frame
-		 * @param tEND determines at what time point the solver should stop
-		 * @param tStep determines the step size the solver uses
+		 * Returns a HashMap that links a parameter name to a reference of an index in array P.
+		 * Array P will hold user specified parameter values.
+		 * This method is used by the reconstructFormula method.
 		 */
-		this.tStart = tStart;
-		this.tEnd = tEnd;
-		this.tStep = tStep;		
+		Map<String,String> paramDict = new HashMap<String,String>();
+		List<String> params = model.getParameters();
+		for (int i = 0; i < params.size();i++) {
+			String value = "P" + "[" + i + "]";
+			paramDict.put(params.get(i), value);
+		}
+		return paramDict;
 	}
 
-	public Double[][] run() {
+	private Map<String, String> buildStatesDict(){
 		/**
-		 * Returns the solution of the experiment, with time in the first column.
-		 * Uses the solver class which employs the Euler foreward method.
+		 * Returns a HashMap that links a state name to a reference of an index in array S.
+		 * Array S contains the solutions of the model at the previous step in time.
+		 * This method is used by the reconstructFormula method.
 		 */
-		return Solver.solveEulerForeward(reconstructFormulas(), this.stateInitialValues, this.parameterValues, this.tEnd, this.tStep);
-	}
-
-	public String[] getStateNames() {
-		return (String[]) model.getStates().toArray(new String[0]);
-	}
-
-	public double[] getTimeValues() {
-		double [] timeValues = {this.tStart, this.tEnd, this.tStep};
-		return timeValues;
+		Map<String, String> statesDict = new HashMap<String, String>();
+		List<String> states = model.getStates();
+		for (int i = 0; i < states.size();i++) {
+			String value = "S" + "[" + (i+1) + "]";
+			statesDict.put(states.get(i), value);
+		}
+	return statesDict;
 	}
 }
