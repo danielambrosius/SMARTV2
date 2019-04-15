@@ -168,8 +168,7 @@ public class Experiment implements Serializable{
 		 * Returns the solution of the experiment, with time in the first column.
 		 * Uses the solver class which employs the Euler foreward method.
 		 */
-		Solver s = new Solver(reconstructFormulas(), this.stateInitialValues, this.parameterValues, this.tEnd, this.tStep);
-		return s.solve();
+		return Solver.solveEulerForeward(reconstructFormulas(), this.stateInitialValues, this.parameterValues, this.tEnd, this.tStep);
 	}
 
 	public String[] getStateNames() {
