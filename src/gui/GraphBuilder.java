@@ -40,13 +40,13 @@ public LineChart<Number, Number> start() {
     NumberAxis xAxis = new NumberAxis();
     NumberAxis yAxis = new NumberAxis();
     final LineChart<Number, Number> lineChart = new LineChart<Number, Number>(xAxis, yAxis);
-
+    int xNumber = 1;
     lineChart.setTitle("Test");
     XYChart.Series<Number, Number> seriesData = ArraysToSeries(xNumber, data);
     seriesData.setName("testSeries");
     
     lineChart.getData().add(seriesData);
-    lineChart.setTitle("Chart");
+    lineChart.setTitle("First state");
     
     return lineChart;
     
