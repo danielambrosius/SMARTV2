@@ -79,17 +79,22 @@ public class TableViewer extends JFrame {
 		JScrollPane tablePane = new JScrollPane(table);
 		tabbedPane.addTab("Table", null, tablePane, null);
 
-		JFXPanel graphPane = new JFXPanel();
-		tabbedPane.addTab("Graph", null, graphPane, null);
+		
 
 		
-		StackPane pane = new StackPane();
-		GraphBuilder GB = new GraphBuilder(1, (Double[][]) dataToDisplay);
-		LineChart<Number, Number> lineChart = GB.start();
-			    
-	    pane.getChildren().add(lineChart);
-		Scene scene = new Scene(pane);
-		graphPane.setScene(scene);
+		
+		for (int i = 1; i < header.length; i++) {
+			JFXPanel graphPane = new JFXPanel();
+			tabbedPane.addTab(header[i].toString(), null, graphPane, null);
+			StackPane pane = new StackPane();
+			GraphBuilder GB = new GraphBuilder(i, (Double[][]) dataToDisplay, header[i].toString());
+			LineChart<Number, Number> lineChart = GB.start();
+				    
+		    pane.getChildren().add(lineChart);
+			Scene scene = new Scene(pane);
+			graphPane.setScene(scene);
+		}
+		
 		
 	}
 

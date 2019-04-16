@@ -22,9 +22,12 @@ public class GraphBuilder{
 	
 	private Double[][] data;
 	private int xNumber;
-	public GraphBuilder(int xNumber, Double[][] inputData) {
+	private String title;
+	
+	public GraphBuilder(int xNumber, Double[][] inputData, String title) {
 		this.data = inputData;
 		this.xNumber = xNumber;
+		this.title = title;
 	}
 
 
@@ -44,10 +47,10 @@ public LineChart<Number, Number> start() {
     //int xNumber = 1;
     lineChart.setTitle("Test");
     XYChart.Series<Number, Number> seriesData = ArraysToSeries(xNumber, data);
-    seriesData.setName("testSeries");
+    seriesData.setName(title);
     
     lineChart.getData().add(seriesData);
-    lineChart.setTitle("First state");
+    lineChart.setTitle(title);
     
     return lineChart;
     
