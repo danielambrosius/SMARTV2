@@ -138,6 +138,12 @@ public class ExperimentView extends JFrame {
 	}
 	
 	public void safeEdit() {
+		if (stateTable.getCellEditor() != null) {
+			stateTable.getCellEditor().stopCellEditing();
+		}
+		if (parameterTable.getCellEditor() != null) {
+			parameterTable.getCellEditor().stopCellEditing();
+		}
 		ArrayList stateList = new ArrayList();
 		ArrayList paramList = new ArrayList();
 		for(int i = 0; i < stateTable.getModel().getRowCount();i++){
