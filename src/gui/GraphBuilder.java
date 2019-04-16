@@ -24,6 +24,7 @@ public class GraphBuilder{
 	private int xNumber;
 	public GraphBuilder(int xNumber, Double[][] inputData) {
 		this.data = inputData;
+		this.xNumber = xNumber;
 	}
 
 
@@ -40,7 +41,7 @@ public LineChart<Number, Number> start() {
     NumberAxis xAxis = new NumberAxis();
     NumberAxis yAxis = new NumberAxis();
     final LineChart<Number, Number> lineChart = new LineChart<Number, Number>(xAxis, yAxis);
-    int xNumber = 1;
+    //int xNumber = 1;
     lineChart.setTitle("Test");
     XYChart.Series<Number, Number> seriesData = ArraysToSeries(xNumber, data);
     seriesData.setName("testSeries");
