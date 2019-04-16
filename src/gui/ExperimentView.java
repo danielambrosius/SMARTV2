@@ -93,19 +93,7 @@ public class ExperimentView extends JFrame {
 		JButton btnEdit = new JButton("Edit");
 		btnEdit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ArrayList stateList = new ArrayList();
-				ArrayList paramList = new ArrayList();
-				for(int i = 0; i < stateTable.getModel().getRowCount();i++){
-					stateList.add(stateTable.getModel().getValueAt(i,1)); //get the all row values at column index 0
-				}
-				for(int i = 0; i < parameterTable.getModel().getRowCount();i++){
-					paramList.add(parameterTable.getModel().getValueAt(i,1)); //get the all row values at column index 0
-				}
-				String timeStep = textTimeStep.getText();
-				String timeStart = textTimeStart.getText();
-				String timeEnd = textTimeEnd.getText();
-				myApp.setValues(stateList,paramList, timeStep, timeStart, timeEnd);
-				updateGraphics();
+				safeEdit();
 			}
 		});
 		btnEdit.setBounds(474, 39, 76, 25);
@@ -114,6 +102,7 @@ public class ExperimentView extends JFrame {
 		JButton btnRun = new JButton("Run");
 		btnRun.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				safeEdit();
 				myApp.runExperiment();
 			}
 		});
@@ -146,6 +135,22 @@ public class ExperimentView extends JFrame {
 		textTimeEnd.setBounds(370, 352, 60, 22);
 		contentPane.add(textTimeEnd);
 		textTimeEnd.setColumns(10);
+	}
+	
+	public void safeEdit() {
+		ArrayList stateList = new ArrayList();
+		ArrayList paramList = new ArrayList();
+		for(int i = 0; i < stateTable.getModel().getRowCount();i++){
+			stateList.add(stateTable.getModel().getValueAt(i,1)); //get the all row values at column index 0
+		}
+		for(int i = 0; i < parameterTable.getModel().getRowCount();i++){
+			paramList.add(parameterTable.getModel().getValueAt(i,1)); //get the all row values at column index 0
+		}
+		String timeStep = textTimeStep.getText();
+		String timeStart = textTimeStart.getText();
+		String timeEnd = textTimeEnd.getText();
+		myApp.setValues(stateList,paramList, timeStep, timeStart, timeEnd);
+		updateGraphics();
 	}
 	
 	public void updateGraphics() {
