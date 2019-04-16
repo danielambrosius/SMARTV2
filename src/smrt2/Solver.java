@@ -6,7 +6,7 @@ import javax.script.ScriptException;
 
 public class Solver {
 	
-	public static Double[][] solveEulerForeward(String[] odeFormulas, Double[] S0, Double[] P, double tEnd, double tStep){
+	public static Double[][] solveEulerForward(String[] odeFormulas, Double[] S0, Double[] P, double tEnd, double tStep){
 		/**
 		 * Returns the results of the provided odeFormulas simulated over the specified time frame.
 		 * odeFormulas should contain references to array P for parameters and references to S for states.
@@ -29,12 +29,12 @@ public class Solver {
 		}
 		
 		for (int i = 1; i <= nTimesteps; i++) {
-			S[i] = eulerForeward(odeFormulas, S[i-1], P, tStep);
+			S[i] = eulerForward(odeFormulas, S[i-1], P, tStep);
 		}
 	return S;
 	}
 	
-	private static Double[] eulerForeward(String[] odeFormulas ,Double[] S, Double[] P, double dt) {
+	private static Double[] eulerForward(String[] odeFormulas ,Double[] S, Double[] P, double dt) {
 		/**
 		 * Returns the result of array S in the next point in time with time step dt.
 		 * @params odeFormulas	array of strings that describe the ode formulas.
