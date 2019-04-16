@@ -2,7 +2,6 @@ package tests;
 
 import junit.framework.TestCase;
 import smrt2.EquationParser;
-import smrt2.Model;
 
 public class EquationParserTest extends TestCase {
 	

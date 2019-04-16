@@ -1,7 +1,5 @@
 package tests;
 
-import java.awt.List;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import junit.framework.TestCase;
