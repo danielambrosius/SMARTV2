@@ -60,7 +60,6 @@ public class SaverLoaderJSONTest extends TestCase {
 		mySl.save(savePath, m);
 		
 		Model mObserved = (Model) mySl.load(savePath, Model.class);
-		
 		assertTrue(m.getStates().equals(mObserved.getStates()));
 		
 	}

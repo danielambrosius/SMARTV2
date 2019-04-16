@@ -39,8 +39,8 @@ public class SaverLoaderJSON {
 
 	public Object load(String savePath, Class<?> cls) {
 		Object myClass = null;
-		try {
-			myClass = mapper.readValue(new File("./data/test_Json.json"), cls);
+		 try {
+			myClass = mapper.readValue(new File(savePath), cls);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
