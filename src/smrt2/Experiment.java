@@ -39,7 +39,7 @@ public class Experiment implements Serializable{
 		 * Returns the solution of the experiment, with time in the first column.
 		 * Uses the solver class which employs the Euler foreward method.
 		 */
-		return Solver.solveEulerForeward(reconstructFormulas(), this.stateInitialValues, this.parameterValues, this.tEnd, this.tStep);
+		return Solver.solveEulerForward(reconstructFormulas(), this.stateInitialValues, this.parameterValues, this.tEnd, this.tStep);
 	}
 
 	public void setTimeFrame(double tStart, double tEnd, double tStep) {
