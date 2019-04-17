@@ -42,6 +42,7 @@ public class SmartV2 extends JFrame {
 	private JTable tableFormulas;
 	private JTextArea txtParameterDisplay;
 	private JTextArea txtStateDisplay;
+	private JButton btnAdd;
 	private App app = new App(); //TODO: Why does this not work in the constructor??
 	private Integer selectedTableRow;
 	
@@ -93,7 +94,7 @@ public class SmartV2 extends JFrame {
 		mntmOpen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String filePath = FileChooser.open("Model", "model");
-				app.openModel(filepath);
+				app.openModel(filePath);
 				updateGraphics();
 			}
 		});
@@ -214,13 +215,14 @@ public class SmartV2 extends JFrame {
 		lblEditMode.setBounds(379, 17, 99, 16);
 		panelFormulas.add(lblEditMode);
 		
-		JButton btnAdd = new JButton("Add");
+		btnAdd = new JButton("Add");
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String state = StateField.getText();
 				String equation = EquationField.getText();
 				lblEditMode.setText("");
 				app.handleButtonAddOde(state, equation);
+				btnAdd.setText("Add");
 				updateGraphics();
 			}
 		});
@@ -248,7 +250,7 @@ public class SmartV2 extends JFrame {
 				lblEditMode.setText("Edit mode...");
 				EquationField.setText(odeArray[1]);
 				selectedTableRow = null;
-				//updateGraphics();
+				btnAdd.setText("OK");
 			}
 		});
 		btnEdit.setBounds(518, 81, 84, 25);

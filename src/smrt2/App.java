@@ -194,7 +194,6 @@ public class App {
 	public String[] handleEditOde(Integer selectedTableRow) {
 		Ode ode = myModel.getOdeAtIndex(selectedTableRow);
 		String[] odeArray = ode.toArray();
-		System.out.println(Arrays.toString(odeArray));
 		myModel.removeOdeAtIndex(selectedTableRow);
 		return odeArray;
 	}
