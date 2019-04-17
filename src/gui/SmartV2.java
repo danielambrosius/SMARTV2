@@ -147,13 +147,6 @@ public class SmartV2 extends JFrame {
 		});
 		mnExperiment.add(mntmSave_1);
 		
-		JMenuItem mntmRun = new JMenuItem("Run...");
-		mntmRun.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				app.runExperiment();
-			}
-		});
-		mnExperiment.add(mntmRun);
 		getContentPane().setLayout(new GridLayout(1, 0, 0, 0));
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);

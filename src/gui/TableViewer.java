@@ -52,7 +52,7 @@ public class TableViewer extends JFrame {
 	 * Create the frame.
 	 */
 	public TableViewer(Object[][] dataToDisplay, Object[] header) {
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -94,6 +94,7 @@ public class TableViewer extends JFrame {
 			Scene scene = new Scene(pane);
 			graphPane.setScene(scene);
 		}
+		setVisible(true);
 		
 		
 	}

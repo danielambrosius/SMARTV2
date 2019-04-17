@@ -235,7 +235,6 @@ public class App {
 		} // TODO: fix, so that these are actually the state names
 				
 		TableViewer table = new TableViewer(dataFromLastRun, headers);
-		table.setVisible(true);
 	}
 
 	public double[] getTimeValues() {
