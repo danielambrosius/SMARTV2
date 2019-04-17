@@ -45,6 +45,7 @@ public class SmartV2 extends JFrame {
 	private JButton btnAdd;
 	private App app = new App(); //TODO: Why does this not work in the constructor??
 	private Integer selectedTableRow;
+	private ExperimentView expGui;
 	
 	private String columnNames[] = {"State", "Equation"};
 
@@ -117,6 +118,7 @@ public class SmartV2 extends JFrame {
 		mntmNew_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				app.newExperiment();
+				ExperimentView expGui = new ExperimentView(app);
 			}
 		});
 		mnExperiment.add(mntmNew_1);
@@ -127,6 +129,8 @@ public class SmartV2 extends JFrame {
 				String filePath = FileChooser.open("Experiment", "exp");
 				app.openExperiment(filePath);
 				updateGraphics();
+				ExperimentView expGui = new ExperimentView(app);
+				
 			}
 		});
 		mnExperiment.add(mntmOpen_1);
