@@ -1,61 +1,54 @@
 package smrt2;
 
-
+import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 
 
 public class SaverLoader {
-	// NOTE: This implementation brakes when the source code defining the
-	// 		 the serialized class is changed. (e.g. the user will not be able to load
-	//		  models generated with an earlier release of the code. Consider fixing.)	
+	private static SaverLoader instance = null;
 	
-	static public Object load(String path){
-	Object loadedObject = null;
-		try {
-			FileInputStream fileIn = new FileInputStream(path);
-			ObjectInputStream objectIn = new ObjectInputStream(fileIn);
-			loadedObject = objectIn.readObject();
-			objectIn.close();
-			
-		} catch (IOException | ClassNotFoundException ex) {
-			ex.printStackTrace();
+	private ObjectMapper mapper;
+	
+	private SaverLoader() {
+		mapper = new ObjectMapper();
+		mapper.enable(SerializationFeature.INDENT_OUTPUT);
+	}
+	
+	public static SaverLoader getInstance() {
+		if (instance == null) {
+			instance = new SaverLoader();
 		}
-	return loadedObject;
+		return instance;
 	}
 
-	static public void save(Object object, String path) {
-		if (path == null) {
-			return;
-		}
+	public void save(String savePath, Object obj) {
 		try {
-			FileOutputStream fileOut = new FileOutputStream(path);
-			ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
-			objectOut.writeObject(object);
-			objectOut.close();
-		} catch (FileNotFoundException ex) {
-			ex.printStackTrace();
-		} catch (IOException ex) {
-			ex.printStackTrace();
+			mapper.writeValue(new File(savePath), obj);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		
-		
 	}
 
-	public boolean isPath(String path) {
-		if (path.matches(".*[\n\r\t\0\f`?*<>|\"].*")) {
-			throw new IllegalArgumentException("Error: Illegal charcter used");
+	public Object load(String savePath, Class<?> cls) {
+		Object myClass = null;
+		 try {
+			myClass = mapper.readValue(new File(savePath), cls);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		if(!path.endsWith(".bin")){
-			throw new IllegalArgumentException("Error: Illegal extension, expecting .bin");
-		}
-		return true;
-	}	
+		return myClass;
+		
+	}
 	
 	
+
 }

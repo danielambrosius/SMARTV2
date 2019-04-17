@@ -10,12 +10,12 @@ import junit.framework.TestCase;
 import smrt2.Experiment;
 import smrt2.Model;
 import smrt2.Ode;
-import smrt2.SaverLoaderJSON;
+import smrt2.SaverLoader;
 
 public class SaverLoaderJSONTest extends TestCase {
 
 	public void testCreateSaverLoaderJSON() {
-		SaverLoaderJSON mySl= SaverLoaderJSON.getInstance();
+		SaverLoader mySl= SaverLoader.getInstance();
 		assertNotNull(mySl);
 	}
 	
@@ -27,7 +27,7 @@ public class SaverLoaderJSONTest extends TestCase {
 				"  \"formula\" : \"H*R\"\n" + 
 				"}";
 		Ode myOde = new Ode("F","H*R");
-		SaverLoaderJSON mySl= SaverLoaderJSON.getInstance();
+		SaverLoader mySl= SaverLoader.getInstance();
 		mySl.save(savePath, myOde);
 		try {
 			String observed = new String(Files.readAllBytes(savePath2));
@@ -40,7 +40,7 @@ public class SaverLoaderJSONTest extends TestCase {
 	public void testLoadOde() {
 		String savePath = "./data/test_Json.json";
 		Ode expectedOde = new Ode("F","H*R");
-		SaverLoaderJSON mySl= SaverLoaderJSON.getInstance();
+		SaverLoader mySl= SaverLoader.getInstance();
 		mySl.save(savePath, expectedOde);
 		
 		Ode observedOde =  (Ode) mySl.load(savePath, Ode.class);
@@ -55,7 +55,7 @@ public class SaverLoaderJSONTest extends TestCase {
 		m.addOde("H", "x + 4k2");
 		m.addOde("B", "r^2 * 5");
 		
-		SaverLoaderJSON mySl = SaverLoaderJSON.getInstance();
+		SaverLoader mySl = SaverLoader.getInstance();
 		mySl.save(savePath, m);
 		
 		Model mObserved = (Model) mySl.load(savePath, Model.class);
@@ -71,7 +71,7 @@ public class SaverLoaderJSONTest extends TestCase {
 		
 		Experiment e = new Experiment(m, "Test experiment for JSON saving");
 		
-		SaverLoaderJSON mySl = SaverLoaderJSON.getInstance();
+		SaverLoader mySl = SaverLoader.getInstance();
 		
 		mySl.save(savePath, e);
 		

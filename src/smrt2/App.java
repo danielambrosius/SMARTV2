@@ -25,13 +25,14 @@ public class App {
 	private boolean experimentSaved;
 	private String modelName;
 	private Double[][] dataFromLastRun;
+	private SaverLoader saverLoader;
 	
 	
 	public App() {
 		modelSaved = false;
 		experimentSaved = false;
 		myModel = new Model("untitled"); // App gets constructed w. a new model by default.
-		
+		saverLoader = SaverLoader.getInstance();
 	}
 
 	public void handleButtonAddOde(String state, String equation) {
@@ -63,7 +64,7 @@ public class App {
 		if (closeModel()) {
 			String filePath = FileChooser.open("Model", "model");
 			if (filePath != null) {
-				myModel = (Model) SaverLoader.load(filePath);
+				myModel = (Model) saverLoader.load(filePath, Model.class);
 				modelSaved = true;
 			}
 		}
@@ -73,7 +74,7 @@ public class App {
 		if (closeExperiment()) {
 			String filePath = FileChooser.open("Experiment", "exp");
 			if (filePath != null) {
-				myExperiment = (Experiment) SaverLoader.load(filePath);
+				myExperiment = (Experiment) saverLoader.load(filePath, Experiment.class);
 				experimentSaved = true;
 			} 
 		}
@@ -82,13 +83,13 @@ public class App {
 	public void saveModel() {
 		String filePath = FileChooser.save("Model", "model");
 		myModel.setName(filePath.split("[\\\\/]+")[filePath.split("[\\\\/]+").length-1]); 
-		SaverLoader.save(myModel, filePath);
+		saverLoader.save(filePath, myModel);
 		modelSaved = true;
 	}
 	
 	public void saveExperiment() {
 		String filePath = FileChooser.save("Experiment", "exp");
-		SaverLoader.save(myExperiment, filePath);
+		saverLoader.save(filePath, myExperiment);
 		experimentSaved = true;
 	}
 
