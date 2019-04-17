@@ -39,12 +39,13 @@ public class ModelTest extends TestCase {
 	}
 	
 	public void testDisplayOdes()  {
+
 		Model m = new Model("Name");
 		m.addOde("A", "k1");
 		m.addOde("B", "k2");
 		m.addOde("C", "**++++///BC");
 		String[][] actual = m.displayOdeList();
-		String[][] expected = {{"dA/dt", "k1"}, {"dB/dt", "k2"}, {"C", "**++++///BC (this is bold)"}}; 
+		String[][] expected = {{"dA/dt", "k1"}, {"dB/dt", "k2"}, {"dC/dt", "**++++///BC (this is bold)"}}; 
 		System.out.println(actual[2][1]);
 		System.out.println("help");
 		for (int i = 0; i < actual.length; i++) {
