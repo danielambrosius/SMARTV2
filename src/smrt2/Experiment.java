@@ -6,6 +6,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JacksonInject;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Experiment implements Serializable{
 	private String name;
 	private Model model;
@@ -18,6 +24,21 @@ public class Experiment implements Serializable{
 	public Experiment(Model m){
 		//TODO never call experiment without a name
 		this(m, "Default experiment name");
+	}
+	
+	@JsonCreator
+	public Experiment(@JsonProperty("name") String name,
+					  @JsonProperty("model") Model model,
+					  @JsonProperty("parameterValues") Double[] parameterValues,
+					  @JsonProperty("stateValues") Double[] stateValues,
+					  @JsonProperty("timeValues") Double[] timeValues) {
+		this.name = name;
+		this.model = model;
+		this.parameterValues = parameterValues;
+		this.stateInitialValues = stateValues;
+		this.tStart = timeValues[0];
+		this.tEnd = timeValues[1];
+		this.tStep = timeValues[2];
 	}
 	
 	public Experiment(Model m, String name) {
@@ -72,12 +93,20 @@ public class Experiment implements Serializable{
 				return i;
 			}
 		}
-		throw new Exception("Parameter Name not found");		
+		throw new Exception("Parameter Name not found");	
 	}
 
 	public double getParameterValue(int pos) {
 		double value = parameterValues[pos];
 		return value;
+	}
+	
+	public Double[] getParameterValues() {
+		return this.parameterValues;
+	}
+	
+	public Model getModel() {
+		return this.model;
 	}
 	
 	public void setName(String name) {
@@ -93,6 +122,7 @@ public class Experiment implements Serializable{
 		stateInitialValues[i] = value;		
 	}
 	
+	@JsonIgnore
 	public int getStatePosition(String name) throws Exception {
 		List<String> states= model.getStates();
 		for (int i = 0; i < states.size(); i++) {
@@ -107,7 +137,11 @@ public class Experiment implements Serializable{
 		double value = stateInitialValues[pos];
 		return value;
 	}
+	public Double[] getStateValues() {
+		return this.stateInitialValues;
+	}
 
+	@JsonIgnore
 	public String[] getStateNames() {
 		return (String[]) model.getStates().toArray(new String[0]);
 	}

@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 
 import junit.framework.TestCase;
+import smrt2.Experiment;
 import smrt2.Model;
 import smrt2.Ode;
 import smrt2.SaverLoaderJSON;
@@ -20,7 +22,10 @@ public class SaverLoaderJSONTest extends TestCase {
 	public void testSavingOde() {
 		String savePath = "./data/test_Json.json";
 		Path savePath2 = Paths.get("./data/test_Json.json");
-		String expected = "{\"state\":\"F\",\"formula\":\"H*R\"}";
+		String expected = "{\n" + 
+				"  \"state\" : \"F\",\n" + 
+				"  \"formula\" : \"H*R\"\n" + 
+				"}";
 		Ode myOde = new Ode("F","H*R");
 		SaverLoaderJSON mySl= SaverLoaderJSON.getInstance();
 		mySl.save(savePath, myOde);
@@ -28,7 +33,6 @@ public class SaverLoaderJSONTest extends TestCase {
 			String observed = new String(Files.readAllBytes(savePath2));
 			assertEquals(expected, observed );
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -56,6 +60,27 @@ public class SaverLoaderJSONTest extends TestCase {
 		
 		Model mObserved = (Model) mySl.load(savePath, Model.class);
 		assertTrue(m.getStates().equals(mObserved.getStates()));
+	}
+	
+	
+	public void testSaveLoadExperiment() {
+		String savePath = "./data/test_JsonExperiment.json";
+		Model m = new Model("Test JSON model");
+		m.addOde("H", "x + 4k2");
+		m.addOde("B", "r^2 * 5");
 		
+		Experiment e = new Experiment(m, "Test experiment for JSON saving");
+		
+		SaverLoaderJSON mySl = SaverLoaderJSON.getInstance();
+		
+		mySl.save(savePath, e);
+		
+		Experiment eObs = (Experiment) mySl.load(savePath, Experiment.class);
+		
+		assertTrue(Arrays.equals(e.getTimeValues(), eObs.getTimeValues()));
+		assertTrue(e.getName().equals(eObs.getName()));
+		assertTrue(Arrays.equals(e.getStateNames(), eObs.getStateNames()));
+		assertTrue(Arrays.equals(e.getParameterValues(), eObs.getParameterValues()));
+		assertTrue(Arrays.equals(e.getStateValues(), eObs.getStateValues()));
 	}
 }

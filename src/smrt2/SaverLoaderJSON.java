@@ -18,7 +18,7 @@ public class SaverLoaderJSON {
 	
 	private SaverLoaderJSON() {
 		mapper = new ObjectMapper();
-		//mapper.enable(SerializationFeature.INDENT_OUTPUT);
+		mapper.enable(SerializationFeature.INDENT_OUTPUT);
 	}
 	
 	public static SaverLoaderJSON getInstance() {
