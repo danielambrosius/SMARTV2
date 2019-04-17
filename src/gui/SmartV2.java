@@ -48,7 +48,8 @@ public class SmartV2 extends JFrame {
 	private Integer selectedTableRow;
 	private ExperimentView expGui;
 	
-	private String columnNames[] = {"State", "Equation"};
+	private String[] columnNames= {"State", "Equation"};
+	private String[] varColumnNames = {"Parameter", "Unit", "Description"};
 	private JTable tableParameters;
 	private JTable tableStates;
 
@@ -266,7 +267,8 @@ public class SmartV2 extends JFrame {
 		scrollPaneParameters.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPaneParameters.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		
-		tableParameters = new JTable();
+		TableModel tableParamModel = new DefaultTableModel(null,varColumnNames);
+		tableParameters = new JTable(tableParamModel);
 		tableParameters.setFillsViewportHeight(true);
 		scrollPaneParameters.setViewportView(tableParameters);
 		
@@ -280,7 +282,8 @@ public class SmartV2 extends JFrame {
 		scrollPane.setBounds(22, 23, 569, 347);
 		panelStates.add(scrollPane);
 		
-		tableStates = new JTable();
+		TableModel stateParamModel = new DefaultTableModel(null,varColumnNames);
+		tableStates = new JTable(stateParamModel);
 		tableStates.setFillsViewportHeight(true);
 		scrollPane.setViewportView(tableStates);
 		
@@ -290,16 +293,23 @@ public class SmartV2 extends JFrame {
 	public void updateGraphics() {
 		updateOdeTable();
 		clearTextFields();
-		updateParamStateTextFields();
+		updateParamTable();
+		updateStateTable();
 		this.setTitle("SmartV2 - "+ app.getModelName());
 
 	}
 	
-	public void updateParamStateTextFields() {
-		String parameters = app.getVariableString();
-		String states = app.getStateString();
+	public void updateStateTable() {
+		DefaultTableModel tableModel = (DefaultTableModel) tableStates.getModel();
+		tableModel.setDataVector(app.getStateNames(), varColumnNames);
+		tableStates.setModel(tableModel);
 	}
-
+	
+	public void updateParamTable() {
+		DefaultTableModel tableModel = (DefaultTableModel) tableParameters.getModel();
+		tableModel.setDataVector(app.getVariableNames(), varColumnNames);
+		tableParameters.setModel(tableModel);
+	}
 
 	public void updateOdeTable() {
 		// Updating table
@@ -307,15 +317,7 @@ public class SmartV2 extends JFrame {
 		tableModel.setDataVector(app.displayModelOdeList(), columnNames);
 		tableFormulas.setModel(tableModel);
 	}
-	
-//	public void updateParamTable() {
-//		// Updating table
-//		DefaultTableModel tableModel = (DefaultTableModel) tableVariables.getModel();
-//		tableModel.setDataVector(app.displayVariablesList(), columnNames);
-//		tableVariables.setModel(tableModel);
-//	}
 
-	
 	public void clearTextFields() {
 		StateField.setText("");
 		EquationField.setText("");

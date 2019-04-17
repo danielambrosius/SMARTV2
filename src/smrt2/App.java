@@ -153,28 +153,22 @@ public class App {
 			return true;
 		}
 	}
-	public String getStateString() {
+	public String[][] getStateNames() {
 		List<String> states = myModel.getStates();
-		String oneStateString = "";
-		for (String s :states) {
-			oneStateString += s + "\n";
+		String[][] stateArray = new String[states.size()][3];
+		for (int i = 0; i < states.size(); i++) {
+			stateArray[i] = new String[] {states.get(i), "", ""};
 		}
-		return oneStateString;
+		return stateArray;
 	}
 
-	public String getVariableString() {
-		List<String> parameters = myModel.getParameters();
-		String oneParamString = "";
-		for (String p :parameters) {
-			if (p.equals("")) {
-				continue;
-			}
-			oneParamString += p + "\n";
+	public String[][] getVariableNames() {
+		List<String> variables = myModel.getParameters();
+		String[][] varaibleArray = new String[variables.size()][3];
+		for (int i = 0; i < variables.size(); i++) {
+			varaibleArray[i] = new String[] {variables.get(i), "", ""};
 		}
-		if (oneParamString.equals("")) {
-			return "";
-		}
-		return oneParamString;
+		return varaibleArray;
 	}
 
 	public String[][] getParameterNamesValues() {
