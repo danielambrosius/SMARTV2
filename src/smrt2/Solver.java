@@ -6,17 +6,17 @@ import javax.script.ScriptException;
 
 public class Solver {
 	
-	public static Double[][] solveEulerForward(String[] odeFormulas, Double[] S0, Double[] P, double tEnd, double tStep){
-		/**
-		 * Returns the results of the provided odeFormulas simulated over the specified time frame.
-		 * odeFormulas should contain references to array P for parameters and references to S for states.
-		 * odeFormulas should be in the same order as S0, so odeFormula[i] describes S0[i].
-		 * @params odeFormulas 	array of strings that describe the ode formulas.
-		 * @params S0 			array of initial conditions, in same order as odeFormulas.
-		 * @params P 			array of parameter values.
-		 * @params tEnd 		end time of the simulation
-		 * @params tStep 		size of the time step in the simulation
-		 */
+	/**
+	 * Returns the results of the provided odeFormulas simulated over the specified time frame.
+	 * odeFormulas should contain references to array P for parameters and references to S for states.
+	 * odeFormulas should be in the same order as S0, so odeFormula[i] describes S0[i].
+	 * @params odeFormulas 	array of strings that describe the ode formulas.
+	 * @params S0 			array of initial conditions, in same order as odeFormulas.
+	 * @params P 			array of parameter values.
+	 * @params tEnd 		end time of the simulation
+	 * @params tStep 		size of the time step in the simulation
+	 */
+	public Double[][] solveEulerForward(String[] odeFormulas, Double[] S0, Double[] P, double tEnd, double tStep){
 		int nTimesteps = (int) (tEnd/tStep);
 		Double[][] S = new Double[nTimesteps+1][odeFormulas.length+1];
 
@@ -34,14 +34,14 @@ public class Solver {
 	return S;
 	}
 	
-	private static Double[] eulerForward(String[] odeFormulas ,Double[] S, Double[] P, double dt) {
-		/**
-		 * Returns the result of array S in the next point in time with time step dt.
-		 * @params odeFormulas	array of strings that describe the ode formulas.
-		 * @params S			array of the state of the system at the previous point in time S[0] should reference time
-		 * @params P			array of parameter values.
-		 * @params dt			size of the time step.
-		 */
+	/**
+	 * Returns the result of array S in the next point in time with time step dt.
+	 * @params odeFormulas	array of strings that describe the ode formulas.
+	 * @params S			array of the state of the system at the previous point in time S[0] should reference time
+	 * @params P			array of parameter values.
+	 * @params dt			size of the time step.
+	 */
+	private Double[] eulerForward(String[] odeFormulas ,Double[] S, Double[] P, double dt) {
 		//start an instance of ScriptEngineManager to create a javascipt engine.
 		ScriptEngineManager mgr = new ScriptEngineManager();
 		ScriptEngine engine = mgr.getEngineByName("JavaScript");
@@ -70,10 +70,11 @@ public class Solver {
 	return results;
 	}
 	
-	private static String arrayDoubleToString(Double[] listDouble){
-		/**
-		 * Returns a sting representation of a Double[]
-		 */
+	/**
+	 * Returns a sting representation of a Double[]
+	 */
+	private String arrayDoubleToString(Double[] listDouble){
+		
 		String resultingString = "[";
 		
 		for (int i = 0; i < listDouble.length; i++) {

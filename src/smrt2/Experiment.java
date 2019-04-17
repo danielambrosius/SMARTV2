@@ -33,23 +33,24 @@ public class Experiment implements Serializable{
 		parameterValues = new Double[m.getParameters().size()];
 		Arrays.fill(parameterValues, 1.0);
 	}
-
+	
+	/**
+	 * Returns the solution of the experiment, with time in the first column.
+	 * Uses the solver class which employs the Euler foreward method.
+	 */
 	public Double[][] run() {
-		/**
-		 * Returns the solution of the experiment, with time in the first column.
-		 * Uses the solver class which employs the Euler foreward method.
-		 */
-		return Solver.solveEulerForward(reconstructFormulas(), this.stateInitialValues, this.parameterValues, this.tEnd, this.tStep);
+		Solver s = new Solver();
+		return s.solveEulerForward(reconstructFormulas(), this.stateInitialValues, this.parameterValues, this.tEnd, this.tStep);
 	}
 
+	/**
+	 * Used to set the time frame used by the solver. 
+	 * The solver always starts at t=0, but tStart is used by the gui to display a potential subset.
+	 * @param tStart used by gui to shows the desired time frame
+	 * @param tEND determines at what time point the solver should stop
+	 * @param tStep determines the step size the solver uses
+	 */
 	public void setTimeFrame(double tStart, double tEnd, double tStep) {
-		/**
-		 * Used to set the time frame used by the solver. 
-		 * The solver always starts at t=0, but tStart is used by the gui to display a potential subset.
-		 * @param tStart used by gui to shows the desired time frame
-		 * @param tEND determines at what time point the solver should stop
-		 * @param tStep determines the step size the solver uses
-		 */
 		this.tStart = tStart;
 		this.tEnd = tEnd;
 		this.tStep = tStep;		
@@ -110,12 +111,12 @@ public class Experiment implements Serializable{
 	public String[] getStateNames() {
 		return (String[]) model.getStates().toArray(new String[0]);
 	}
-
+	
+	/**
+	 * Returns a String[] containing user specified formulas in solver compatible syntax.
+	 * Parameters and states are replaced by references to arrays that will store the data.
+	 */
 	public String[] reconstructFormulas() {
-		/**
-		 * Returns a String[] containing user specified formulas in solver compatible syntax.
-		 * Parameters and states are replaced by references to arrays that will store the data.
-		 */
 		int nStates = model.getStates().size(); //number of states
 		//create a list to store the results
 		//each state has a corresponding formula so they have the same length
@@ -161,12 +162,12 @@ public class Experiment implements Serializable{
 	return reconstuctedFormulaList;	
 	}
 
+	/**
+	 * Returns a HashMap that links a parameter name to a reference of an index in array P.
+	 * Array P will hold user specified parameter values.
+	 * This method is used by the reconstructFormula method.
+	 */
 	private Map<String, String> buildParamDict() {
-		/**
-		 * Returns a HashMap that links a parameter name to a reference of an index in array P.
-		 * Array P will hold user specified parameter values.
-		 * This method is used by the reconstructFormula method.
-		 */
 		Map<String,String> paramDict = new HashMap<String,String>();
 		List<String> params = model.getParameters();
 		for (int i = 0; i < params.size();i++) {
@@ -176,12 +177,12 @@ public class Experiment implements Serializable{
 		return paramDict;
 	}
 
+	/**
+	 * Returns a HashMap that links a state name to a reference of an index in array S.
+	 * Array S contains the solutions of the model at the previous step in time.
+	 * This method is used by the reconstructFormula method.
+	 */
 	private Map<String, String> buildStatesDict(){
-		/**
-		 * Returns a HashMap that links a state name to a reference of an index in array S.
-		 * Array S contains the solutions of the model at the previous step in time.
-		 * This method is used by the reconstructFormula method.
-		 */
 		Map<String, String> statesDict = new HashMap<String, String>();
 		List<String> states = model.getStates();
 		for (int i = 0; i < states.size();i++) {

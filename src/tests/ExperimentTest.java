@@ -82,10 +82,10 @@ public class ExperimentTest extends TestCase {
 		
 		for (int i = 0; i < actual.length; i++) {
 			for (int j = 0; j < actual[i].length; j++) {
-				System.out.printf("%5s = %5s | ", expected[i][j], actual[i][j]);
+//				System.out.printf("%5s = %5s | ", expected[i][j], actual[i][j]);
 				assertEquals(expected[i][j], actual[i][j]);
 			}
-		System.out.println();
+//		System.out.println();
 		}
 	}
 }
