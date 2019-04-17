@@ -58,4 +58,16 @@ public class testODE extends TestCase {
 		assertEquals(Arrays.toString(expectedListOperators), 
 				Arrays.toString(actualOperators));
 	}
+	
+	public void testTestFormula() {
+		equation = "-A*B-(C*D)";
+		Ode myOde = new Ode(state, equation);
+		boolean isValid = myOde.testFormula(equation);
+		assertTrue(isValid);
+		String equation2 = "-R--*"; 
+		Ode myOde2 = new Ode(state, equation2);
+		boolean isValid2 = myOde2.testFormula(equation2);
+		assertFalse(isValid2);
+	}
+
 }
