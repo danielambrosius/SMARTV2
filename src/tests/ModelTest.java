@@ -42,8 +42,11 @@ public class ModelTest extends TestCase {
 		Model m = new Model("Name");
 		m.addOde("A", "k1");
 		m.addOde("B", "k2");
+		m.addOde("C", "**++++///BC");
 		String[][] actual = m.displayOdeList();
-		String[][] expected = {{"dA/dt", "k1"}, {"dB/dt", "k2"}}; 
+		String[][] expected = {{"dA/dt", "k1"}, {"dB/dt", "k2"}, {"C", "**++++///BC (this is bold)"}}; 
+		System.out.println(actual[2][1]);
+		System.out.println("help");
 		for (int i = 0; i < actual.length; i++) {
 			for (int j = 0; j < actual[i].length; j++) {
 				assertEquals(expected[i][j], actual[i][j]);

@@ -19,6 +19,7 @@ public class Ode implements Serializable{
 	private String state;
 	private String[] variables;
 	private String[] operators;
+
 	
 	// create constructor
 	@JsonCreator
@@ -32,7 +33,10 @@ public class Ode implements Serializable{
 			this.variables = parser.getVariables();
 			this.operators = parser.getOperators();
 		}
+		
 	}
+
+
 	
 	// Getters and setters for variables
 	public String getState() {
@@ -71,7 +75,7 @@ public class Ode implements Serializable{
 		return odeArray;
 	}
 	
-	public boolean testFormula(String formula) {
+	public boolean testFormula() {
 		String reconstructedFormula ="";
 		if (variables.length > 0 && variables[0].isEmpty()){
 			// the list that contains the empty string could be larger so index on the length of the other list 

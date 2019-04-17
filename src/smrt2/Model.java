@@ -44,11 +44,12 @@ public class Model implements Serializable {
 	}
 	
 	public void addOde(String state, String formula) {
-		try {
-			Ode odeToAdd = new Ode(state, formula);
-			odeList.add(odeToAdd);
-		} catch (Exception e) {
-		}
+		
+		Ode odeToAdd = new Ode(state, formula);
+		odeList.add(odeToAdd);
+		
+		 
+		
 	}
 
 	public List<Ode> getOdeList() {
@@ -63,7 +64,12 @@ public class Model implements Serializable {
 		for (int i = 0; i < odeList.size(); i++) {
 			Ode currentOde = odeList.get(i);
 			displayOdeList[i][0] = "d" + currentOde.getState() + "/dt";
-			displayOdeList[i][1] = currentOde.getFormula();
+			
+			if(currentOde.testFormula()) {
+				displayOdeList[i][1] = currentOde.getFormula();
+			}else {
+				displayOdeList[i][1] = currentOde.getFormula()+" (this is bold)";
+			}
 		}
 			
 		return displayOdeList;
