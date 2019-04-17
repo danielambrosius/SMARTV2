@@ -35,19 +35,22 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.lang.annotation.Target;
 import javax.swing.JTextArea;
+import javax.swing.JScrollPane;
+import java.awt.ScrollPane;
+import javax.swing.ScrollPaneConstants;
 
 public class SmartV2 extends JFrame {
 	private JTextField StateField;
 	private JTextField EquationField;
 	private JTable tableFormulas;
-	private JTextArea txtParameterDisplay;
-	private JTextArea txtStateDisplay;
 	private JButton btnAdd;
 	private App app = new App(); //TODO: Why does this not work in the constructor??
 	private Integer selectedTableRow;
 	private ExperimentView expGui;
 	
 	private String columnNames[] = {"State", "Equation"};
+	private JTable tableParameters;
+	private JTable tableStates;
 
 	/**
 	 * Launch the application.
@@ -264,29 +267,29 @@ public class SmartV2 extends JFrame {
 		tabbedPane.addTab("Parameters", null, panelParameters, null);
 		panelParameters.setLayout(null);
 		
-		JPanel panel_2 = new JPanel();
-		panel_2.setBackground(Color.WHITE);
-		panel_2.setBounds(0, 0, 602, 370);
-		panelParameters.add(panel_2);
-		panel_2.setLayout(null);
+		JScrollPane scrollPaneParameters = new JScrollPane();
+		scrollPaneParameters.setBounds(22, 23, 569, 347);
+		panelParameters.add(scrollPaneParameters);
+		scrollPaneParameters.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPaneParameters.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		
-		JLabel lblParameter = new JLabel("Parameter");
-		lblParameter.setBounds(33, 13, 85, 16);
-		panel_2.add(lblParameter);
+		tableParameters = new JTable();
+		tableParameters.setFillsViewportHeight(true);
+		scrollPaneParameters.setViewportView(tableParameters);
 		
-		JLabel lblStates = new JLabel("States");
-		lblStates.setBounds(327, 13, 56, 16);
-		panel_2.add(lblStates);
+		JPanel panelStates = new JPanel();
+		panelStates.setLayout(null);
+		tabbedPane.addTab("States", null, panelStates, null);
 		
-		txtParameterDisplay = new JTextArea();
-		txtParameterDisplay.setEditable(false);
-		txtParameterDisplay.setBounds(33, 42, 184, 315);
-		panel_2.add(txtParameterDisplay);
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setBounds(22, 23, 569, 347);
+		panelStates.add(scrollPane);
 		
-		txtStateDisplay = new JTextArea();
-		txtStateDisplay.setEditable(false);
-		txtStateDisplay.setBounds(323, 42, 184, 315);
-		panel_2.add(txtStateDisplay);
+		tableStates = new JTable();
+		tableStates.setFillsViewportHeight(true);
+		scrollPane.setViewportView(tableStates);
 		
 		updateGraphics(); // Makes the graphics nice
 	}
@@ -302,8 +305,6 @@ public class SmartV2 extends JFrame {
 	public void updateParamStateTextFields() {
 		String parameters = app.getVariableString();
 		String states = app.getStateString();
-		txtParameterDisplay.setText(parameters);
-		txtStateDisplay.setText(states);
 	}
 
 
