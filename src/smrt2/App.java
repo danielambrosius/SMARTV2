@@ -70,6 +70,7 @@ public class App {
 	public void openExperiment(String filePath) {
 		if (closeExperiment() && filePath != null){
 				myExperiment = (Experiment) saverLoader.load(filePath, Experiment.class);
+				this.myModel = this.myExperiment.getModel();
 				experimentSaved = true;
 		}
 	}
