@@ -60,35 +60,27 @@ public class App {
 		return myVariables;
 	}
 
-	public void openModel() {
-		if (closeModel()) {
-			String filePath = FileChooser.open("Model", "model");
-			if (filePath != null) {
+	public void openModel(String filePath) {
+		if (closeModel() && filePath != null) {
 				myModel = (Model) saverLoader.load(filePath, Model.class);
 				modelSaved = true;
-			}
 		}
 	}
 	
-	public void openExperiment() {
-		if (closeExperiment()) {
-			String filePath = FileChooser.open("Experiment", "exp");
-			if (filePath != null) {
+	public void openExperiment(String filePath) {
+		if (closeExperiment() && filePath != null){
 				myExperiment = (Experiment) saverLoader.load(filePath, Experiment.class);
 				experimentSaved = true;
-			} 
 		}
 	}
 
-	public void saveModel() {
-		String filePath = FileChooser.save("Model", "model");
+	public void saveModel(String filePath) {
 		myModel.setName(filePath.split("[\\\\/]+")[filePath.split("[\\\\/]+").length-1]); 
 		saverLoader.save(filePath, myModel);
 		modelSaved = true;
 	}
 	
-	public void saveExperiment() {
-		String filePath = FileChooser.save("Experiment", "exp");
+	public void saveExperiment(String filePath) {
 		saverLoader.save(filePath, myExperiment);
 		experimentSaved = true;
 	}
