@@ -14,6 +14,7 @@ public class Model implements Serializable {
 	
 	private String name;
 	private List<Ode> odeList;
+	private boolean areOdesValid;
 	
 	
 	//Constructor for anonymous instance.
@@ -25,15 +26,21 @@ public class Model implements Serializable {
 	public Model(String name) {
 		this.name = name;
 		odeList = new ArrayList<Ode>();	
+		this.areOdesValid = true;
 	}
 	
 	@JsonCreator
 	public Model (@JsonProperty("name") String name,
-				  @JsonProperty("odeList") List<Ode> odeList) {
+				  @JsonProperty("odeList") List<Ode> odeList,
+				  @JsonProperty("areOdesValid") boolean areOdesValid) {
 		this.name = name;
 		this.odeList = odeList;
+		this.areOdesValid = areOdesValid;
 	}
 	
+	public boolean getAreOdesValid() {
+		return this.areOdesValid;
+	}
 	
 	public String getName() {
 		return this.name;
@@ -44,12 +51,8 @@ public class Model implements Serializable {
 	}
 	
 	public void addOde(String state, String formula) {
-		
 		Ode odeToAdd = new Ode(state, formula);
 		odeList.add(odeToAdd);
-		
-		 
-		
 	}
 
 	public List<Ode> getOdeList() {
@@ -60,18 +63,18 @@ public class Model implements Serializable {
 	public String[][] displayOdeList() {
 		int nrOdes = odeList.size();
 		String[][] displayOdeList = new String[nrOdes][2];
-		
+		boolean allCorrect = true;
 		for (int i = 0; i < odeList.size(); i++) {
 			Ode currentOde = odeList.get(i);
 			displayOdeList[i][0] = "d" + currentOde.getState() + "/dt";
-			
 			if(currentOde.testFormula()) {
 				displayOdeList[i][1] = currentOde.getFormula();
 			}else {
-				displayOdeList[i][1] = currentOde.getFormula()+" (this is bold)";
+				displayOdeList[i][1] = currentOde.getFormula()+" (Incorrect syntax)";
+				allCorrect = false;
 			}
 		}
-			
+		this.areOdesValid = allCorrect;
 		return displayOdeList;
 	}
 
