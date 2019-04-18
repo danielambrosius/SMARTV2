@@ -207,7 +207,18 @@ public class App {
 		return stateNamesValues;
 	}
 
+	public boolean checkIfDouble(String value) {
+		try {
+			Double.parseDouble(value);
+			return true;
+		}
+		catch(NumberFormatException e) {
+			return false;
+		}
+	}
+
 	public void setValues(ArrayList stateList, ArrayList paramList, String timeStep, String timeStart, String timeEnd) {
+		Map<String,String> incorrectValues = new HashMap<String,String>();
 		for (int i = 0; i < stateList.size(); i++) {
 			myExperiment.setStateValue(i, Double.parseDouble((String) stateList.get(i)));
 		}

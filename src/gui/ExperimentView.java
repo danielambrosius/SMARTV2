@@ -24,6 +24,7 @@ import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 
@@ -144,17 +145,36 @@ public class ExperimentView extends JFrame {
 		if (parameterTable.getCellEditor() != null) {
 			parameterTable.getCellEditor().stopCellEditing();
 		}
-		ArrayList stateList = new ArrayList();
-		ArrayList paramList = new ArrayList();
+		ArrayList<String> stateList = new ArrayList<String>();
+		ArrayList<String> paramList = new ArrayList<String>();
+		
 		for(int i = 0; i < stateTable.getModel().getRowCount();i++){
-			stateList.add(stateTable.getModel().getValueAt(i,1)); //get the all row values at column index 0
+			if (myApp.checkIfDouble((String) stateTable.getModel().getValueAt(i,1))) {
+				stateList.add((String) stateTable.getModel().getValueAt(i,1)); //get the all row values at column index 0
+			} else {
+				stateList.add(myApp.getStateNamesValues()[i][1]);
+			}
 		}
 		for(int i = 0; i < parameterTable.getModel().getRowCount();i++){
-			paramList.add(parameterTable.getModel().getValueAt(i,1)); //get the all row values at column index 0
-		}
+			if (myApp.checkIfDouble((String) parameterTable.getModel().getValueAt(i,1))) {
+				paramList.add((String) parameterTable.getModel().getValueAt(i,1)); //get the all row values at column index 0
+			} else {
+				paramList.add(myApp.getParameterNamesValues()[i][1]);
+			}
+		}	
+		
 		String timeStep = textTimeStep.getText();
 		String timeStart = textTimeStart.getText();
 		String timeEnd = textTimeEnd.getText();
+		if (myApp.checkIfDouble(timeStep) == false) {
+			timeStep = Double.toString(myApp.getTimeValues()[2]);
+		}
+		if (myApp.checkIfDouble(timeStart) == false) {
+			timeStep = Double.toString(myApp.getTimeValues()[0]);
+		}
+		if (myApp.checkIfDouble(timeEnd) == false) {
+			timeStep = Double.toString(myApp.getTimeValues()[1]);
+		}
 		myApp.setValues(stateList,paramList, timeStep, timeStart, timeEnd);
 		updateGraphics();
 	}
