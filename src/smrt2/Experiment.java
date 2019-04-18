@@ -20,9 +20,9 @@ public class Experiment implements Serializable{
 	private double tStart;
 	private double tEnd;
 	private double tStep;
+	private SmartTableModel tableModel;
 	
 	public Experiment(Model m){
-		//TODO never call experiment without a name
 		this(m, "Default experiment name");
 	}
 	
@@ -32,8 +32,7 @@ public class Experiment implements Serializable{
 					  @JsonProperty("parameterValues") Double[] parameterValues,
 					  @JsonProperty("stateValues") Double[] stateValues,
 					  @JsonProperty("timeValues") Double[] timeValues) {
-		this.name = name;
-		this.model = model;
+		this(model, name);
 		this.parameterValues = parameterValues;
 		this.stateInitialValues = stateValues;
 		this.tStart = timeValues[0];
@@ -53,15 +52,20 @@ public class Experiment implements Serializable{
 		//Create an array to store the parameter values, with default values
 		parameterValues = new Double[m.getParameters().size()];
 		Arrays.fill(parameterValues, 1.0);
+		
+		//Instantiate the table model
+		tableModel = new SmartTableModel(m.getStates());
 	}
 	
 	/**
 	 * Returns the solution of the experiment, with time in the first column.
 	 * Uses the solver class which employs the Euler foreward method.
 	 */
-	public Double[][] run() {
-		Solver s = new Solver();
-		return s.solveEulerForward(reconstructFormulas(), this.stateInitialValues, this.parameterValues, this.tEnd, this.tStep, this.tStart);
+
+	public void run() {
+		Solver mySolver = new Solver();
+		mySolver.solveEulerForward(tableModel, reconstructFormulas(), this.stateInitialValues, this.parameterValues, 
+				this.tStart, this.tEnd, this.tStep);
 	}
 
 	/**
@@ -224,5 +228,9 @@ public class Experiment implements Serializable{
 			statesDict.put(states.get(i), value);
 		}
 	return statesDict;
+	}
+
+	public SmartTableModel getTableModel() {
+		return tableModel;
 	}
 }

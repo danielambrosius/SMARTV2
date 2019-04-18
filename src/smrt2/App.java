@@ -234,16 +234,8 @@ public class App {
 
 	public void runExperiment() {
 		// TODO Check if experiment exists. If it doesn't, display error message.
-		dataFromLastRun = myExperiment.run();
-		
-		String[] stateNames = myExperiment.getStateNames();
-		String[] headers = new String[dataFromLastRun[0].length];
-		headers[0] = "time";
-		for (int i = 1; i < headers.length; i++) {
-			headers[i] = stateNames[i-1];
-		} // TODO: fix, so that these are actually the state names
 				
-		TableViewer table = new TableViewer(dataFromLastRun, headers);
+		TableViewer table = new TableViewer(myExperiment.getTableModel());
 	}
 
 	public double[] getTimeValues() {

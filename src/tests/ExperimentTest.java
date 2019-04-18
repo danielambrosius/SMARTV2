@@ -5,6 +5,7 @@ import java.util.Arrays;
 import junit.framework.TestCase;
 import smrt2.Experiment;
 import smrt2.Model;
+import smrt2.SmartTableModel;
 
 public class ExperimentTest extends TestCase {
 	private Model m;
@@ -78,12 +79,13 @@ public class ExperimentTest extends TestCase {
 		
 		Double[][] expected = {{0.0, 0.0, 0.0}, {1.0, 1.0, 0.0}, {2.0, 2.0, 2.0}, {3.0, 3.0, 6.0}, {4.0, 4.0, 12.0}, {5.0, 5.0, 20.0}, {6.0, 6.0, 30.0},
 				{7.0, 7.0, 42.0}, {8.0, 8.0, 56.0}, {9.0, 9.0, 72.0}, {10.0, 10.0, 90.0}};
-		Double[][] actual = ex.run();
+		ex.run();
+		SmartTableModel actual = ex.getTableModel();
 		
-		for (int i = 0; i < actual.length; i++) {
-			for (int j = 0; j < actual[i].length; j++) {
+		for (int i = 0; i < actual.getRowCount(); i++) {
+			for (int j = 0; j < actual.getColumnCount(); j++) {
 //				System.out.printf("%5s = %5s | ", expected[i][j], actual[i][j]);
-				assertEquals(expected[i][j], actual[i][j]);
+				assertEquals(expected[i][j], actual.getValueAt(i, j));
 			}
 //		System.out.println();
 		}

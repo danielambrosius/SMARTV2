@@ -11,7 +11,7 @@ import javafx.scene.Scene;
 
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-
+import smrt2.SmartTableModel;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
@@ -20,21 +20,29 @@ import javafx.scene.chart.XYChart;
 
 public class GraphBuilder{
 	
-	private Double[][] data;
-	private int xNumber;
+	private Double[] time;
+	private Double[] data;
 	private String title;
 	
-	public GraphBuilder(int xNumber, Double[][] inputData, String title) {
-		this.data = inputData;
-		this.xNumber = xNumber;
-		this.title = title;
+	public GraphBuilder(Double[] time, Double[] data, String colName) {
+		this.title = colName;
+		this.data = data;
+		this.time = time;
 	}
+	
+//	public GraphBuilder(int xNumber, Double[][] inputData, String title) {
+//		this.data = inputData;
+//		this.xNumber = xNumber;
+//		this.title = title;
+//	}
+
+	
 
 
-public static XYChart.Series<Number, Number> ArraysToSeries(int xNumber, Double[][] inputdata){
+public static XYChart.Series<Number, Number> ArraysToSeries(Double[] time, Double[] data){
 	XYChart.Series<Number, Number> chartdata = new XYChart.Series<Number, Number>();
-	for (int i=0; i < inputdata.length; i++) {
-		chartdata.getData().add(new XYChart.Data<Number, Number>(inputdata[i][0], inputdata[i][xNumber]));
+	for (int i=0; i < data.length; i++) {
+		chartdata.getData().add(new XYChart.Data<Number, Number>(time[i], data[i]));
 	}
 	return chartdata;
 }
@@ -46,7 +54,7 @@ public LineChart<Number, Number> start() {
     final LineChart<Number, Number> lineChart = new LineChart<Number, Number>(xAxis, yAxis);
     //int xNumber = 1;
     lineChart.setTitle("Test");
-    XYChart.Series<Number, Number> seriesData = ArraysToSeries(xNumber, data);
+    XYChart.Series<Number, Number> seriesData = ArraysToSeries(time, data);
     seriesData.setName(title);
     
     lineChart.getData().add(seriesData);

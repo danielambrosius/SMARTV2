@@ -5,6 +5,7 @@ import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.layout.StackPane;
+import smrt2.SmartTableModel;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -51,7 +52,7 @@ public class TableViewer extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TableViewer(Object[][] dataToDisplay, Object[] header) {
+	public TableViewer(SmartTableModel tableModel) {
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		
@@ -72,10 +73,7 @@ public class TableViewer extends JFrame {
 		contentPane.add(tabbedPane);
 		
 		table = new JTable();
-		DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
-		tableModel.setDataVector(dataToDisplay, header);
-		table.setModel(tableModel);		
-		
+		table.setModel(tableModel);
 		JScrollPane tablePane = new JScrollPane(table);
 		tabbedPane.addTab("Table", null, tablePane, null);
 
@@ -83,11 +81,11 @@ public class TableViewer extends JFrame {
 
 		
 		
-		for (int i = 1; i < header.length; i++) {
+		for (int i = 1; i < tableModel.getColumnCount(); i++) {
 			JFXPanel graphPane = new JFXPanel();
-			tabbedPane.addTab(header[i].toString(), null, graphPane, null);
+			tabbedPane.addTab(tableModel.getColumnName(i), null, graphPane, null);
 			StackPane pane = new StackPane();
-			GraphBuilder GB = new GraphBuilder(i, (Double[][]) dataToDisplay, header[i].toString());
+			GraphBuilder GB = new GraphBuilder(tableModel.getColumnAt(0), tableModel.getColumnAt(i), tableModel.getColumnName(i));
 			LineChart<Number, Number> lineChart = GB.start();
 				    
 		    pane.getChildren().add(lineChart);
