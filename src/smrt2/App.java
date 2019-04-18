@@ -35,14 +35,16 @@ public class App {
 		saverLoader = SaverLoader.getInstance();
 	}
 
-	public void handleButtonAddOde(String state, String equation) {
+	public boolean handleButtonAddOde(String state, String equation) {
 		// Tests if fields are empty before adding to model and updating table.
 		state = state.replace(" ", "");
 		equation = equation.replace(" ", "");
+		boolean isAdded = false;
 		if (!state.isEmpty() && !equation.isEmpty()) {
-			myModel.addOde(state, equation);
+			isAdded = myModel.addOde(state, equation);
 			modelSaved = false;
 		}
+		return isAdded;
 	}
 
 	public String[][] displayModelOdeList() {

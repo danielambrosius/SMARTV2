@@ -54,9 +54,14 @@ public class Model implements Serializable {
 		this.name = name;	
 	}
 	
-	public void addOde(String state, String formula) {
+	public boolean addOde(String state, String formula) {
 		Ode odeToAdd = new Ode(state, formula);
+		if (!this.getStates().contains(state)){
 		odeList.add(odeToAdd);
+		return true;
+		}
+		return false;
+		
 	}
 
 	public List<Ode> getOdeList() {

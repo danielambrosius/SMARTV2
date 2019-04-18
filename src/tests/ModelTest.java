@@ -103,7 +103,14 @@ public class ModelTest extends TestCase {
 		assertEquals(expected, actual);
 	}
 	
-	
+public void testDuplicateStates() {
+	Model m = new Model("Name");
+	m.addOde("A", "k1*((A+B)+k1)");
+	m.addOde("A", "e");
+	List<String> actual = m.getStates();
+	System.out.println(actual.toString());
+	assertEquals(actual.toString(), "[A]");
+}
 	
 //public void testBuildParamDict() {
 //Model m = new Model("Name");

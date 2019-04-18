@@ -216,7 +216,10 @@ public class SmartV2 extends JFrame {
 				String state = StateField.getText();
 				String equation = EquationField.getText();
 				lblEditMode.setText("");
-				app.handleButtonAddOde(state, equation);
+				boolean isAdded = app.handleButtonAddOde(state, equation);
+				if (!isAdded){
+					JOptionPane.showConfirmDialog(null,"State is not added","Warning", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+				}
 				btnAdd.setText("Add");
 				updateGraphics();
 			}
