@@ -102,9 +102,15 @@ public class Model implements Serializable {
 			}
 	
 		}
-		for(String param : unboundParameters) {
-			params.add(param);
+		for (int i = 0; i < unboundParameters.toArray().length; i++) {
+			if(!params.contains(unboundParameters.get(i)) && !states.contains(unboundParameters.get(i))) {
+				params.add(unboundParameters.get(i));
+			}else {
+				unboundParameters.remove(unboundParameters.get(i));
+
+			}
 		}
+
 		return params;
 	}
 	

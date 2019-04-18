@@ -164,13 +164,13 @@ public class App {
 		return stateArray;
 	}
 
-	public String[][] getVariableNames() {
-		List<String> variables = myModel.getParameters();
-		String[][] varaibleArray = new String[variables.size()][3];
-		for (int i = 0; i < variables.size(); i++) {
-			varaibleArray[i] = new String[] {variables.get(i), "", ""};
+	public String[][] getParameterNames() {
+		List<String> parameter = myModel.getParameters();
+		String[][] parameterArray = new String[parameter.size()][3];
+		for (int i = 0; i < parameter.size(); i++) {
+			parameterArray[i] = new String[] {parameter.get(i), "", ""};
 		}
-		return varaibleArray;
+		return parameterArray;
 	}
 
 	public String[][] getParameterNamesValues() {

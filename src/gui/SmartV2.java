@@ -323,7 +323,7 @@ public class SmartV2 extends JFrame {
 	
 	public void updateParamTable() {
 		DefaultTableModel tableModel = (DefaultTableModel) tableParameters.getModel();
-		tableModel.setDataVector(app.getVariableNames(), varColumnNames);
+		tableModel.setDataVector(app.getParameterNames(), varColumnNames);
 		tableParameters.setModel(tableModel);
 	}
 
