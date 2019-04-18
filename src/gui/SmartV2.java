@@ -277,6 +277,7 @@ public class SmartV2 extends JFrame {
 				if(isAdded == 2) {
 					JOptionPane.showConfirmDialog(null,"Parameter already a State","Warning", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 				}
+				textFieldParameter.setText("");
 				updateGraphics();
 			}
 		});
