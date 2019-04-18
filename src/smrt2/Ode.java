@@ -29,9 +29,9 @@ public class Ode implements Serializable{
 		this.state = state;
 		
 		if (this.formula != null) {
-			EquationParser2 parser = new EquationParser2(this.formula);
-			this.variables = parser.getVariables();
-			this.operators = parser.getOperators();
+			EquationParser2 parser = new EquationParser2();
+			this.variables = parser.getVariables(formula);
+			this.operators = parser.getOperators(formula);
 		}
 		
 	}
