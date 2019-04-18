@@ -19,25 +19,7 @@ public class SaverLoaderJSONTest extends TestCase {
 		assertNotNull(mySl);
 	}
 	
-//	public void testSavingOde() {
-//		String savePath = "./data/test_Json.json";
-//		Path savePath2 = Paths.get("./data/test_Json.json");
-//		String expected = "{\n" + 
-//				"  \"state\" : \"F\",\n" + 
-//				"  \"formula\" : \"H*R\"\n" + 
-//				"}";
-//		Ode myOde = new Ode("F","H*R");
-//		SaverLoader mySl= SaverLoader.getInstance();
-//		mySl.save(savePath, myOde);
-//		try {
-//			String observed = new String(Files.readAllBytes(savePath2));
-//			assertEquals(expected, observed);
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//	}
-	
-	public void testLoadOde() {
+	public void testSaveLoadOde() {
 		String savePath = "./data/test_Json.json";
 		Ode expectedOde = new Ode("F","H*R");
 		SaverLoader mySl= SaverLoader.getInstance();
@@ -45,8 +27,7 @@ public class SaverLoaderJSONTest extends TestCase {
 		
 		Ode observedOde =  (Ode) mySl.load(savePath, Ode.class);
 		assertEquals(expectedOde.getState(), observedOde.getState());
-		assertEquals(expectedOde.getFormula(), observedOde.getFormula());
-		
+		assertEquals(expectedOde.getFormula(), observedOde.getFormula());		
 	}
 	
 	public void testSaveLoadModel() {
