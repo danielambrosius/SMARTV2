@@ -10,6 +10,7 @@ import java.awt.GridLayout;
 import java.awt.FlowLayout;
 import javax.swing.JTable;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.LineBorder;
@@ -31,9 +32,7 @@ import javax.swing.JTextField;
 public class ExperimentView extends JFrame {
 
 	private JPanel contentPane;
-	private JScrollPane scrollPaneParameters;
 	private JTable parameterTable;
-	private JScrollPane scrollPaneStates;
 	private JTable stateTable;
 	private final String[] parameterColumnNames = {"Parameter","value"};
 	private final String[] stateColumnNames = {"State","value"};
@@ -65,7 +64,7 @@ public class ExperimentView extends JFrame {
 		lblStates.setBounds(22, 178, 56, 16);
 		contentPane.add(lblStates);
 		
-		scrollPaneParameters = new JScrollPane();
+		JScrollPane scrollPaneParameters = new JScrollPane();
 		scrollPaneParameters.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPaneParameters.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPaneParameters.setBounds(32, 35, 430, 132);
@@ -80,7 +79,7 @@ public class ExperimentView extends JFrame {
 		parameterTable.setBorder(new LineBorder(new Color(0, 0, 0)));
 		scrollPaneParameters.setViewportView(parameterTable);
 		
-		scrollPaneStates = new JScrollPane();
+		JScrollPane scrollPaneStates = new JScrollPane();
 		scrollPaneStates.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPaneStates.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPaneStates.setBounds(32, 207, 430, 132);
@@ -139,6 +138,7 @@ public class ExperimentView extends JFrame {
 	}
 	
 	public void safeEdit() {
+		String errorMessage = "";
 		if (stateTable.getCellEditor() != null) {
 			stateTable.getCellEditor().stopCellEditing();
 		}
@@ -153,6 +153,7 @@ public class ExperimentView extends JFrame {
 				stateList.add((String) stateTable.getModel().getValueAt(i,1)); //get the all row values at column index 0
 			} else {
 				stateList.add(myApp.getStateNamesValues()[i][1]);
+				errorMessage += String.format("%s: %s\n",myApp.getStateNamesValues()[i][0], (String) stateTable.getModel().getValueAt(i,1));
 			}
 		}
 		for(int i = 0; i < parameterTable.getModel().getRowCount();i++){
@@ -160,22 +161,28 @@ public class ExperimentView extends JFrame {
 				paramList.add((String) parameterTable.getModel().getValueAt(i,1)); //get the all row values at column index 0
 			} else {
 				paramList.add(myApp.getParameterNamesValues()[i][1]);
+				errorMessage += String.format("%s: %s\n",myApp.getParameterNamesValues()[i][0], (String) parameterTable.getModel().getValueAt(i,1));
 			}
 		}	
-		
 		String timeStep = textTimeStep.getText();
 		String timeStart = textTimeStart.getText();
 		String timeEnd = textTimeEnd.getText();
 		if (myApp.checkIfDouble(timeStep) == false) {
+			errorMessage += "timeStep: " + timeStep+ "\n";
 			timeStep = Double.toString(myApp.getTimeValues()[2]);
 		}
 		if (myApp.checkIfDouble(timeStart) == false) {
-			timeStep = Double.toString(myApp.getTimeValues()[0]);
+			errorMessage += "timeStart: " + timeStart +"\n";
+			timeStart = Double.toString(myApp.getTimeValues()[0]);
 		}
 		if (myApp.checkIfDouble(timeEnd) == false) {
-			timeStep = Double.toString(myApp.getTimeValues()[1]);
+			errorMessage += "timeEnd: " + timeEnd + "\n";
+			timeEnd = Double.toString(myApp.getTimeValues()[1]);
 		}
 		myApp.setValues(stateList,paramList, timeStep, timeStart, timeEnd);
+		if (!errorMessage.isEmpty()){
+			JOptionPane.showConfirmDialog(null,"TypeError for:\n" + errorMessage,"ValueError!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+		}
 		updateGraphics();
 	}
 	
