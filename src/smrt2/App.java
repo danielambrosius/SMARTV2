@@ -238,5 +238,10 @@ public class App {
 		return timeValues;
 	}
 
+	public int handleButtonAddParameter(String parameter) {
+		int isAdded = myModel.addParameter(parameter);
+		return isAdded;
+	}
+
 }
 

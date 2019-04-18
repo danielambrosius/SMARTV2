@@ -40,6 +40,7 @@ public class SmartV2 extends JFrame {
 	private String[] varColumnNames = {"Parameter", "Unit", "Description"};
 	private JTable tableParameters;
 	private JTable tableStates;
+	private JTextField textFieldParameter;
 
 	/**
 	 * Launch the application.
@@ -255,7 +256,7 @@ public class SmartV2 extends JFrame {
 		panelParameters.setLayout(null);
 		
 		JScrollPane scrollPaneParameters = new JScrollPane();
-		scrollPaneParameters.setBounds(22, 23, 569, 347);
+		scrollPaneParameters.setBounds(22, 23, 484, 347);
 		panelParameters.add(scrollPaneParameters);
 		scrollPaneParameters.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPaneParameters.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -264,6 +265,28 @@ public class SmartV2 extends JFrame {
 		tableParameters = new JTable(tableParamModel);
 		tableParameters.setFillsViewportHeight(true);
 		scrollPaneParameters.setViewportView(tableParameters);
+		
+		JButton btnAddParameter = new JButton("Add");
+		btnAddParameter.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String parameter = textFieldParameter.getText();
+				int isAdded = app.handleButtonAddParameter(parameter);
+				if(isAdded == 1) {
+					JOptionPane.showConfirmDialog(null,"Parameter already exists","Warning", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+				}
+				if(isAdded == 2) {
+					JOptionPane.showConfirmDialog(null,"Parameter already a State","Warning", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+				}
+				updateGraphics();
+			}
+		});
+		btnAddParameter.setBounds(518, 64, 84, 25);
+		panelParameters.add(btnAddParameter);
+		
+		textFieldParameter = new JTextField();
+		textFieldParameter.setBounds(518, 38, 84, 22);
+		panelParameters.add(textFieldParameter);
+		textFieldParameter.setColumns(10);
 		
 		JPanel panelStates = new JPanel();
 		panelStates.setLayout(null);

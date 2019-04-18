@@ -15,6 +15,7 @@ public class Model implements Serializable {
 	private String name;
 	private List<Ode> odeList;
 	private boolean areOdesValid;
+	private List<String> unboundParameters;
 	
 	
 	//Constructor for anonymous instance.
@@ -27,15 +28,18 @@ public class Model implements Serializable {
 		this.name = name;
 		odeList = new ArrayList<Ode>();	
 		this.areOdesValid = true;
+		this.unboundParameters = new ArrayList<String>();
 	}
 	
 	@JsonCreator
 	public Model (@JsonProperty("name") String name,
 				  @JsonProperty("odeList") List<Ode> odeList,
-				  @JsonProperty("areOdesValid") boolean areOdesValid) {
+				  @JsonProperty("areOdesValid") boolean areOdesValid,
+				  @JsonProperty("unboundParameters") List<String> unboundParameters) {
 		this.name = name;
 		this.odeList = odeList;
 		this.areOdesValid = areOdesValid;
+		this.unboundParameters = unboundParameters;
 	}
 	
 	public boolean getAreOdesValid() {
@@ -96,7 +100,10 @@ public class Model implements Serializable {
 					params.add(variable);
 				}
 			}
-			
+	
+		}
+		for(String param : unboundParameters) {
+			params.add(param);
 		}
 		return params;
 	}
@@ -131,4 +138,19 @@ public class Model implements Serializable {
 		Ode myOde = odeList.get(i);
 		return myOde.getOperators();
 	}
+	
+	//0 = added
+	//1 = is already Parameter
+	//2 = is already State
+	public int addParameter(String parameter) {
+		if(getParameters().contains(parameter)) {
+			return 1;
+		}
+		if(getStates().contains(parameter)) {
+			return 2;
+		}		
+		unboundParameters.add(parameter);
+		return 0;
+	}
+
 }
