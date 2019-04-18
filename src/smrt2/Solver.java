@@ -16,13 +16,13 @@ public class Solver {
 	 * @params tEnd 		end time of the simulation
 	 * @params tStep 		size of the time step in the simulation
 	 */
-	public Double[][] solveEulerForward(String[] odeFormulas, Double[] S0, Double[] P, double tEnd, double tStep){
-		int nTimesteps = (int) (tEnd/tStep);
+	public Double[][] solveEulerForward(String[] odeFormulas, Double[] S0, Double[] P, double tEnd, double tStep, double tStart){
+		int nTimesteps = (int) ((tEnd-tStart)/tStep);
 		Double[][] S = new Double[nTimesteps+1][odeFormulas.length+1];
 
 		
 		//make first variable of first row 0 because we start at t = 0;
-		S[0][0] = 0.0;
+		S[0][0] = tStart;
 		//add the initial conditions as the first row;
 		for (int i = 0; i < S0.length; i++) {
 			S[0][i+1] = S0[i];	

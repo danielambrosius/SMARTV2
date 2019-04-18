@@ -61,7 +61,7 @@ public class Experiment implements Serializable{
 	 */
 	public Double[][] run() {
 		Solver s = new Solver();
-		return s.solveEulerForward(reconstructFormulas(), this.stateInitialValues, this.parameterValues, this.tEnd, this.tStep);
+		return s.solveEulerForward(reconstructFormulas(), this.stateInitialValues, this.parameterValues, this.tEnd, this.tStep, this.tStart);
 	}
 
 	/**
