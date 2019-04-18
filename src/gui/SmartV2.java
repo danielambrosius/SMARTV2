@@ -1,19 +1,14 @@
 package gui;
 import smrt2.App;
-import smrt2.Model;
+
 import gui.FileChooser;
-//
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import java.awt.GridBagLayout;
-import javax.swing.JToolBar;
-import java.awt.GridBagConstraints;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JLabel;
@@ -21,22 +16,15 @@ import java.awt.GridLayout;
 import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.JButton;
-import javax.swing.JList;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
-
 import java.awt.event.ActionListener;
-import java.util.Arrays;
-import java.util.Vector;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.lang.annotation.Target;
-import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
-import java.awt.ScrollPane;
 import javax.swing.ScrollPaneConstants;
 
 public class SmartV2 extends JFrame {
@@ -121,8 +109,13 @@ public class SmartV2 extends JFrame {
 		JMenuItem mntmNew_1 = new JMenuItem("New...");
 		mntmNew_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				app.newExperiment();
-				ExperimentView expGui = new ExperimentView(app);
+				boolean isCreated = app.newExperiment();
+				if(isCreated) {
+
+					new ExperimentView(app);
+				}else {
+					JOptionPane.showConfirmDialog(null,"Formulas are incorrect","Warning!!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 		mnExperiment.add(mntmNew_1);
@@ -133,7 +126,7 @@ public class SmartV2 extends JFrame {
 				String filePath = FileChooser.open("Experiment", "exp");
 				app.openExperiment(filePath);
 				updateGraphics();
-				ExperimentView expGui = new ExperimentView(app);
+				new ExperimentView(app);
 				
 			}
 		});

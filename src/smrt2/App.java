@@ -97,14 +97,16 @@ public class App {
 		}
 	}
 	
-	public void newExperiment() {
+	public boolean newExperiment() {
+		
 		if (closeExperiment() && myModel.getAreOdesValid()) {
 			myExperiment = new Experiment(myModel);
 			experimentSaved = false;
+			
+			return true;
 		}
-		else {
-			JOptionPane.showConfirmDialog(null,"Formulas are incorrect","Warning!!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
-		}
+		return false; 
+		
 
 	}
 	
