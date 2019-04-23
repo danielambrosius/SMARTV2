@@ -31,13 +31,15 @@ public class Experiment implements Serializable{
 					  @JsonProperty("model") Model model,
 					  @JsonProperty("parameterValues") Double[] parameterValues,
 					  @JsonProperty("stateValues") Double[] stateValues,
-					  @JsonProperty("timeValues") Double[] timeValues) {
+					  @JsonProperty("timeValues") Double[] timeValues,
+					  @JsonProperty("tableModel") SmartTableModel tableModel) {
 		this(model, name);
 		this.parameterValues = parameterValues;
 		this.stateInitialValues = stateValues;
 		this.tStart = timeValues[0];
 		this.tEnd = timeValues[1];
 		this.tStep = timeValues[2];
+		this.tableModel = tableModel;
 	}
 	
 	public Experiment(Model m, String name) {
