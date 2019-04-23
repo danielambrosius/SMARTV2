@@ -101,6 +101,9 @@ public class Ode implements Serializable{
 		}
 		ScriptEngineManager mgr = new ScriptEngineManager();
 		ScriptEngine engine = mgr.getEngineByName("JavaScript");
+		
+		// Substitute standard functions to JS readable code:
+		reconstructedFormula = StdFSubber.substitute(reconstructedFormula);
 		try {
 			engine.eval(reconstructedFormula);
 		} catch (ScriptException e) {

@@ -76,6 +76,16 @@ public class TestEquationParser2 extends TestCase {
 		assertEquals(expectedOperators, results.get(1));
 	}
 	
+	public void testParse5() {
+		equation = "sin(2 + k1)";
+		EquationParser2 myParser2 = new EquationParser2();
+		List<List<String>> results = myParser2.parse(equation);
+		List<String> expectedVariables = new ArrayList<String>(Arrays.asList("","k1"));
+		List<String> expectedOperators = new ArrayList<String>(Arrays.asList("sin(2+",")"));
+		assertEquals(expectedVariables, results.get(0));
+		assertEquals(expectedOperators, results.get(1));
+	}
+	
 public void testNumbersInOdesAndRandomSpaces() {
 	equation = "Y^ 2 *    5";
 	EquationParser2 myParser2 = new EquationParser2();

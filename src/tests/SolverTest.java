@@ -37,14 +37,6 @@ public class SolverTest extends TestCase {
 		
 		
 	}
-	public void testHandleSpecialFunctions() {
-		Solver s = new Solver();
-		String ode = "sin(5)";
-		String expected = "Math.sin(5)";
-		String actual = s.handleSpecialFunctions(ode);
-		assertEquals(expected,actual);
-	}
-	
 	
 	
 }

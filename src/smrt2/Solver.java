@@ -5,7 +5,6 @@ import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 
 public class Solver {
-	private String[] standardFunctions = {"sin","cos","tan","log"};
 
 	/**
 	 * Returns the results of the provided odeFormulas simulated over the specified time frame.
@@ -59,7 +58,7 @@ public class Solver {
 		
 		for (int i = 1; i < results.length; i++) {
 			//first element of results contains time so we skip it
-			String odeFormula = odeFormulas[i-1];
+			String odeFormula = StdFSubber.substitute(odeFormulas[i-1]);
 			
 			//use javascript to evaluate the result of the formula
 			
@@ -93,11 +92,5 @@ public class Solver {
 	return resultingString + "]";
 	}
 	
-	public String handleSpecialFunctions(String odeFormula) {
-		for (String function : standardFunctions) {
-			odeFormula = odeFormula.replace(function, "Math."+function);
-		}
-		return odeFormula;
-	}
 		
 }
