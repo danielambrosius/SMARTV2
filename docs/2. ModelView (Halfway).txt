@@ -1,0 +1,27 @@
+When the user is in the Model view it shows a menu bar with "Model" and 
+"Experiment" option and a tabbed pane with "Formulas", "Parameters" and 
+"States". The name of the current model is displayed in the title of the 
+model view.
+
+- Menu bar
+	- "Model": this menu contains three options: "New", "Open" and 
+	  "Save". When "New" is clicked the program asks if the user wants 
+	  to save the model that is it is working on on that point. When 
+	  clicked "cancel" the model view is maintained. If "OK" is clicked
+	  the name for the new model is asked and the model is made, a new 
+	  (empty) model is opened. When "Open" is clicked, the model file 
+	  choose is opened(see 3. ModelOpening&Saving.txt). If "Save" is 
+	  clicked the model file saver is opened (see 
+	  3. ModelOpening&Saving.txt)
+	  
+	- "Experiment": this menu contains three options: "New", "Open" and 
+	  "Save". 
+
+- Tabbed pane
+	-"Formulas":
+	-"Parameters": 
+	-"States": 
+
+
+When the user types a state variable and
+a differential equation in the two input blocks and click add. 
