@@ -234,4 +234,9 @@ public class Experiment implements Serializable{
 	public SmartTableModel getTableModel() {
 		return tableModel;
 	}
+
+	public void resetTable() {
+		this.tableModel = new SmartTableModel(this.model.getStates());
+		
+	}
 }

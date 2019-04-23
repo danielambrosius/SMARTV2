@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import javax.swing.JMenuBar;
 import java.awt.GridLayout;
 import javax.swing.JTable;
@@ -53,6 +54,8 @@ public class TableViewer extends JFrame {
 	 * Create the frame.
 	 */
 	public TableViewer(SmartTableModel tableModel) {
+		
+		
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		
@@ -72,8 +75,11 @@ public class TableViewer extends JFrame {
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		contentPane.add(tabbedPane);
 		
-		table = new JTable();
+		JTable table = new JTable();
+		
 		table.setModel(tableModel);
+
+		
 		JScrollPane tablePane = new JScrollPane(table);
 		tabbedPane.addTab("Table", null, tablePane, null);
 

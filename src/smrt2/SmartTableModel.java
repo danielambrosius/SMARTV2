@@ -49,4 +49,5 @@ public class SmartTableModel extends AbstractTableModel {
 		return this.colNames.get(i);
 	}
 
+
 }

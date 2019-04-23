@@ -234,8 +234,9 @@ public class App {
 
 	public void runExperiment() {
 		// TODO Check if experiment exists. If it doesn't, display error message.
-				
+		myExperiment.resetTable();		
 		TableViewer table = new TableViewer(myExperiment.getTableModel());
+		myExperiment.run();
 	}
 
 	public double[] getTimeValues() {
