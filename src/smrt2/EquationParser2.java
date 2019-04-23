@@ -1,13 +1,10 @@
 package smrt2;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 public class EquationParser2 {
 	private String[] variables;
@@ -54,6 +51,7 @@ public class EquationParser2 {
 	}
 	
 	public List<List<String>> parse(String equation){
+		equation = equation.replace(" ", "");
 		List<String> parsedVariables = new ArrayList<String>(Arrays.asList(parseVariables(equation)));
 		List<String> parsedOperators = new ArrayList<String>(Arrays.asList(parseOperators(equation)));
 		
@@ -74,7 +72,7 @@ public class EquationParser2 {
 			int j = parsedVariables.size();
 			for (int i = 0; i < j; i++) {
 				if (parsedVariables.get(i).matches("[0-9.,]+")){
-					if (parsedOperators.size() > i ) {
+					if (parsedOperators.size() > i+1 ) {
 						parsedOperators.set(i,
 								parsedOperators.get(i) + parsedVariables.get(i) + parsedOperators.get(i + 1));
 						parsedOperators.remove(i+1);

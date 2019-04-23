@@ -1,6 +1,5 @@
 package tests;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -12,7 +11,7 @@ public class TestEquationParser2 extends TestCase {
 	private String equation;
 	
 	public void testCreateEquationParser2() {
-		equation = "-k1+k2";
+		equation = "-k1+ k2";
 		EquationParser2 myParser2 = new EquationParser2();
 		assertNotNull(myParser2);
 	}
@@ -22,7 +21,6 @@ public class TestEquationParser2 extends TestCase {
 		EquationParser2 myParser2 = new EquationParser2();
 		myParser2.parseVariables(equation);
 		String[] expectedList = new String[]  {"","k1","k2"};
-//		System.out.println(Arrays.toString(myParser2.getVariables()));
 		assertEquals(Arrays.toString(expectedList), Arrays.toString(myParser2.getVariables(equation)));
 	}
 	
@@ -30,7 +28,6 @@ public class TestEquationParser2 extends TestCase {
 		equation = "-k1+k2";
 		EquationParser2 myParser2 = new EquationParser2();
 		String[] expectedList = new String[] {"-","+"};
-//		System.out.println(Arrays.toString(myParser2.getOperators(equation)));
 		assertEquals(Arrays.toString(expectedList), Arrays.toString(myParser2.getOperators(equation)));
 	}
 	public void testobjectToStringArray() {
@@ -41,7 +38,7 @@ public class TestEquationParser2 extends TestCase {
 		assertEquals(Arrays.toString(expected), Arrays.toString(stringArray));
 	}
 	public void testParse1() {
-		equation = "(A+1)*k1";
+		equation = "(A + 1)*k1";
 		EquationParser2 myParser2 = new EquationParser2();
 		List<List<String>> results = myParser2.parse(equation);
 		List<String> expectedVariables = new ArrayList<String>(Arrays.asList("","A","k1"));
@@ -51,7 +48,7 @@ public class TestEquationParser2 extends TestCase {
 	}
 	
 	public void testParse2() {
-		equation = "A*2+k1";
+		equation = "A*2 + k1";
 		EquationParser2 myParser2 = new EquationParser2();
 		List<List<String>> results = myParser2.parse(equation);
 		List<String> expectedVariables = new ArrayList<String>(Arrays.asList("A","k1"));
@@ -61,7 +58,7 @@ public class TestEquationParser2 extends TestCase {
 	}
 	
 	public void testParse3() {
-		equation = "-sin(2+k1)";
+		equation = "-sin(2 + k1)";
 		EquationParser2 myParser2 = new EquationParser2();
 		List<List<String>> results = myParser2.parse(equation);
 		List<String> expectedVariables = new ArrayList<String>(Arrays.asList("","k1"));
@@ -79,14 +76,15 @@ public class TestEquationParser2 extends TestCase {
 		assertEquals(expectedOperators, results.get(1));
 	}
 	
-//	public void testRemoveUnwantedMatches() {
-//		EquationParser2 myParser2 = new EquationParser2(equation);
-//		String[] paramArray = new String[] {"A","B","C","D"};;
-//		String[] expectedArray = new String[]  {"-","*","-(","*",")"};
-//		String[] adjustedArray = myParser2.removeUnwantedMatches(paramArray);
-//		System.out.println(Arrays.toString(adjustedArray));
-//		assertEquals(Arrays.toString(expectedArray), Arrays.toString(adjustedArray));
-//	}
+public void testNumbersInOdesAndRandomSpaces() {
+	equation = "Y^ 2 *    5";
+	EquationParser2 myParser2 = new EquationParser2();
+	List<List<String>> results = myParser2.parse(equation);
+	List<String> expectedVariables = new ArrayList<String>(Arrays.asList("Y"));
+	List<String> expectedOperators = new ArrayList<String>(Arrays.asList("","^2*5"));
+	assertEquals(expectedVariables, results.get(0));
+	assertEquals(expectedOperators, results.get(1));
+	}
 
 
 }
