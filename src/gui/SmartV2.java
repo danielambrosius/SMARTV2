@@ -184,7 +184,6 @@ public class SmartV2 extends JFrame {
 		// Creating table from default table model
 		TableModel tableModel = new DefaultTableModel(rowData, columnNames);
 		tableFormulas = new JTable(tableModel);
-		tableFormulas.setEnabled(false);
 		tableFormulas.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
