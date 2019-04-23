@@ -224,8 +224,7 @@ public class App {
 
 	public void runExperiment() {
 		// TODO Check if experiment exists. If it doesn't, display error message.
-		myExperiment.resetTable();		
-		TableViewer table = new TableViewer(myExperiment.getTableModel());
+		myExperiment.resetTable();	
 		myExperiment.run();
 	}
 
@@ -237,6 +236,10 @@ public class App {
 	public int handleButtonAddParameter(String parameter) {
 		int isAdded = myModel.addParameter(parameter);
 		return isAdded;
+	}
+
+	public SmartTableModel getTableModel() {
+		return this.myExperiment.getTableModel();
 	}
 
 }

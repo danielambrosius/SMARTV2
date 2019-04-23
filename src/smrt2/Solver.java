@@ -31,11 +31,9 @@ public class Solver {
 			firstRow[i+1] = S0[i];	
 		}
 		S.AddRow(firstRow);
-		S.fireTableDataChanged();
 		
 		for (int i = 1; i <= nTimesteps; i++) {
 			S.AddRow(eulerForward(odeFormulas, S.getRowAt(i-1), P, tStep));
-			S.fireTableDataChanged();
 		}
 	}
 	

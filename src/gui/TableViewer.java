@@ -5,6 +5,7 @@ import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.layout.StackPane;
+import smrt2.App;
 import smrt2.SmartTableModel;
 
 import java.awt.BorderLayout;
@@ -29,6 +30,8 @@ public class TableViewer extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
+	private JTabbedPane tabbedPane;
+	private App myApp;
 	//static Double[][] data = {{1.0,5.0},{3.0,8.0}};
 	static Object[] titles = {"first", "not first"};
 
@@ -53,8 +56,10 @@ public class TableViewer extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TableViewer(SmartTableModel tableModel) {
+	public TableViewer(App myApp) {
 		
+		this.myApp = myApp;
+		SmartTableModel tableModel = myApp.getTableModel();
 		
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -72,13 +77,15 @@ public class TableViewer extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new GridLayout(1, 0, 0, 0));
 		
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		contentPane.add(tabbedPane);
 		
-		JTable table = new JTable();
+		table = new JTable();
 		
 		table.setModel(tableModel);
-
+		
+		
+		
 		
 		JScrollPane tablePane = new JScrollPane(table);
 		tabbedPane.addTab("Table", null, tablePane, null);
@@ -87,6 +94,14 @@ public class TableViewer extends JFrame {
 
 		
 		
+		
+		setVisible(true);
+		
+		
+	}
+
+	public void updateGraph() {
+		SmartTableModel tableModel = myApp.getTableModel();
 		for (int i = 1; i < tableModel.getColumnCount(); i++) {
 			JFXPanel graphPane = new JFXPanel();
 			tabbedPane.addTab(tableModel.getColumnName(i), null, graphPane, null);
@@ -98,9 +113,11 @@ public class TableViewer extends JFrame {
 			Scene scene = new Scene(pane);
 			graphPane.setScene(scene);
 		}
-		setVisible(true);
+	}
+	
+	public void updateTable(){
 		
-		
+		this.table.setModel(this.myApp.getTableModel());
 	}
 
 }

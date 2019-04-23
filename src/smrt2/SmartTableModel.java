@@ -27,6 +27,7 @@ public class SmartTableModel extends AbstractTableModel {
 	
 	public void AddRow(Double[] row){
 		data.add(row);
+		fireTableRowsInserted(getRowCount(), getRowCount());
 	}
 
 	@Override

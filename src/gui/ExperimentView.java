@@ -103,7 +103,11 @@ public class ExperimentView extends JFrame {
 		btnRun.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				safeEdit();
+				
+				TableViewer table = new TableViewer(myApp);
 				myApp.runExperiment();
+				table.updateGraph();
+				table.updateTable();
 			}
 		});
 		btnRun.setBounds(474, 77, 76, 25);
