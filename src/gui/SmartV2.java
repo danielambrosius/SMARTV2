@@ -66,6 +66,16 @@ public class SmartV2 extends JFrame {
 		setResizable(false);		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 625, 486);
+		Object[] newOrOpen= {"New model","Open model"}; 
+		int result = JOptionPane.showOptionDialog(null, "Open model or create new model", "SMRT v.2.0", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, newOrOpen, null);
+		if (result==JOptionPane.YES_OPTION) {
+			String modelName = JOptionPane.showInputDialog("Name of the new model:");
+			app.newModel(modelName);
+			}
+		if (result==JOptionPane.NO_OPTION) {
+			String filePath = FileChooser.open("Model", "model");
+			app.openModel(filePath);
+		}
 		
 		
 		JMenuBar menuBar = new JMenuBar();
