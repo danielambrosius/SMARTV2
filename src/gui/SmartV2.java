@@ -77,9 +77,16 @@ public class SmartV2 extends JFrame {
 		JMenuItem mntmNew = new JMenuItem("New...");
 		mntmNew.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				app.newModel(null);
+				if (app.closeModel());{
+					int result = JOptionPane.showConfirmDialog(null, app.getModelName() + " is not saved, continue?",
+		                    "Existing file", JOptionPane.OK_CANCEL_OPTION);
+					if (result == JOptionPane.OK_OPTION) {
+						String modelName = JOptionPane.showInputDialog("Name of the new model:");
+						app.newModel(modelName);
+					}
+				}
+				
 				updateGraphics();
-				//TODO: add a way of giving a name to name a model.
 			}
 		});
 		mnModel.add(mntmNew);
@@ -87,8 +94,14 @@ public class SmartV2 extends JFrame {
 		JMenuItem mntmOpen = new JMenuItem("Open...");
 		mntmOpen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String filePath = FileChooser.open("Model", "model");
-				app.openModel(filePath);
+				if (app.closeModel()) {
+					int result = JOptionPane.showConfirmDialog(null, app.getModelName() + " is not saved, continue?",
+		                    "Existing file", JOptionPane.OK_CANCEL_OPTION);
+					if (result == JOptionPane.OK_OPTION) {
+						String filePath = FileChooser.open("Model", "model");
+						app.openModel(filePath);
+					}
+				}
 				updateGraphics();
 			}
 		});

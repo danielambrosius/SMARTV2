@@ -63,24 +63,26 @@ public class App {
 	}
 
 	public void openModel(String filePath) {
-		if (closeModel() && filePath != null) {
-				myModel = (Model) saverLoader.load(filePath, Model.class);
-				modelSaved = true;
+		if (filePath != null) {
+			myModel = (Model) saverLoader.load(filePath, Model.class);
+			modelSaved = true;
 		}
 	}
 	
 	public void openExperiment(String filePath) {
 		if (closeExperiment() && filePath != null){
-				myExperiment = (Experiment) saverLoader.load(filePath, Experiment.class);
-				this.myModel = this.myExperiment.getModel();
-				experimentSaved = true;
+			myExperiment = (Experiment) saverLoader.load(filePath, Experiment.class);
+			this.myModel = this.myExperiment.getModel();
+			experimentSaved = true;
 		}
 	}
 
 	public void saveModel(String filePath) {
-		myModel.setName(filePath.split("[\\\\/]+")[filePath.split("[\\\\/]+").length-1]); 
-		saverLoader.save(filePath, myModel);
-		modelSaved = true;
+		if (filePath != null) {
+			myModel.setName(filePath.split("[\\\\/]+")[filePath.split("[\\\\/]+").length-1]); 
+			saverLoader.save(filePath, myModel);
+			modelSaved = true;
+		}
 	}
 	
 	public void saveExperiment(String filePath) {
@@ -89,13 +91,11 @@ public class App {
 	}
 
 	public void newModel(String name) {
-		if (closeModel()) {
-			if (name == null) {
-				myModel = new Model("untitled");
-			}
-			else {
-				myModel = new Model(name);
-			}
+		if (name == null) {
+			myModel = new Model("untitled");
+		}
+		else {
+			myModel = new Model(name);
 		}
 	}
 	
@@ -125,21 +125,11 @@ public class App {
 		//TODO: call the map function in experiment and convert the Vector to array of doubles.
 	}
 
-	private boolean closeModel() {
+	public boolean closeModel() {
 		if (!modelSaved && myModel != null) {
-			int result = JOptionPane.showConfirmDialog(null, myModel.getName() + " is not saved, continue?",
-                    "Existing file", JOptionPane.OK_CANCEL_OPTION);
-			if (result == JOptionPane.OK_OPTION) {
-				
-				return true;
-				}
-			else {
-				 return false;
-			}
-		}
-		else {
 			return true;
 		}
+		return false;
 	}
 	
 	private boolean closeExperiment() {
