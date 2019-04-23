@@ -5,7 +5,8 @@ import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 
 public class Solver {
-	
+	private String[] standardFunctions = {"sin","cos","tan","log"};
+
 	/**
 	 * Returns the results of the provided odeFormulas simulated over the specified time frame.
 	 * odeFormulas should contain references to array P for parameters and references to S for states.
@@ -61,7 +62,9 @@ public class Solver {
 		for (int i = 1; i < results.length; i++) {
 			//first element of results contains time so we skip it
 			String odeFormula = odeFormulas[i-1];
+			
 			//use javascript to evaluate the result of the formula
+			
 			try {
 				dxdt = Double.parseDouble(engine.eval(String.format("var P = %s; var S = %s ;%s", parameters, states, odeFormula )).toString());
 				results[i] = S[i] + dxdt*dt;
@@ -90,6 +93,13 @@ public class Solver {
 			}
 		}
 	return resultingString + "]";
+	}
+	
+	public String handleSpecialFunctions(String odeFormula) {
+		for (String function : standardFunctions) {
+			odeFormula = odeFormula.replace(function, "Math."+function);
+		}
+		return odeFormula;
 	}
 		
 }

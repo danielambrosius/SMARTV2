@@ -5,10 +5,12 @@ import java.util.Arrays;
 import java.util.List;
 
 import junit.framework.TestCase;
+import smrt2.EquationParser2;
 import smrt2.SmartTableModel;
 import smrt2.Solver;
 
 public class SolverTest extends TestCase {
+	
 	public void testSolver() {
 		List<String> colNames = Arrays.asList("A", "B");
 		SmartTableModel S = new SmartTableModel(colNames);
@@ -32,8 +34,15 @@ public class SolverTest extends TestCase {
 //		System.out.println();
 		}
 		
-
 		
+		
+	}
+	public void testHandleSpecialFunctions() {
+		Solver s = new Solver();
+		String ode = "sin(5)";
+		String expected = "Math.sin(5)";
+		String actual = s.handleSpecialFunctions(ode);
+		assertEquals(expected,actual);
 	}
 	
 	
