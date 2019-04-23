@@ -43,5 +43,10 @@ public class SmartTableModel extends AbstractTableModel {
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		return data.get(rowIndex)[columnIndex];
 	}
+	
+	@Override
+	public String getColumnName(int i){
+		return this.colNames.get(i);
+	}
 
 }
