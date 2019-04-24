@@ -118,6 +118,8 @@ public class TableViewer extends JFrame {
 	public void updateTable(){
 		
 		this.table.setModel(this.myApp.getTableModel());
+		
+		
 	}
 
 }

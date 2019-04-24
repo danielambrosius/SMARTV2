@@ -59,9 +59,9 @@ public class Experiment{
 	 */
 
 	public void run() {
-		Solver mySolver = new Solver();
-		mySolver.solveEulerForward(tableModel, reconstructFormulas(), this.stateInitialValues, this.parameterValues, 
-				this.tStart, this.tEnd, this.tStep);
+		SolverThread t = new SolverThread(tableModel, reconstructFormulas(), this.stateInitialValues, this.parameterValues, 
+					this.tStart, this.tEnd, this.tStep);
+		t.start();
 	}
 
 	/**
