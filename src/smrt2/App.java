@@ -63,16 +63,26 @@ public class App {
 
 	public void openModel(String filePath) {
 		if (filePath != null) {
-			myModel = (Model) saverLoader.load(filePath, Model.class);
-			modelSaved = true;
+			try {
+				closeModel();
+				myModel = (Model) saverLoader.load(filePath, Model.class);
+				modelSaved = true;
+			} catch (FileNotClosedException e) {
+				// File Was not closed, then do nothing
+			}
 		}
 	}
 	
 	public void openExperiment(String filePath) {
-		if (closeExperiment() && filePath != null){
-			myExperiment = (Experiment) saverLoader.load(filePath, Experiment.class);
-			this.myModel = this.myExperiment.getModel();
-			experimentSaved = true;
+		if (filePath != null){
+			try {
+				closeExperiment();
+				myExperiment = (Experiment) saverLoader.load(filePath, Experiment.class);
+				this.myModel = this.myExperiment.getModel();
+				experimentSaved = true;
+			} catch (FileNotClosedException e) {
+				// File Was not closed, then do nothing
+			}
 		}
 	}
 
@@ -90,23 +100,32 @@ public class App {
 	}
 
 	public void newModel(String name) {
-		if (name == null) {
-			myModel = new Model("untitled");
-		}
-		else {
-			myModel = new Model(name);
+		try {
+			closeModel();
+			if (name == null) {
+				myModel = new Model("untitled");
+			}
+			else {
+				myModel = new Model(name);
+			}
+		} catch (FileNotClosedException e) {
+			// File Was not closed, then do nothing
 		}
 	}
 	
 	public boolean newExperiment() {
-		
-		if (closeExperiment() && myModel.getAreOdesValid()) {
-			myExperiment = new Experiment(myModel);
-			experimentSaved = false;
-			
-			return true;
+		try {
+			if (myModel.getAreOdesValid()) {
+				closeExperiment();
+				myExperiment = new Experiment(myModel);
+				experimentSaved = false;
+				return true;
+			} else {
+				return false; 
+			}
+		} catch (FileNotClosedException e) {
+			return false;
 		}
-		return false; 
 		
 
 	}
@@ -124,26 +143,23 @@ public class App {
 		//TODO: call the map function in experiment and convert the Vector to array of doubles.
 	}
 
-	public boolean closeModel() {
+	public void closeModel() throws FileNotClosedException {
 		if (!modelSaved && myModel != null) {
-			return true;
-		}
-		return false;
-	}
-	
-	private boolean closeExperiment() {
-		if (!experimentSaved && myExperiment != null) {
-			int result = JOptionPane.showConfirmDialog(null, myExperiment.getName() + " is not saved, continue?",
+			int result = JOptionPane.showConfirmDialog(null, myModel.getName() + " is not saved, continue?",
                     "Existing file", JOptionPane.OK_CANCEL_OPTION);
-			if (result == JOptionPane.OK_OPTION) {
-				return true;
-				}
-			else {
-				 return false;
+			if (!(result == JOptionPane.OK_OPTION)) {
+				throw new FileNotClosedException("Experiment not closed");
 			}
 		}
-		else {
-			return true;
+	}
+	
+	private void closeExperiment() throws FileNotClosedException {
+		if ((!experimentSaved || !modelSaved) && myExperiment != null) {
+			int result = JOptionPane.showConfirmDialog(null, myExperiment.getName() + " is not saved, continue?",
+                    "Existing file", JOptionPane.OK_CANCEL_OPTION);
+			if (!(result == JOptionPane.OK_OPTION)) {
+				throw new FileNotClosedException("Experiment not closed");
+			}
 		}
 	}
 	public String[][] getStateNames() {
@@ -215,6 +231,7 @@ public class App {
 			myExperiment.setParameterValue(i, Double.parseDouble((String) paramList.get(i)));
 		}
 		myExperiment.setTimeFrame(Double.parseDouble(timeStart), Double.parseDouble(timeEnd), Double.parseDouble(timeStep));
+		experimentSaved = false;
 	}
 
 	public String getModelName() {
@@ -235,6 +252,7 @@ public class App {
 
 	public int handleButtonAddParameter(String parameter) {
 		int isAdded = myModel.addParameter(parameter);
+		modelSaved = false;
 		return isAdded;
 	}
 
