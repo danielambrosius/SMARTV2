@@ -58,10 +58,11 @@ public class Experiment{
 	 * Uses the solver class which employs the Euler foreward method.
 	 */
 
-	public void run() {
+	public SolverThread run() {
 		SolverThread t = new SolverThread(tableModel, reconstructFormulas(), this.stateInitialValues, this.parameterValues, 
 					this.tStart, this.tEnd, this.tStep);
 		t.start();
+		return t;
 	}
 
 	/**

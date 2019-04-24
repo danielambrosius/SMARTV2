@@ -221,10 +221,11 @@ public class App {
 		return myModel.getName();
 	}
 
-	public void runExperiment() {
+	public SolverThread runExperiment() {
 		// TODO Check if experiment exists. If it doesn't, display error message.
 		myExperiment.resetTable();	
-		myExperiment.run();
+		SolverThread ts = myExperiment.run();
+		return ts;
 	}
 
 	public double[] getTimeValues() {

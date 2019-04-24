@@ -6,13 +6,16 @@ import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.layout.StackPane;
 import smrt2.App;
+import smrt2.GraphThread;
 import smrt2.SmartTableModel;
+import smrt2.SolverThread;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
@@ -31,35 +34,13 @@ public class TableViewer extends JFrame {
 	private JPanel contentPane;
 	private JTable table;
 	private JTabbedPane tabbedPane;
-	private App myApp;
+	private SmartTableModel tableModel;
 	//static Double[][] data = {{1.0,5.0},{3.0,8.0}};
 	static Object[] titles = {"first", "not first"};
 
-	/**
-	 * Launch the application.
-	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//
-//				
-//				try {
-//					TableViewer frame = new TableViewer(data, titles);
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
-
-	/**
-	 * Create the frame.
-	 */
-	public TableViewer(App myApp) {
+	public TableViewer(SmartTableModel tableModel) {
 		
-		this.myApp = myApp;
-		SmartTableModel tableModel = myApp.getTableModel();
+		this.tableModel = tableModel;
 		
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -84,42 +65,18 @@ public class TableViewer extends JFrame {
 		
 		table.setModel(tableModel);
 		
-		
-		
-		
 		JScrollPane tablePane = new JScrollPane(table);
 		tabbedPane.addTab("Table", null, tablePane, null);
-
-		
-
-		
-		
-		
-		setVisible(true);
-		
-		
+		setVisible(true);		
 	}
 
-	public void updateGraph() {
-		SmartTableModel tableModel = myApp.getTableModel();
-		for (int i = 1; i < tableModel.getColumnCount(); i++) {
-			JFXPanel graphPane = new JFXPanel();
-			tabbedPane.addTab(tableModel.getColumnName(i), null, graphPane, null);
-			StackPane pane = new StackPane();
-			GraphBuilder GB = new GraphBuilder(tableModel.getColumnAt(0), tableModel.getColumnAt(i), tableModel.getColumnName(i));
-			LineChart<Number, Number> lineChart = GB.start();
-				    
-		    pane.getChildren().add(lineChart);
-			Scene scene = new Scene(pane);
-			graphPane.setScene(scene);
-		}
+	public void buildGraph(SolverThread st) {
+		GraphThread t = new GraphThread(st, tabbedPane, this.tableModel);
+		t.start();
 	}
 	
-	public void updateTable(){
-		
-		this.table.setModel(this.myApp.getTableModel());
-		
-		
+	public void buildTable(){
+		this.table.setModel(this.tableModel);
 	}
 
 }

@@ -20,6 +20,7 @@ import javax.swing.table.TableModel;
 
 import smrt2.App;
 import smrt2.Experiment;
+import smrt2.SolverThread;
 
 import java.awt.Color;
 import javax.swing.JButton;
@@ -104,10 +105,10 @@ public class ExperimentView extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				safeEdit();
 				
-				TableViewer table = new TableViewer(myApp);
-				myApp.runExperiment();
-				table.updateGraph();
-				table.updateTable();
+				SolverThread st = myApp.runExperiment();
+				TableViewer table = new TableViewer(myApp.getTableModel());
+				table.buildTable();
+				table.buildGraph(st);
 			}
 		});
 		btnRun.setBounds(474, 77, 76, 25);
