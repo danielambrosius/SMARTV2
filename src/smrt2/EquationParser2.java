@@ -59,11 +59,18 @@ public class EquationParser2 {
 			int j = parsedVariables.size();
 			for (int i = 1; i < j; i++) {
 				if (parsedVariables.get(i).matches("[0-9.,]+")){
-					parsedOperators.set(i-1, parsedOperators.get(i-1) + parsedVariables.get(i) + parsedOperators.get(i));
-					parsedVariables.remove(i);
-					parsedOperators.remove(i);
-					j = parsedVariables.size();
-					i--;
+					if (parsedOperators.size() > i) {
+						parsedOperators.set(i-1, parsedOperators.get(i-1) + parsedVariables.get(i) + parsedOperators.get(i));
+						parsedVariables.remove(i);
+						parsedOperators.remove(i);
+						j = parsedVariables.size();
+						i--;
+					} else {
+						parsedOperators.set(i-1, parsedOperators.get(i-1) + parsedVariables.get(i));
+						parsedVariables.remove(i);
+						j = parsedVariables.size();
+					}
+					
 				}
 			}
 		}
