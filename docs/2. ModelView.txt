@@ -1,0 +1,42 @@
+When the user is in the Model view it shows a menu bar with "Model" and 
+"Experiment" option and a tabbed pane with "Formulas", "Parameters" and 
+"States". The name of the current model is displayed in the title of the 
+model view.
+
+- Menu bar
+	- "Model": this menu contains three options: "New", "Open" and 
+	  "Save". When "New" is clicked the program asks if the user wants 
+	  to save the model that is it is working on, on that point. When 
+	  clicked "cancel" the model view is maintained. If "OK" is clicked
+	  the name for the new model is asked and the model is made, a new 
+	  (empty) model is opened. When "Open" is clicked, the model file 
+	  choose window is opened (see 3. ModelOpening&Saving.txt). If 
+	  "Save" is clicked the model file saver is opened (see 
+	  3. ModelOpening&Saving.txt)
+	  
+	- "Experiment": this menu contains three options: "New", "Open" and 
+	  "Save". When "New" is clicked, the experiment view is opened based
+	  on the current model (see 4. ExperimentView.txt), the model view 
+	  is still open in the background. When "Open" is clicked, the 
+	  experiment file choose window is opened (see 5. 
+	  ExperimentOpening&Saving.txt). If "Save" is clicked the experiment 
+	  file saver is opened (see 5. ExperimentOpening&Saving.txt).
+
+- Tabbed pane
+	- "Formulas": the "Formulas" tab shows all the differential 
+	  equations defined in the model. The line above the table let the
+	  modeller add a new state with differential equation by typing that
+	  in the line and clicking the "Add" button on the right. The 
+	  moddeler also can edit a formula by selecting a formula in the 
+	  table and click the button "Edit". You get into the "Edit mode". 
+	  The formula is in the line above the table and you can edit and 
+	  add it again by clicking on the "OK" button. Here you can also
+	  delete formulas by selecting the formula and click "Delete".
+	- "Parameters": the "Parameters" tab shows all the parameters 
+	  defined in the formulas. On the right side of the table with 
+	  parameters there is an input line for parameters not yet included
+	  in the formulas. When the "Add" button is clicked the text in the 
+	  input box is added to the parameters of the model.
+	- "States": the "States" tab shows all the states that are defined 
+	  in the model together with their unit and description. However
+	  unit and description are not functional yet.
