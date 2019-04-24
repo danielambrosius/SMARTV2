@@ -76,10 +76,22 @@ public class Ode{
 	
 	public boolean testFormula() {
 		String reconstructedFormula ="";
+
+
+		// Substitute standard functions to JS readable code:
+		for (int i = 0; i < operators.length; i++) {
+			operators[i] = StdFSubber.substitute(operators[i]);
+		}
+		
 		if (variables.length > 0 && variables[0].isEmpty()){
 			// the list that contains the empty string could be larger so index on the length of the other list 
 			for (int j = 0; j < operators.length; j++) {
-				reconstructedFormula += "1" + operators[j];
+				if(operators[j].startsWith("Math")) {
+					
+					reconstructedFormula += operators[j];
+				}else {
+					reconstructedFormula += "1" + operators[j];
+				}
 			}
 		}
 		
@@ -101,8 +113,7 @@ public class Ode{
 		ScriptEngineManager mgr = new ScriptEngineManager();
 		ScriptEngine engine = mgr.getEngineByName("JavaScript");
 		
-		// Substitute standard functions to JS readable code:
-		reconstructedFormula = StdFSubber.substitute(reconstructedFormula);
+
 		try {
 			engine.eval(reconstructedFormula);
 		} catch (ScriptException e) {
