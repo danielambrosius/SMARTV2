@@ -1,0 +1,15 @@
+When starting the SmartV2 application, the user is prompted to open a new model or an existing model.
+Upon clicking "New model" button, the user is asked to provide a name for the new model.
+Upon clicking "Open model" button, LoadFile selector window will open in starting in the "data" folder.
+Only files with the ".model" extension are visible and can be selected.
+Clicking the "Open" button will load the selected model and continue to the application.
+Clicking the "Cancel" button will open a model with default "untitled" name.
+
+The SmartV2 application window reflects the name of the currently active model.
+
+Inside the SmartV2 application, the user can load and save their experiments and models.
+"Save" button for model and experiment in the dropdown menu opens a SaveFile window.
+Models are saved with .model extensions automatically appended if not already present.
+Experiments are saved with .experiment extensions automatically appended if not already present.
+The model is saved with default values for parameters and states.
+The experiment values are saved with it's corresponding model.
