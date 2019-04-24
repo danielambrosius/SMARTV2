@@ -14,7 +14,6 @@ import javax.swing.text.TableView;
 
 import gui.ExperimentView;
 import gui.FileChooser;
-import gui.GeneralBinaryAlert;
 import gui.TableViewer;
 import javafx.stage.Stage;
 
