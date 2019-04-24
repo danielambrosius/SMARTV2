@@ -82,7 +82,7 @@ public class Ode{
 		String[] localOperatorlist = this.operators;
 		// Substitute standard functions to JS readable code:
 		for (int i = 0; i < localOperatorlist.length; i++) {
-			if (!localOperatorlist[i].startsWith("Math")) {
+			if (!localOperatorlist[i].contains("Math")) {
 				localOperatorlist[i] = StdFSubber.substitute(localOperatorlist[i]);
 			}
 		}
@@ -116,7 +116,8 @@ public class Ode{
 		}
 		ScriptEngineManager mgr = new ScriptEngineManager();
 		ScriptEngine engine = mgr.getEngineByName("JavaScript");
-		
+		System.out.println(reconstructedFormula);
+
 
 		try {
 			engine.eval(reconstructedFormula);
