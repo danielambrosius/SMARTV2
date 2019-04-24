@@ -82,7 +82,9 @@ public class Ode{
 		String[] localOperatorlist = this.operators;
 		// Substitute standard functions to JS readable code:
 		for (int i = 0; i < localOperatorlist.length; i++) {
-			localOperatorlist[i] = StdFSubber.substitute(localOperatorlist[i]);
+			if (!localOperatorlist[i].startsWith("Math")) {
+				localOperatorlist[i] = StdFSubber.substitute(localOperatorlist[i]);
+			}
 		}
 		
 		if (variables.length > 0 && variables[0].isEmpty()){

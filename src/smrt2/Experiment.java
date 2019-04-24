@@ -199,7 +199,6 @@ public class Experiment{
 		
 		reconstuctedFormulaList[i] = reconstructedFormula;
 		}
-		System.out.println(Arrays.asList(reconstuctedFormulaList).toString());
 	return reconstuctedFormulaList;	
 	}
 

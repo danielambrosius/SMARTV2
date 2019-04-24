@@ -1,6 +1,7 @@
 package smrt2;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -100,8 +101,8 @@ public class Model{
 		for (Ode ode : odeList) {
 			variables = ode.getVariables();
 			for (String variable : variables) {
-				// Check if variable is not a state and not already in parameters (params)
-				if (!states.contains(variable) && !params.contains(variable)) {
+				// Check if variable is not a state and not already in parameters (params) 
+				if (!states.contains(variable) && !params.contains(variable) && !variable.isEmpty()) {
 					params.add(variable);
 				}
 			}
