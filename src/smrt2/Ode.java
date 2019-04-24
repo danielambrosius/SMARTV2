@@ -1,5 +1,8 @@
 package smrt2;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
@@ -76,39 +79,38 @@ public class Ode{
 	
 	public boolean testFormula() {
 		String reconstructedFormula ="";
-
-
+		String[] localOperatorlist = this.operators;
 		// Substitute standard functions to JS readable code:
-		for (int i = 0; i < operators.length; i++) {
-			operators[i] = StdFSubber.substitute(operators[i]);
+		for (int i = 0; i < localOperatorlist.length; i++) {
+			localOperatorlist[i] = StdFSubber.substitute(localOperatorlist[i]);
 		}
 		
 		if (variables.length > 0 && variables[0].isEmpty()){
 			// the list that contains the empty string could be larger so index on the length of the other list 
-			for (int j = 0; j < operators.length; j++) {
-				if(operators[j].startsWith("Math")) {
+			for (int j = 0; j < localOperatorlist.length; j++) {
+				if(localOperatorlist[j].startsWith("Math")) {
 					
-					reconstructedFormula += operators[j];
+					reconstructedFormula += localOperatorlist[j];
 				}else {
-					reconstructedFormula += "1" + operators[j];
+					reconstructedFormula += "1" + localOperatorlist[j];
 				}
 			}
 		}
 		
 		//check if ode equation has an operator
-		else if (operators.length > 0 && operators[0].isEmpty()) {
+		else if (localOperatorlist.length > 0 && localOperatorlist[0].isEmpty()) {
 			for (int j = 0; j < variables.length; j++) {
-				reconstructedFormula += operators[j] + "1";
+				reconstructedFormula += localOperatorlist[j] + "1";
 			}
 		}
 		
 		// if the variable list was larger that the operator list the last variable needs to be added and vice versa
-		if (variables.length > operators.length){
+		if (variables.length > localOperatorlist.length){
 			reconstructedFormula += "1";
 		}
 		
-		if (variables.length < operators.length){
-			reconstructedFormula += operators[operators.length-1];
+		if (variables.length < localOperatorlist.length){
+			reconstructedFormula += localOperatorlist[localOperatorlist.length-1];
 		}
 		ScriptEngineManager mgr = new ScriptEngineManager();
 		ScriptEngine engine = mgr.getEngineByName("JavaScript");

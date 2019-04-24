@@ -171,7 +171,11 @@ public class Experiment{
 			if (currentVariables[0].isEmpty()){
 				// the list that contains the empty string could be larger so index on the length of the other list 
 				for (int j = 0; j < currentOperators.length; j++) {
-					reconstructedFormula += varDict.get(currentVariables[j]) + currentOperators[j];
+					if(varDict.get(currentVariables[j]) != null) {
+						reconstructedFormula += varDict.get(currentVariables[j]) + currentOperators[j];
+					} else {
+						reconstructedFormula += currentOperators[j];
+					}
 				}
 			}
 			
@@ -184,16 +188,18 @@ public class Experiment{
 			
 			// if the variable list was larger that the operator list the last variable needs to be added and vice versa
 			if (currentVariables.length > currentOperators.length){
-				reconstructedFormula += varDict.get(currentVariables[currentVariables.length-1]);
+				if (varDict.get(currentVariables[currentVariables.length-1]) != null) {
+					reconstructedFormula += varDict.get(currentVariables[currentVariables.length-1]);
+				}
 			}
 			
 			if (currentVariables.length < currentOperators.length){
 				reconstructedFormula += currentOperators[currentOperators.length-1];
 			}
-
+		
 		reconstuctedFormulaList[i] = reconstructedFormula;
 		}
-		
+		System.out.println(Arrays.asList(reconstuctedFormulaList).toString());
 	return reconstuctedFormulaList;	
 	}
 
@@ -205,10 +211,14 @@ public class Experiment{
 	private Map<String, String> buildParamDict() {
 		Map<String,String> paramDict = new HashMap<String,String>();
 		List<String> params = model.getParameters();
-		for (int i = 0; i < params.size();i++) {
-			String value = "P" + "[" + i + "]";
-			paramDict.put(params.get(i), value);
+		params.removeAll(Arrays.asList("", null));
+		if(params.size() > 0) {
+			for (int i = 0; i < params.size();i++) {
+				String value = "P" + "[" + i + "]";
+				paramDict.put(params.get(i), value);
+			}
 		}
+		
 		return paramDict;
 	}
 

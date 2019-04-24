@@ -58,10 +58,9 @@ public class Solver {
 		
 		for (int i = 1; i < results.length; i++) {
 			//first element of results contains time so we skip it
-			String odeFormula = StdFSubber.substitute(odeFormulas[i-1]);
+			String odeFormula = odeFormulas[i-1];
 			
 			//use javascript to evaluate the result of the formula
-			
 			try {
 				dxdt = Double.parseDouble(engine.eval(String.format("var P = %s; var S = %s ;%s", parameters, states, odeFormula )).toString());
 				results[i] = S[i] + dxdt*dt;
