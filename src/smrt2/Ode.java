@@ -1,5 +1,4 @@
 package smrt2;
-import java.io.Serializable;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
@@ -12,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import smrt2.EquationParser2;
 
 
-public class Ode implements Serializable{
+public class Ode{
 	// initialize variables
 	// State and formula should not contain trailing and leading white spaces.
 	private String formula;

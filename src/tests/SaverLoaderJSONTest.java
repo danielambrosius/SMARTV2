@@ -1,11 +1,6 @@
 package tests;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Arrays;
-
 import junit.framework.TestCase;
 import smrt2.Experiment;
 import smrt2.Model;
@@ -35,6 +30,7 @@ public class SaverLoaderJSONTest extends TestCase {
 		Model m = new Model("Test JSON model");
 		m.addOde("H", "x + 4k2");
 		m.addOde("B", "r^2 * 5");
+		m.addParameter("L");
 		
 		SaverLoader mySl = SaverLoader.getInstance();
 		mySl.save(savePath, m);
@@ -49,6 +45,7 @@ public class SaverLoaderJSONTest extends TestCase {
 		Model m = new Model("Test JSON model");
 		m.addOde("H", "x + 4k2");
 		m.addOde("B", "r^2 * 5");
+		m.addParameter("L");
 		
 		Experiment e = new Experiment(m, "Test experiment for JSON saving");
 		

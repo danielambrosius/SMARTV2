@@ -1,21 +1,21 @@
 package smrt2;
 
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Model implements Serializable {
+public class Model{
 	
 	private String name;
 	private List<Ode> odeList;
 	private boolean areOdesValid;
 	private List<String> unboundParameters;
+	
+	public List<String> getUnboundParameters() {
+		return unboundParameters;
+	}
 	
 	
 	//Constructor for anonymous instance.

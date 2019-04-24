@@ -1,18 +1,14 @@
 package smrt2;
-import java.io.Serializable;
-import java.util.ArrayList;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import com.fasterxml.jackson.annotation.JacksonInject;
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Experiment implements Serializable{
+public class Experiment{
 	private String name;
 	private Model model;
 	private Double[] parameterValues;
@@ -31,8 +27,7 @@ public class Experiment implements Serializable{
 					  @JsonProperty("model") Model model,
 					  @JsonProperty("parameterValues") Double[] parameterValues,
 					  @JsonProperty("stateValues") Double[] stateValues,
-					  @JsonProperty("timeValues") Double[] timeValues
-					  ) {
+					  @JsonProperty("timeValues") Double[] timeValues) {
 		this(model, name);
 		this.parameterValues = parameterValues;
 		this.stateInitialValues = stateValues;
