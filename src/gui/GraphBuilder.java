@@ -5,13 +5,6 @@ package gui;
 
 
 
-import javafx.application.Application;
-
-import javafx.scene.Scene;
-
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
-import smrt2.SmartTableModel;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;

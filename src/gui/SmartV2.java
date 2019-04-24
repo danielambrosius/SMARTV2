@@ -28,13 +28,16 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
 public class SmartV2 extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JTextField StateField;
 	private JTextField EquationField;
 	private JTable tableFormulas;
 	private JButton btnAdd;
 	private App app = new App(); //TODO: Why does this not work in the constructor??
 	private Integer selectedTableRow;
-	private ExperimentView expGui;
 	
 	private String[] columnNames= {"State", "Equation"};
 	private String[] varColumnNames = {"Parameter", "Unit", "Description"};

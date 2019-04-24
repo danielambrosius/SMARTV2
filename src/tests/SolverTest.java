@@ -1,11 +1,9 @@
 package tests;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import junit.framework.TestCase;
-import smrt2.EquationParser2;
 import smrt2.SmartTableModel;
 import smrt2.Solver;
 

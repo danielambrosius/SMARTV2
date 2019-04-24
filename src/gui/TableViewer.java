@@ -1,36 +1,27 @@
 package gui;
 
-import gui.GraphBuilder;
-import javafx.embed.swing.JFXPanel;
-import javafx.scene.Scene;
-import javafx.scene.chart.LineChart;
-import javafx.scene.layout.StackPane;
-import smrt2.App;
 import smrt2.GraphThread;
 import smrt2.SmartTableModel;
 import smrt2.SolverThread;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import javax.swing.JMenuBar;
 import java.awt.GridLayout;
 import javax.swing.JTable;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JTabbedPane;
-import javax.swing.JLabel;
 
 
 public class TableViewer extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTable table;
 	private JTabbedPane tabbedPane;

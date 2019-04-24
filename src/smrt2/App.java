@@ -1,29 +1,14 @@
 package smrt2;
 
 import java.util.ArrayList;
-import gui.GraphBuilder;
-import java.util.Arrays;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Vector;
-
 import javax.swing.JOptionPane;
-import javax.swing.text.TableView;
-
-import gui.ExperimentView;
-import gui.FileChooser;
-import gui.TableViewer;
-import javafx.stage.Stage;
 
 public class App {
 	private Model myModel;
 	private Experiment myExperiment;
 	private boolean modelSaved;
 	private boolean experimentSaved;
-	private String modelName;
-	private Double[][] dataFromLastRun;
 	private SaverLoader saverLoader;
 	
 	
@@ -132,15 +117,10 @@ public class App {
 	
 
 	public void handleDeleteOde(Integer tableRow) {
-		//TODO implement method in model class
 		if (tableRow != null) {
 			myModel.removeOdeAtIndex(tableRow);
 			modelSaved = false;
 		}
-	}
-
-	public void setVariablesList(Vector myVectors) {
-		//TODO: call the map function in experiment and convert the Vector to array of doubles.
 	}
 
 	public void closeModel() throws FileNotClosedException {
@@ -222,8 +202,7 @@ public class App {
 		}
 	}
 
-	public void setValues(ArrayList stateList, ArrayList paramList, String timeStep, String timeStart, String timeEnd) {
-		Map<String,String> incorrectValues = new HashMap<String,String>();
+	public void setValues(ArrayList<String> stateList, ArrayList<String> paramList, String timeStep, String timeStart, String timeEnd) {
 		for (int i = 0; i < stateList.size(); i++) {
 			myExperiment.setStateValue(i, Double.parseDouble((String) stateList.get(i)));
 		}

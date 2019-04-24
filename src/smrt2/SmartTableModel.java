@@ -6,6 +6,10 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 public class SmartTableModel extends AbstractTableModel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private ArrayList<Double[]> data = new ArrayList<Double[]>();
 	private List<String> colNames = new ArrayList<String>();
 	
