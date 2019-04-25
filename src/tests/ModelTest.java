@@ -46,18 +46,13 @@ public class ModelTest extends TestCase {
 		m.addOde("C", "**++++///BC");
 		String[][] actual = m.displayOdeList();
 		String[][] expected = {{"dA/dt", "k1"}, {"dB/dt", "k2"}, {"dC/dt", "**++++///BC (Incorrect syntax)"}}; 
-		System.out.println(actual[2][1]);
-		System.out.println("help");
 		for (int i = 0; i < actual.length; i++) {
 			for (int j = 0; j < actual[i].length; j++) {
 				assertEquals(expected[i][j], actual[i][j]);
-			}
-			
+			}	
 		}
 	}
-	public void testAddingDuplicateStates() {
-		//TODO test duplicate states
-	}
+	
 	public void testStartNewModel() throws Exception {
 		Model m = new Model("Name");
 		m.addOde("A", "k1");
@@ -103,46 +98,12 @@ public class ModelTest extends TestCase {
 		assertEquals(expected, actual);
 	}
 	
-public void testDuplicateStates() {
-	Model m = new Model("Name");
-	m.addOde("A", "k1*((A+B)+k1)");
-	m.addOde("A", "e");
-	List<String> actual = m.getStates();
-	System.out.println(actual.toString());
-	assertEquals(actual.toString(), "[A]");
-}
-	
-//public void testBuildParamDict() {
-//Model m = new Model("Name");
-//m.addOde("A", "k1*A+B");
-//m.addOde("B", "B-A+k2");
-//
-//Map<String, String> paramDict = m.buildParamDict();
-//
-//String expected = "{k1=P[0], k2=P[1]}";
-//assertEquals(expected, paramDict.toString());
-//}
-//
-//public void testBuildStatesDict() {
-//Model m = new Model("Name");
-//m.addOde("A", "k1*A+B");
-//m.addOde("B", "B-A+k2-k1");
-//m.getParameters();
-//
-//Map<String, String> statesDict = m.buildStatesDict();
-//
-//String expected = "{A=S[1], B=S[2]}";
-//assertEquals(expected, statesDict.toString());
-//}
-//
-//public void testReconstuctFormulas(){
-//Model m = new Model("Name");
-//m.addOde("A", "k1*((A+B)+k1)");
-//m.addOde("B", "B-A+k2");
-//
-//String[] actual = m.reconstructFormulas();
-//String[] expected = {"P[0]*((S[1]+S[2])+P[0])", "S[2]-S[1]+P[1]"};
-//assertTrue(Arrays.equals(expected, actual));
-//}
+	public void testDuplicateStates() {
+		Model m = new Model("Name");
+		m.addOde("A", "k1*((A+B)+k1)");
+		m.addOde("A", "e");
+		List<String> actual = m.getStates();
+		assertEquals(actual.toString(), "[A]");
+	}
 
 }

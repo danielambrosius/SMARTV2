@@ -26,15 +26,9 @@ public class SolverTest extends TestCase {
 		
 		for (int i = 0; i < S.getRowCount(); i++) {
 			for (int j = 0; j < S.getColumnCount(); j++) {
-//				System.out.printf("%5s = %5s | ", expected[i][j], actual[i][j]);
 				assertEquals(expected[i][j], S.getValueAt(i, j));
 			}
-//		System.out.println();
-		}
-		
-		
-		
+		}		
 	}
-	
 	
 }

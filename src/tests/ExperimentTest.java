@@ -84,10 +84,8 @@ public class ExperimentTest extends TestCase {
 		
 		for (int i = 0; i < actual.getRowCount(); i++) {
 			for (int j = 0; j < actual.getColumnCount(); j++) {
-//				System.out.printf("%5s = %5s | ", expected[i][j], actual[i][j]);
 				assertEquals(expected[i][j], actual.getValueAt(i, j));
 			}
-//		System.out.println();
 		}
 	}
 }
