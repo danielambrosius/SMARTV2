@@ -1,0 +1,21 @@
+The user just finshed the isntruction nr.2 ModelView by clicking on
+"Experiment" --> "New". 
+
+A new window should pop up with the name 
+"Parameters" on top. The window has two boxes that each consist of 
+two columns and a varieable number of rows. 
+
+The user selects in the value row of the parameter box, the value of one 
+paramter and changesit by typing for example the number 2.5. The user 
+also selects a vulue of a State in the State box and changes it by
+typing in for example the number 10.
+
+The user also changes the time Step to 0.1 and time end to 15.5 seconds.
+
+The user now has two options:
+	1.	The user can now press the "Edit" button to submit the changes.
+		Next the user goes back to the model window that is open in the
+		background and selects Experiment --> Save. The user can now 
+		proceed to instruction set 5
+	2.	The user presses the "Run" button and proceeds to instruciton 
+		set 6
