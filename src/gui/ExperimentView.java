@@ -13,6 +13,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 import smrt2.App;
+import smrt2.ProgressThread;
 import smrt2.SolverThread;
 
 import java.awt.Color;
@@ -104,6 +105,7 @@ public class ExperimentView extends JFrame {
 				SolverThread st = myApp.runExperiment();
 				TableViewer table = new TableViewer(myApp.getTableModel());
 				table.buildTable();
+				table.buildProgressBar(myApp.getTimeValues());
 				table.buildGraph(st);
 			}
 		});

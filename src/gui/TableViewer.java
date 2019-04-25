@@ -1,6 +1,7 @@
 package gui;
 
 import smrt2.GraphThread;
+import smrt2.ProgressThread;
 import smrt2.SmartTableModel;
 import smrt2.SolverThread;
 
@@ -14,6 +15,11 @@ import javax.swing.JTable;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JTabbedPane;
+import javax.swing.JSplitPane;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import javax.swing.JProgressBar;
+import java.awt.Insets;
 
 
 public class TableViewer extends JFrame {
@@ -26,6 +32,7 @@ public class TableViewer extends JFrame {
 	private JTable table;
 	private JTabbedPane tabbedPane;
 	private SmartTableModel tableModel;
+	private JProgressBar progressBar;
 	//static Double[][] data = {{1.0,5.0},{3.0,8.0}};
 	static Object[] titles = {"first", "not first"};
 
@@ -47,10 +54,32 @@ public class TableViewer extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(new GridLayout(1, 0, 0, 0));
+		GridBagLayout gbl_contentPane = new GridBagLayout();
+		contentPane.setLayout(gbl_contentPane);
+		
+		progressBar = new JProgressBar();
+		progressBar.setMinimum(0);
+		progressBar.setMaximum(100);
+		GridBagConstraints gbc_progressBar = new GridBagConstraints();
+		gbc_progressBar.fill = GridBagConstraints.BOTH;
+		gbc_progressBar.weightx = 1.0;
+		gbc_progressBar.insets = new Insets(0, 50, 0, 50);
+		gbc_progressBar.gridx = 0;
+		gbc_progressBar.gridy = 0;
+		contentPane.add(progressBar, gbc_progressBar);
+		
+		JPanel panel = new JPanel();
+		GridBagConstraints gbc_panel = new GridBagConstraints();
+		gbc_panel.weighty = 1.0;
+		gbc_panel.weightx = 1.0;
+		gbc_panel.fill = GridBagConstraints.BOTH;
+		gbc_panel.gridx = 0;
+		gbc_panel.gridy = 1;
+		contentPane.add(panel, gbc_panel);
+		panel.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		contentPane.add(tabbedPane);
+		panel.add(tabbedPane);
 		
 		table = new JTable();
 		
@@ -59,6 +88,11 @@ public class TableViewer extends JFrame {
 		JScrollPane tablePane = new JScrollPane(table);
 		tabbedPane.addTab("Table", null, tablePane, null);
 		setVisible(true);		
+	}
+	
+	public void buildProgressBar(double[] timeValues) {
+		ProgressThread pt = new ProgressThread(progressBar, this.tableModel, timeValues);
+		pt.start();
 	}
 
 	public void buildGraph(SolverThread st) {
