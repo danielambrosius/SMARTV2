@@ -22,8 +22,8 @@ public class SolverThread extends Thread {
 	}
 	
 	public void run(){
-		Solver mySolver = new Solver();
-		mySolver.solveEulerForward(model, formulas, stateInitialValues, parameterValues, 
+		Solver mySolver = new SolverEulerForward();
+		mySolver.solve(model, formulas, stateInitialValues, parameterValues, 
 				tStart, tEnd, tStep);
 	}
 }
