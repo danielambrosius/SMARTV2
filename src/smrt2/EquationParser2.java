@@ -81,7 +81,7 @@ public class EquationParser2 {
 				if (parsedVariables.get(i).matches("[0-9.,]+")){
 					if (parsedOperators.size() > i+1 ) {
 						parsedOperators.set(i,
-								parsedOperators.get(i) + parsedVariables.get(i) + parsedOperators.get(i + 1));
+							parsedOperators.get(i) + parsedVariables.get(i) + parsedOperators.get(i + 1));
 						parsedOperators.remove(i+1);
 					} else {
 						parsedOperators.set(i, parsedOperators.get(i) + parsedVariables.get(i));
