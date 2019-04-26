@@ -44,9 +44,9 @@ public class SmartV2 extends JFrame {
 	private JTable tableParameters;
 	private JTable tableStates;
 	private JTextField textFieldParameter;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTable table_1;
+	private JTextField textFieldVariable;
+	private JTextField textFieldAlgebraicFormula;
+	private JTable tableAlgebraicFormulas;
 
 	/**
 	 * Launch the application.
@@ -328,50 +328,63 @@ public class SmartV2 extends JFrame {
 		panelAlgebraicEquation.setBackground(Color.WHITE);
 		tabbedPane.addTab("Algebraic equations", null, panelAlgebraicEquation, null);
 		
-		textField = new JTextField();
-		textField.setText("");
-		textField.setColumns(10);
-		textField.setBounds(44, 46, 76, 22);
-		panelAlgebraicEquation.add(textField);
+		textFieldVariable = new JTextField();
+		textFieldVariable.setText("");
+		textFieldVariable.setColumns(10);
+		textFieldVariable.setBounds(44, 46, 76, 22);
+		panelAlgebraicEquation.add(textFieldVariable);
 		
 		JLabel lblVariable = new JLabel("Variable");
 		lblVariable.setBounds(44, 24, 91, 16);
 		panelAlgebraicEquation.add(lblVariable);
 		
-		textField_1 = new JTextField();
-		textField_1.setText("");
-		textField_1.setColumns(10);
-		textField_1.setBounds(179, 46, 320, 22);
-		panelAlgebraicEquation.add(textField_1);
+		textFieldAlgebraicFormula = new JTextField();
+		textFieldAlgebraicFormula.setText("");
+		textFieldAlgebraicFormula.setColumns(10);
+		textFieldAlgebraicFormula.setBounds(179, 46, 320, 22);
+		panelAlgebraicEquation.add(textFieldAlgebraicFormula);
 		
 		JLabel lblAlgebraicEquation = new JLabel("Algebraic equation");
 		lblAlgebraicEquation.setBounds(179, 24, 228, 16);
 		panelAlgebraicEquation.add(lblAlgebraicEquation);
 		
-		JLabel label_3 = new JLabel("   = ");
-		label_3.setBounds(132, 49, 62, 16);
-		panelAlgebraicEquation.add(label_3);
+		JLabel labelEqualSign = new JLabel("=");
+		labelEqualSign.setBounds(132, 49, 62, 16);
+		panelAlgebraicEquation.add(labelEqualSign);
 		
-		table_1 = new JTable((TableModel) null);
-		table_1.setBorder(new LineBorder(new Color(0, 0, 0)));
-		table_1.setBounds(22, 88, 484, 282);
-		panelAlgebraicEquation.add(table_1);
+		tableAlgebraicFormulas = new JTable((TableModel) null);
+		tableAlgebraicFormulas.setBorder(new LineBorder(new Color(0, 0, 0)));
+		tableAlgebraicFormulas.setBounds(22, 88, 484, 282);
+		panelAlgebraicEquation.add(tableAlgebraicFormulas);
 		
-		JLabel label_5 = new JLabel("");
-		label_5.setBounds(379, 17, 99, 16);
-		panelAlgebraicEquation.add(label_5);
+		JButton buttonAddAlgebraicFormula = new JButton("Add");
+		buttonAddAlgebraicFormula.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String variable = textFieldVariable.getText();
+				String algebraicEquation = textFieldAlgebraicFormula.getText();
+				lblEditMode.setText("");
+				boolean isAdded = false;
+//				boolean isAdded = app.handleButtonAddAlgebraicFormula(variable, algebraicEquation);
+				if (!isAdded){
+					JOptionPane.showConfirmDialog(null,"Algebraic formula is not added","Warning", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+				}else {
+					textFieldVariable.setText("");
+					textFieldAlgebraicFormula.setText("");
+				}
+				
+			}
+		});
 		
-		JButton button = new JButton("Add");
-		button.setBounds(518, 45, 84, 25);
-		panelAlgebraicEquation.add(button);
+		buttonAddAlgebraicFormula.setBounds(518, 45, 84, 25);
+		panelAlgebraicEquation.add(buttonAddAlgebraicFormula);
 		
-		JButton button_1 = new JButton("Delete");
-		button_1.setBounds(518, 118, 84, 25);
-		panelAlgebraicEquation.add(button_1);
+		JButton buttonDeleteAlgebraicFormula = new JButton("Delete");
+		buttonDeleteAlgebraicFormula.setBounds(518, 118, 84, 25);
+		panelAlgebraicEquation.add(buttonDeleteAlgebraicFormula);
 		
-		JButton button_2 = new JButton("Edit");
-		button_2.setBounds(518, 81, 84, 25);
-		panelAlgebraicEquation.add(button_2);
+		JButton buttonEditAlgebraicFormula = new JButton("Edit");
+		buttonEditAlgebraicFormula.setBounds(518, 81, 84, 25);
+		panelAlgebraicEquation.add(buttonEditAlgebraicFormula);
 		
 		updateGraphics(); // Makes the graphics nice
 	}
