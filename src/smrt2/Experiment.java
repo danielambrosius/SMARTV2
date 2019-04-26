@@ -212,8 +212,16 @@ public class Experiment{
 		List<String> params = model.getParameters();
 		params.removeAll(Arrays.asList("", null));
 		if(params.size() > 0) {
+			int isTAdded = 0;
 			for (int i = 0; i < params.size();i++) {
-				String value = "P" + "[" + i + "]";
+				String value;
+				
+				if(params.get(i).equals("t")) {
+					value = "S" + "[0]";
+					isTAdded++;
+				}else {
+					value = "P" + "[" + (i-isTAdded) + "]";
+				}
 				paramDict.put(params.get(i), value);
 			}
 		}
@@ -229,8 +237,11 @@ public class Experiment{
 	private Map<String, String> buildStatesDict(){
 		Map<String, String> statesDict = new HashMap<String, String>();
 		List<String> states = model.getStates();
-		for (int i = 0; i < states.size();i++) {
+		
+		
+		for (int i = 0; i < states.size(); i++) {
 			String value = "S" + "[" + (i+1) + "]";
+			
 			statesDict.put(states.get(i), value);
 		}
 	return statesDict;
