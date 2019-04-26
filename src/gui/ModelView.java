@@ -27,7 +27,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
-public class SmartV2 extends JFrame {
+public class ModelView extends JFrame {
 	/**
 	 * 
 	 */
@@ -55,7 +55,7 @@ public class SmartV2 extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					SmartV2 frame = new SmartV2();
+					ModelView frame = new ModelView();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -68,7 +68,7 @@ public class SmartV2 extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public SmartV2() {
+	public ModelView() {
 		setResizable(false);		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 625, 486);
@@ -394,7 +394,7 @@ public class SmartV2 extends JFrame {
 		clearTextFields();
 		updateParamTable();
 		updateStateTable();
-		this.setTitle("SmartV2 - "+ app.getModelName());
+		this.setTitle("SmartV2 - Model - "+ app.getModelName());
 
 	}
 	
