@@ -53,12 +53,6 @@ public class Ode{
 		
 	}
 	
-	@Override
-	public String toString(){
-		String stringOde = "";
-		stringOde = "d" + this.leftHandSide + "/dt = " + this.rightHandSide;
-		return stringOde;
-	}
 	@JsonIgnore
 	public String[] getVariables() {
 		return this.variables;

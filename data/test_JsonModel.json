@@ -1,0 +1,12 @@
+{
+  "name" : "Test JSON model",
+  "odeList" : [ {
+    "leftHandSide" : "H",
+    "rightHandSide" : "x + 4k2"
+  }, {
+    "leftHandSide" : "B",
+    "rightHandSide" : "r^2 * 5"
+  } ],
+  "areOdesValid" : true,
+  "unboundParameters" : [ "L" ]
+}

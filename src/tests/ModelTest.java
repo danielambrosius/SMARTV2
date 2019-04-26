@@ -28,14 +28,13 @@ public class ModelTest extends TestCase {
 	
 	public void testAddOde() {
 		Model m = new Model("Name");
-		Ode testODE = new Ode("A", "k");
-		String expected = testODE.toString();
-		
 		m.addOde("A", "k");
 		
-		String actual = m.getOdeList().get(0).toString();
+		String actual = m.getOdeAtIndex(0).getLeftHandSide();
+		assertEquals("A", actual);
 		
-		assertEquals(expected, actual);	
+		actual = m.getOdeAtIndex(0).getRightHandSide();
+		assertEquals("k", actual);
 	}
 	
 	public void testDisplayOdes()  {

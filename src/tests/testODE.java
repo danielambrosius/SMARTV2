@@ -37,10 +37,6 @@ public class testODE extends TestCase {
 		assertEquals(state, myOde.getLeftHandSide());
 	}
 	
-	public void testToString(){
-		Ode myOde = new Ode(state, equation);
-		assertEquals(stringOde, myOde.toString());
-	}
 	public void testEquationParser2Variables() {
 		equation = "-A*B-(C*D)";
 		Ode myOde = new Ode(state, equation);
