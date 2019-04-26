@@ -5,15 +5,10 @@ import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import smrt2.EquationParser2;
+public class AlgebraicEquation implements Equation {
 
-
-public class Ode implements Equation{
-	// initialize variables
-	// State and formula should not contain trailing and leading white spaces.
 	private String rightHandSide;
 	private String leftHandSide;
 	private String[] variables;
@@ -22,7 +17,7 @@ public class Ode implements Equation{
 	
 	// create constructor
 	@JsonCreator
-	public Ode(@JsonProperty("leftHandSide") String leftHandSide,
+	public AlgebraicEquation(@JsonProperty("leftHandSide") String leftHandSide,
 			   @JsonProperty("rightHandSide") String rightHandSide){
 		this.rightHandSide = rightHandSide;
 		this.leftHandSide = leftHandSide;
@@ -34,11 +29,10 @@ public class Ode implements Equation{
 		}
 		
 	}
-
-	// Getters and setters for variables
+	
 	@Override
 	public String getLeftHandSide() {
-		return leftHandSide;
+		return this.leftHandSide;
 	}
 
 	@Override
@@ -54,28 +48,24 @@ public class Ode implements Equation{
 	@Override
 	public void setRightHandSide(String rightHandSide) {
 		this.rightHandSide = rightHandSide;
-		
 	}
-	
+
 	@Override
-	@JsonIgnore
 	public String[] getVariables() {
 		return this.variables;
 	}
-	
+
 	@Override
-	@JsonIgnore
 	public String[] getOperators() {
 		return this.operators;
 	}
-	
+
 	@Override
 	public String[] toArray() {
-		String[] odeArray = {this.getLeftHandSide(),this.getRightHandSide()};
-		return odeArray;
+		String[] AlgebraicEquationArray = {this.getLeftHandSide(),this.getRightHandSide()};
+		return AlgebraicEquationArray;
 	}
-	
-	
+
 	@Override
 	public boolean testFormula() {
 		String reconstructedFormula ="";
@@ -125,4 +115,5 @@ public class Ode implements Equation{
 		}
 		return true;
 	}
+
 }

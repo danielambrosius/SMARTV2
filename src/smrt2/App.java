@@ -175,7 +175,7 @@ public class App {
 	}
 
 	public String[] handleEditOde(Integer selectedTableRow) {
-		Ode ode = myModel.getOdeAtIndex(selectedTableRow);
+		Equation ode = myModel.getOdeAtIndex(selectedTableRow);
 		String[] odeArray = ode.toArray();
 		myModel.removeOdeAtIndex(selectedTableRow);
 		return odeArray;

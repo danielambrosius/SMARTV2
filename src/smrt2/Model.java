@@ -74,7 +74,7 @@ public class Model{
 		String[][] displayOdeList = new String[nrOdes][2];
 		boolean allCorrect = true;
 		for (int i = 0; i < odeList.size(); i++) {
-			Ode currentOde = odeList.get(i);
+			Equation currentOde = odeList.get(i);
 			displayOdeList[i][0] = "d" + currentOde.getLeftHandSide() + "/dt";
 			if(currentOde.testFormula()) {
 				displayOdeList[i][1] = currentOde.getRightHandSide();
@@ -97,7 +97,7 @@ public class Model{
 		List<String> params = new ArrayList<String>();
 		List<String> states = getStates();
 		String[] variables;
-		for (Ode ode : odeList) {
+		for (Equation ode : odeList) {
 			variables = ode.getVariables();
 			for (String variable : variables) {
 				// Check if variable is not a state and not already in parameters (params) 
@@ -122,7 +122,7 @@ public class Model{
 	@JsonIgnore
 	public List<String> getStates() {
 		List<String> states = new ArrayList<String>();
-		for (Ode ode : odeList) {
+		for (Equation ode : odeList) {
 			states.add(ode.getLeftHandSide());
 		}
 		return states;
@@ -134,19 +134,19 @@ public class Model{
 
 
 
-	public Ode getOdeAtIndex(Integer selectedTableRow) {
-		Ode ode = odeList.get(selectedTableRow);
+	public Equation getOdeAtIndex(Integer selectedTableRow) {
+		Equation ode = odeList.get(selectedTableRow);
 		return ode;
 		
 	}
 
 	public String[] getVariablesOfOde(int i) {
-		Ode myOde = odeList.get(i);
+		Equation myOde = odeList.get(i);
 		return myOde.getVariables();
 	}
 
 	public String[] getOperatorsOfOde(int i) {
-		Ode myOde = odeList.get(i);
+		Equation myOde = odeList.get(i);
 		return myOde.getOperators();
 	}
 	

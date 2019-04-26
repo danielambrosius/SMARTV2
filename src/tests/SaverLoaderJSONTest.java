@@ -2,6 +2,7 @@ package tests;
 
 import java.util.Arrays;
 import junit.framework.TestCase;
+import smrt2.Equation;
 import smrt2.Experiment;
 import smrt2.Model;
 import smrt2.Ode;
@@ -16,11 +17,11 @@ public class SaverLoaderJSONTest extends TestCase {
 	
 	public void testSaveLoadOde() {
 		String savePath = "./data/test_Json.json";
-		Ode expectedOde = new Ode("F","H*R");
+		Equation expectedOde = new Ode("F","H*R");
 		SaverLoader mySl= SaverLoader.getInstance();
 		mySl.save(savePath, expectedOde);
 		
-		Ode observedOde =  (Ode) mySl.load(savePath, Ode.class);
+		Equation observedOde =  (Equation) mySl.load(savePath, Ode.class);
 		assertEquals(expectedOde.getLeftHandSide(), observedOde.getLeftHandSide());
 		assertEquals(expectedOde.getRightHandSide(), observedOde.getRightHandSide());		
 	}
