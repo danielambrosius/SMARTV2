@@ -1,5 +1,6 @@
 package gui;
 
+import smrt2.CSVWriter;
 import smrt2.GraphThread;
 import smrt2.ProgressThread;
 import smrt2.SmartTableModel;
@@ -20,6 +21,11 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import javax.swing.JProgressBar;
 import java.awt.Insets;
+import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.awt.event.ActionEvent;
 
 
 public class TableViewer extends JFrame {
@@ -50,6 +56,15 @@ public class TableViewer extends JFrame {
 		menuBar.add(mnFile);
 		
 		JMenuItem mntmSave = new JMenuItem("Save");
+		mntmSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String filePath = FileChooser.save("csv","csv");
+				if (filePath != null) {
+					new CSVWriter(tableModel,filePath);
+				}
+				
+			}
+		});
 		mnFile.add(mntmSave);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
