@@ -101,7 +101,7 @@ public class Model{
 			variables = ode.getVariables();
 			for (String variable : variables) {
 				// Check if variable is not a state and not already in parameters (params) 
-				if (!states.contains(variable) && !params.contains(variable) && !variable.isEmpty()) {
+				if (!states.contains(variable) && !params.contains(variable) && !variable.isEmpty() && !variable.equals("t")) {
 					params.add(variable);
 				}
 			}

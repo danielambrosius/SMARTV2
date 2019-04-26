@@ -213,13 +213,8 @@ public class Experiment{
 		params.removeAll(Arrays.asList("", null));
 		if(params.size() > 0) {
 			for (int i = 0; i < params.size();i++) {
-				String value;
+				String value = "P" + "[" + i + "]";
 				
-				if(params.get(i).equals("t")) {
-					value = "S" + "[0]";
-				}else {
-					value = "P" + "[" + i + "]";
-				}
 				paramDict.put(params.get(i), value);
 			}
 		}
@@ -242,6 +237,7 @@ public class Experiment{
 			
 			statesDict.put(states.get(i), value);
 		}
+		statesDict.put("t", "S[0]");
 	return statesDict;
 	}
 	@JsonIgnore

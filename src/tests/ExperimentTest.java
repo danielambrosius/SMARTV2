@@ -74,10 +74,10 @@ public class ExperimentTest extends TestCase {
 		e = new Experiment(m);
 		
 		String[] actual = e.reconstructFormulas();
-//		System.out.println(actual[0]);
-//		System.out.println(actual[1]);
-//		System.out.println(actual[2]);
-		String[] expected = {"P[0]+P[1]", "P[2]*((S[2]+S[0]+S[0]+S[0]+S[3])+P[2])", "S[3]-S[2]+P[4]"};
+		System.out.println(actual[0]);
+		System.out.println(actual[1]);
+		System.out.println(actual[2]);
+		String[] expected = {"P[0]+P[1]", "P[2]*((S[2]+S[0]+S[0]+S[0]+S[3])+P[2])", "S[3]-S[2]+P[3]"};
 		assertTrue(Arrays.equals(expected, actual));
 	}
 	
