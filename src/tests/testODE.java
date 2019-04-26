@@ -17,24 +17,24 @@ public class testODE extends TestCase {
 	
 	public void testGetFormula(){
 		Ode myOde = new Ode(null, equation);
-		assertEquals(equation, myOde.getFormula());
+		assertEquals(equation, myOde.getRightHandSide());
 	}
 	
 	public void testSetFormula(){
 		Ode myOde = new Ode(null, null);
-		myOde.setFormula(equation);
-		assertEquals(equation, myOde.getFormula());
+		myOde.setRightHandSide(equation);
+		assertEquals(equation, myOde.getRightHandSide());
 	}
 	
 	public void testGetState(){
 		Ode myOde = new Ode(state, null);
-		assertEquals(state, myOde.getState());
+		assertEquals(state, myOde.getLeftHandSide());
 	}
 	
 	public void testSetState(){
 		Ode myOde = new Ode(null, null);
-		myOde.setState(state);
-		assertEquals(state, myOde.getState());
+		myOde.setLeftHandSide(state);
+		assertEquals(state, myOde.getLeftHandSide());
 	}
 	
 	public void testToString(){

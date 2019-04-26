@@ -14,51 +14,49 @@ import smrt2.EquationParser2;
 public class Ode{
 	// initialize variables
 	// State and formula should not contain trailing and leading white spaces.
-	private String formula;
-	private String state;
+	private String rightHandSide;
+	private String leftHandSide;
 	private String[] variables;
 	private String[] operators;
 
 	
 	// create constructor
 	@JsonCreator
-	public Ode(@JsonProperty("state") String state,
-			   @JsonProperty("formula") String formula){
-		this.formula = formula;
-		this.state = state;
+	public Ode(@JsonProperty("leftHandSide") String leftHandSide,
+			   @JsonProperty("rightHandSide") String rightHandSide){
+		this.rightHandSide = rightHandSide;
+		this.leftHandSide = leftHandSide;
 		
-		if (this.formula != null) {
+		if (this.rightHandSide != null) {
 			EquationParser2 parser = new EquationParser2();
-			this.variables = parser.getVariables(formula);
-			this.operators = parser.getOperators(formula);
+			this.variables = parser.getVariables(rightHandSide);
+			this.operators = parser.getOperators(rightHandSide);
 		}
 		
 	}
 
-
-	
 	// Getters and setters for variables
-	public String getState() {
-		return state;
+	public String getLeftHandSide() {
+		return leftHandSide;
 	}
 
-	public void setState(String state) {
-		this.state = state;
+	public void setLeftHandSide(String leftHandSide) {
+		this.leftHandSide = leftHandSide;
 	}
 
-	public String getFormula() {
-		return this.formula;
+	public String getRightHandSide() {
+		return this.rightHandSide;
 	}
 
-	public void setFormula(String equation) {
-		this.formula = equation;
+	public void setRightHandSide(String rightHandSide) {
+		this.rightHandSide = rightHandSide;
 		
 	}
 	
 	@Override
 	public String toString(){
 		String stringOde = "";
-		stringOde = "d" + this.state + "/dt = " + this.formula;
+		stringOde = "d" + this.leftHandSide + "/dt = " + this.rightHandSide;
 		return stringOde;
 	}
 	@JsonIgnore
@@ -70,7 +68,7 @@ public class Ode{
 		return this.operators;
 	}
 	public String[] toArray() {
-		String[] odeArray = {this.getState(),this.getFormula()};
+		String[] odeArray = {this.getLeftHandSide(),this.getRightHandSide()};
 		return odeArray;
 	}
 	

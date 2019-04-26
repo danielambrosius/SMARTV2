@@ -75,11 +75,11 @@ public class Model{
 		boolean allCorrect = true;
 		for (int i = 0; i < odeList.size(); i++) {
 			Ode currentOde = odeList.get(i);
-			displayOdeList[i][0] = "d" + currentOde.getState() + "/dt";
+			displayOdeList[i][0] = "d" + currentOde.getLeftHandSide() + "/dt";
 			if(currentOde.testFormula()) {
-				displayOdeList[i][1] = currentOde.getFormula();
+				displayOdeList[i][1] = currentOde.getRightHandSide();
 			}else {
-				displayOdeList[i][1] = currentOde.getFormula()+" (Incorrect syntax)";
+				displayOdeList[i][1] = currentOde.getRightHandSide()+" (Incorrect syntax)";
 				allCorrect = false;
 			}
 		}
@@ -123,7 +123,7 @@ public class Model{
 	public List<String> getStates() {
 		List<String> states = new ArrayList<String>();
 		for (Ode ode : odeList) {
-			states.add(ode.getState());
+			states.add(ode.getLeftHandSide());
 		}
 		return states;
 	}

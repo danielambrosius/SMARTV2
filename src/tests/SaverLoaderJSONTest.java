@@ -21,8 +21,8 @@ public class SaverLoaderJSONTest extends TestCase {
 		mySl.save(savePath, expectedOde);
 		
 		Ode observedOde =  (Ode) mySl.load(savePath, Ode.class);
-		assertEquals(expectedOde.getState(), observedOde.getState());
-		assertEquals(expectedOde.getFormula(), observedOde.getFormula());		
+		assertEquals(expectedOde.getLeftHandSide(), observedOde.getLeftHandSide());
+		assertEquals(expectedOde.getRightHandSide(), observedOde.getRightHandSide());		
 	}
 	
 	public void testSaveLoadModel() {
