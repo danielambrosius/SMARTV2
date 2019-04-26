@@ -106,7 +106,6 @@ public class Ode{
 		ScriptEngineManager mgr = new ScriptEngineManager();
 		ScriptEngine engine = mgr.getEngineByName("JavaScript");
 		reconstructedFormula = StdFSubber.powerSubstitute(reconstructedFormula);
-		System.out.println(reconstructedFormula);
 
 		try {
 			engine.eval(reconstructedFormula);
