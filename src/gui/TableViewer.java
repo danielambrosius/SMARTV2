@@ -23,6 +23,7 @@ import java.awt.event.ActionListener;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 import java.awt.event.ActionEvent;
 
 
@@ -55,11 +56,7 @@ public class TableViewer extends JFrame {
 		JMenuItem mntmSave = new JMenuItem("Save");
 		mntmSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String filePath = FileChooser.save("csv","csv");
-				if (filePath != null) {
-					new CSVWriter(tableModel,filePath);
-				}
-				
+				SeperatorSelector s = new SeperatorSelector(tableModel);
 			}
 		});
 		mnFile.add(mntmSave);
