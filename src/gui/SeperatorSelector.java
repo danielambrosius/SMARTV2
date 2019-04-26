@@ -205,13 +205,18 @@ public class SeperatorSelector extends JFrame {
 			}
 		}
 		dispose();	
-		String filePath = FileChooser.save("csv","csv");
+		String filePath = null;
+		if (seperator == ",") {
+			filePath = FileChooser.save("csv","csv");
+		} else if(seperator == "\t") {
+			filePath = FileChooser.save("tsv","tsv");
+		} else {
+			filePath = FileChooser.save("txt","txt");
+		}
 		if (filePath != null) {
 			new CSVWriter(tableModel,filePath, seperator);
 		}
-		else {
-			System.out.println("nullllll");
-		}
+
 	}
 	
 
