@@ -77,12 +77,12 @@ public class ModelView extends JFrame {
 		if (result==JOptionPane.YES_OPTION) {
 			String modelName = JOptionPane.showInputDialog("Name of the new model:");
 			app.newModel(modelName);
-			}
-		if (result==JOptionPane.NO_OPTION) {
+			} else if (result==JOptionPane.NO_OPTION) {
 			String filePath = FileChooser.open("Model", "model");
 			app.openModel(filePath);
+		} else if (result==JOptionPane.CLOSED_OPTION) {
+			System.exit(0);
 		}
-		
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -113,7 +113,7 @@ public class ModelView extends JFrame {
 		JMenuItem mntmSave = new JMenuItem("Save...");
 		mntmSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String filePath = FileChooser.save("Model", "model");
+				String filePath = FileChooser.save("Model", "model", app.getModelName());
 				app.saveModel(filePath);
 				updateGraphics();
 			}
@@ -152,7 +152,7 @@ public class ModelView extends JFrame {
 		JMenuItem mntmSave_1 = new JMenuItem("Save...");
 		mntmSave_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String filePath = FileChooser.save("Experiment", "exp");
+				String filePath = FileChooser.save("Experiment", "exp", app.getModelName());
 				app.saveExperiment(filePath);
 			}
 		});

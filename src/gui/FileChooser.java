@@ -31,7 +31,7 @@ public class FileChooser {
 	}
 	
 	// Opens a dialog to select a <type> to open, returns path of file.
-	public static String save(String type, String extension) throws NullPointerException {
+	public static String save(String type, String extension, String name) throws NullPointerException {
 	    boolean acceptable = false;
 	    String filePath = null;
 	    
@@ -44,6 +44,7 @@ public class FileChooser {
 			jfc.setAcceptAllFileFilterUsed(false);
 			FileNameExtensionFilter filter = new FileNameExtensionFilter(type + " files", extension);
 			jfc.addChoosableFileFilter(filter);
+			jfc.setSelectedFile(new File(name));
 			
 	        if (jfc.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
 	            filePath = jfc.getSelectedFile().getAbsolutePath();
@@ -78,7 +79,7 @@ public class FileChooser {
 	
 	// Main method just for test purposes.
 	public static void main(String[] args) {
-		save("experiment", "exp");
+		save("experiment", "exp", "default_name");
 	}
 
 }
