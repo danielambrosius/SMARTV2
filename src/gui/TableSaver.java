@@ -24,7 +24,7 @@ import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class SeperatorSelector extends JFrame {
+public class TableSaver extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textFieldCustom;
@@ -54,7 +54,7 @@ public class SeperatorSelector extends JFrame {
 //	/**
 //	 * Create the frame.
 //	 */
-	public SeperatorSelector(SmartTableModel tableModel) {
+	public TableSaver(SmartTableModel tableModel) {
 		this.tableModel = tableModel;
 		buildInterface();
 	}

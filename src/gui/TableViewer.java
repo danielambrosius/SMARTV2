@@ -56,7 +56,7 @@ public class TableViewer extends JFrame {
 		JMenuItem mntmSave = new JMenuItem("Save");
 		mntmSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				SeperatorSelector s = new SeperatorSelector(tableModel);
+				new TableSaver(tableModel);
 			}
 		});
 		mnFile.add(mntmSave);
