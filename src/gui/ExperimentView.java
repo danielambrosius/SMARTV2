@@ -42,6 +42,7 @@ public class ExperimentView extends JFrame {
 		this.myApp = app;
 		buildGui();
 		this.setVisible(true);
+		this.setTitle("SmartV2 - Experiment");
 		updateGraphics();
 	}
 

@@ -37,11 +37,10 @@ public class TableViewer extends JFrame {
 	private JTabbedPane tabbedPane;
 	private SmartTableModel tableModel;
 	private JProgressBar progressBar;
-	//static Double[][] data = {{1.0,5.0},{3.0,8.0}};
 	static Object[] titles = {"first", "not first"};
 
 	public TableViewer(SmartTableModel tableModel) {
-		
+		this.setTitle("SmartV2 - Table");
 		this.tableModel = tableModel;
 		
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
