@@ -13,7 +13,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 import smrt2.App;
-import smrt2.ProgressThread;
 import smrt2.SolverThread;
 
 import java.awt.Color;

@@ -1,8 +1,6 @@
 package gui;
 
 import smrt2.CSVWriter;
-import smrt2.GraphThread;
-import smrt2.ProgressThread;
 import smrt2.SmartTableModel;
 import smrt2.SolverThread;
 

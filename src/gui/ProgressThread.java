@@ -1,6 +1,8 @@
-package smrt2;
+package gui;
 
 import javax.swing.JProgressBar;
+
+import smrt2.SmartTableModel;
 
 public class ProgressThread extends Thread {
 	private JProgressBar progressBar;

@@ -1,12 +1,13 @@
-package smrt2;
+package gui;
 
 import javax.swing.JTabbedPane;
 
-import gui.GraphBuilder;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.layout.StackPane;
+import smrt2.SmartTableModel;
+import smrt2.SolverThread;
 
 public class GraphThread extends Thread {
 
