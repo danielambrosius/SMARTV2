@@ -17,7 +17,6 @@ public class App {
 	public App() {
 		modelSaved = false;
 		experimentSaved = false;
-		myModel = new Model("untitled"); // App gets constructed w. a new model by default.
 		saverLoader = SaverLoader.getInstance();
 	}
 
