@@ -2,7 +2,6 @@ package gui;
 
 import smrt2.CSVWriter;
 import smrt2.SmartTableModel;
-import smrt2.SolverThread;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;

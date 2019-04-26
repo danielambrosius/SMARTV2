@@ -7,7 +7,6 @@ import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.layout.StackPane;
 import smrt2.SmartTableModel;
-import smrt2.SolverThread;
 
 public class GraphThread extends Thread {
 

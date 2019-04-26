@@ -1,4 +1,8 @@
-package smrt2;
+package gui;
+
+import smrt2.SmartTableModel;
+import smrt2.Solver;
+import smrt2.SolverEulerForward;
 
 public class SolverThread extends Thread {
 	SmartTableModel model; 
