@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 public class EquationParser2 {
 	private String[] variables;
 	private String[] operators;
-	//regex pattern to split on all operators
+	//regex pattern to split on all operators 
 	
 	private final String consideredOperators = "(\\+|\\-|\\*|\\/|=|>|<|>=|<=|&|\\||%|!|\\^|\\(|\\)|sin\\(|cos\\(|tan\\(|log\\(|ln\\(|log10\\(|log2\\(|sqrt\\(|abs\\()+";
 	//regex pattern to split on all non operators.

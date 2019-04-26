@@ -66,6 +66,19 @@ public class ExperimentTest extends TestCase {
 		assertTrue(Arrays.equals(expected, actual));
 	}
 	
+	public void testReconstuctFormulas2(){
+		// testing for a known bug
+		Model m = new Model("Name");
+		m.addOde("A", "2+k1");
+		m.addOde("B", "k1+2");
+		m.addOde("c", "(2+k1)*2");
+		e = new Experiment(m);
+		
+		String[] actual = e.reconstructFormulas();
+		String[] expected = {"2+P[0]", "P[0]+2", "(2+P[0])*2"};
+		assertTrue(Arrays.equals(expected, actual));
+	}
+	
 	public void testSolverCreation() {
 		Model mo = new Model("Name");
 		mo.addOde("A", "k1");

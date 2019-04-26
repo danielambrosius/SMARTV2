@@ -186,7 +186,7 @@ public class Experiment{
 				}
 			}
 			
-			// if the variable list was larger that the operator list the last variable needs to be added and vice versa
+			// if the variable list was larger that the operator list the last variable needs to be added and vice versa 
 			if (currentVariables.length > currentOperators.length){
 				if (varDict.get(currentVariables[currentVariables.length-1]) != null) {
 					reconstructedFormula += varDict.get(currentVariables[currentVariables.length-1]);
