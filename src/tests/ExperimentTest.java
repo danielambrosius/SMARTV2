@@ -68,14 +68,16 @@ public class ExperimentTest extends TestCase {
 
 	public void testReconstuctFormulasTime(){
 		Model m = new Model("Name");
+		m.addOde("C", "x+b");
 		m.addOde("A", "k1*((A+t+t+t+B)+k1)");
 		m.addOde("B", "B-A+k2");
 		e = new Experiment(m);
 		
 		String[] actual = e.reconstructFormulas();
-		System.out.println(actual[0]);
-		System.out.println(actual[1]);
-		String[] expected = {"P[0]*((S[1]+S[0]+S[0]+S[0]+S[2])+P[0])", "S[2]-S[1]+P[1]"};
+//		System.out.println(actual[0]);
+//		System.out.println(actual[1]);
+//		System.out.println(actual[2]);
+		String[] expected = {"P[0]+P[1]", "P[2]*((S[2]+S[0]+S[0]+S[0]+S[3])+P[2])", "S[3]-S[2]+P[4]"};
 		assertTrue(Arrays.equals(expected, actual));
 	}
 	

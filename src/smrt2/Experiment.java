@@ -212,15 +212,13 @@ public class Experiment{
 		List<String> params = model.getParameters();
 		params.removeAll(Arrays.asList("", null));
 		if(params.size() > 0) {
-			int isTAdded = 0;
 			for (int i = 0; i < params.size();i++) {
 				String value;
 				
 				if(params.get(i).equals("t")) {
 					value = "S" + "[0]";
-					isTAdded++;
 				}else {
-					value = "P" + "[" + (i-isTAdded) + "]";
+					value = "P" + "[" + i + "]";
 				}
 				paramDict.put(params.get(i), value);
 			}
