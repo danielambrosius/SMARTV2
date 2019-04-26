@@ -63,7 +63,7 @@ public class ExperimentTest extends TestCase {
 		
 		String[] actual = e.reconstructFormulas();
 		String[] expected = {"P[0]*((S[1]+S[2])+P[0])", "S[2]-S[1]+P[1]"};
-		assertTrue(Arrays.equals(expected, actual));
+		assertEquals(Arrays.asList(expected), Arrays.asList(actual));
 	}
 	
 	public void testReconstuctFormulas2(){
@@ -76,7 +76,7 @@ public class ExperimentTest extends TestCase {
 		
 		String[] actual = e.reconstructFormulas();
 		String[] expected = {"2+P[0]", "P[0]+2", "(2+P[0])*2"};
-		assertTrue(Arrays.equals(expected, actual));
+		assertEquals(Arrays.asList(expected), Arrays.asList(actual));
 	}
 	
 	public void testSolverCreation() {

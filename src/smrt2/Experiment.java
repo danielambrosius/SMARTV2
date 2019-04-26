@@ -180,7 +180,7 @@ public class Experiment{
 			}
 			
 			//check if ode equation has an operator
-			else if (currentOperators.length > 0 && currentOperators[0].isEmpty()) {
+			else if (currentOperators.length > 0) {
 				for (int j = 0; j < currentVariables.length; j++) {
 					reconstructedFormula += currentOperators[j] + varDict.get(currentVariables[j]);
 				}
