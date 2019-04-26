@@ -239,5 +239,11 @@ public class App {
 		return this.myExperiment.getTableModel();
 	}
 
+	public boolean handleButtonAddAlgebraicFormula(String variable, String algebraicEquation) {
+		// TODO Auto-generated method stub
+		System.out.println(variable + " = " + algebraicEquation);
+		return false;
+	}
+
 }
 
