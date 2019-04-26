@@ -16,6 +16,6 @@ public interface Equation {
 
 	String[] toArray();
 
-	boolean testFormula();
+	boolean testRightHandSide();
 
 }

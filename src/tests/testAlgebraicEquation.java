@@ -58,11 +58,11 @@ public class testAlgebraicEquation extends TestCase {
 	public void testTestFormula() {
 		rightHandSide = "-A*B-(C*D)";
 		Equation myAlgEq = new AlgebraicEquation(leftHandSide, rightHandSide);
-		boolean isValid = myAlgEq.testFormula();
+		boolean isValid = myAlgEq.testRightHandSide();
 		assertTrue(isValid);
 		String equation2 = "++++"; 
 		Equation myAlgEq2 = new AlgebraicEquation(leftHandSide, equation2);
-		boolean isValid2 = myAlgEq2.testFormula();
+		boolean isValid2 = myAlgEq2.testRightHandSide();
 		assertFalse(isValid2);
 	}
 }

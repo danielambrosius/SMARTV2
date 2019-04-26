@@ -76,7 +76,7 @@ public class Model{
 		for (int i = 0; i < odeList.size(); i++) {
 			Equation currentOde = odeList.get(i);
 			displayOdeList[i][0] = "d" + currentOde.getLeftHandSide() + "/dt";
-			if(currentOde.testFormula()) {
+			if(currentOde.testRightHandSide()) {
 				displayOdeList[i][1] = currentOde.getRightHandSide();
 			}else {
 				displayOdeList[i][1] = currentOde.getRightHandSide()+" (Incorrect syntax)";
