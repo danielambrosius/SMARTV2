@@ -12,7 +12,7 @@ public class TestSmartTableModel extends TestCase {
 		List<String> colNames = new ArrayList<String>();
 		colNames.add("X");
 		colNames.add("Y");
-		SmartTableModel myTable = new SmartTableModel(colNames);
+		SmartTableModel myTable = new SmartTableModel(colNames, "table name");
 		
 		String[] expected = {"Time", "X", "Y"};
 		for (int i = 0; i < myTable.getColumnCount(); i++) {
@@ -20,11 +20,20 @@ public class TestSmartTableModel extends TestCase {
 		}
 	}
 	
+	public void testGetName() {
+		List<String> colNames = new ArrayList<String>();
+		colNames.add("X");
+		colNames.add("Y");
+		String expectedName = "table name";
+		SmartTableModel myTable = new SmartTableModel(colNames, expectedName);
+		assertEquals(expectedName, myTable.getName());
+	}
+	
 	public void testManipulations(){
 		List<String> colNames = new ArrayList<String>();
 		colNames.add("X");
 		colNames.add("Y");
-		SmartTableModel myTable = new SmartTableModel(colNames);
+		SmartTableModel myTable = new SmartTableModel(colNames, "table name");
 		//Add data
 		Double[] data1 = {0., 10., 50.};
 		myTable.AddRow(data1);

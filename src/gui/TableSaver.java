@@ -207,11 +207,11 @@ public class TableSaver extends JFrame {
 		dispose();	
 		String filePath = null;
 		if (seperator == ",") {
-			filePath = FileChooser.save("csv","csv");
+			filePath = FileChooser.save("csv","csv", tableModel.getName());
 		} else if(seperator == "\t") {
-			filePath = FileChooser.save("tsv","tsv");
+			filePath = FileChooser.save("tsv","tsv", tableModel.getName());
 		} else {
-			filePath = FileChooser.save("txt","txt");
+			filePath = FileChooser.save("txt","txt", tableModel.getName());
 		}
 		if (filePath != null) {
 			new CSVWriter(tableModel,filePath, seperator);

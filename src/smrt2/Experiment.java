@@ -52,7 +52,7 @@ public class Experiment{
 		Arrays.fill(parameterValues, 1.0);
 		
 		//Instantiate the table model
-		tableModel = new SmartTableModel(m.getStates());
+		tableModel = new SmartTableModel(m.getStates(), this.name);
 	}
 	
 	/**
@@ -248,7 +248,7 @@ public class Experiment{
 	}
 
 	public void resetTable() {
-		this.tableModel = new SmartTableModel(this.model.getStates());
+		this.tableModel = new SmartTableModel(this.model.getStates(), this.name);
 		
 	}
 }

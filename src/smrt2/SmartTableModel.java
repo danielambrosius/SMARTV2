@@ -12,11 +12,18 @@ public class SmartTableModel extends AbstractTableModel {
 	private static final long serialVersionUID = 1L;
 	private ArrayList<Double[]> data = new ArrayList<Double[]>();
 	private List<String> colNames = new ArrayList<String>();
+	private String name;
 	
-	public SmartTableModel(List<String> colNames){
+	public SmartTableModel(List<String> colNames, String name){
 		this.colNames.add("Time");
 		this.colNames.addAll(colNames);
+		this.name = name;
 	}
+	
+	public String getName() {
+		return this.name;
+	}
+	
 	public Double[] getColumnAt(int i) {
 		Double[] columnData = new Double[getRowCount()];
 		for (int j = 0; j < getRowCount(); j++) {

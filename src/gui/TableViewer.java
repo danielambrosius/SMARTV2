@@ -40,8 +40,8 @@ public class TableViewer extends JFrame {
 	static Object[] titles = {"first", "not first"};
 
 	public TableViewer(SmartTableModel tableModel) {
-		this.setTitle("SmartV2 - Table");
 		this.tableModel = tableModel;
+		this.setTitle("SmartV2 - " + this.tableModel.getName());
 		
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);

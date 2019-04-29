@@ -12,7 +12,7 @@ public class SolverTest extends TestCase {
 	
 	public void testSolver() {
 		List<String> colNames = Arrays.asList("A", "B");
-		SmartTableModel S = new SmartTableModel(colNames);
+		SmartTableModel S = new SmartTableModel(colNames, "Test_tablemodel");
 		String[] Formulas = {"P[0]", "P[1]*S[1]"};
 		Double[] S0 = {0., 0.};
 		Double[] P = {1., 2.};
