@@ -12,14 +12,14 @@ public class StdFSubber {
 	private static String[] targetOperators = {"log","**"}; 
 	private static Map<String,String> groupingDict = new HashMap<String,String>();
 	
-	public static String substitute(String odeFormula) {
+	public static String substitute(String odeOperator) {
 		for (int i = 0; i < subOperators.length; i++) {
-			odeFormula = odeFormula.replace(subOperators[i],targetOperators[i]);
+			odeOperator = odeOperator.replace(subOperators[i],targetOperators[i]);
 		}
 		for (String function : standardFunctions) {
-			odeFormula = odeFormula.replace(function, "Math."+function);
+			odeOperator = odeOperator.replace(function, "Math."+function);
 		}
-		return odeFormula;
+		return odeOperator;
 	}
 	
 	public static String powerSubstitute(String odeFormula) {
