@@ -17,7 +17,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.border.LineBorder;
 
-import smrt2.CSVWriter;
+import smrt2.TableWriter;
 import smrt2.SmartTableModel;
 
 import java.awt.Color;
@@ -214,7 +214,7 @@ public class TableSaver extends JFrame {
 			filePath = FileChooser.save("txt","txt", tableModel.getName());
 		}
 		if (filePath != null) {
-			new CSVWriter(tableModel,filePath, seperator);
+			new TableWriter(tableModel,filePath, seperator);
 		}
 
 	}

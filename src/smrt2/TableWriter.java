@@ -5,9 +5,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 
-public class CSVWriter {
+public class TableWriter {
 	
-	public CSVWriter(SmartTableModel tableModel, String filePath, String seperator) {
+	public TableWriter(SmartTableModel tableModel, String filePath, String seperator) {
 		exportToCSV(tableModel,filePath, seperator);
 	}
 

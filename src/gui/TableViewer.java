@@ -1,6 +1,6 @@
 package gui;
 
-import smrt2.CSVWriter;
+import smrt2.TableWriter;
 import smrt2.SmartTableModel;
 
 import javax.swing.JFrame;
