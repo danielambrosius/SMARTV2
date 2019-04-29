@@ -1,0 +1,12 @@
+{
+  "name" : "cannonball.model",
+  "odeList" : [ {
+    "leftHandSide" : "v",
+    "rightHandSide" : "-g"
+  }, {
+    "leftHandSide" : "y",
+    "rightHandSide" : "v"
+  } ],
+  "areOdesValid" : true,
+  "unboundParameters" : [ ]
+}

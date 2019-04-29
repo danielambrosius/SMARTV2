@@ -1,0 +1,12 @@
+{
+  "name" : "Lotka_Volterra.model",
+  "odeList" : [ {
+    "leftHandSide" : "x",
+    "rightHandSide" : "a*x-b*x*y"
+  }, {
+    "leftHandSide" : "y",
+    "rightHandSide" : "d*x*y-g*y"
+  } ],
+  "areOdesValid" : true,
+  "unboundParameters" : [ ]
+}

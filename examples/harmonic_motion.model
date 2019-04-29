@@ -1,0 +1,12 @@
+{
+  "name" : "harmonic_motion.model",
+  "odeList" : [ {
+    "leftHandSide" : "theta",
+    "rightHandSide" : "omega"
+  }, {
+    "leftHandSide" : "omega",
+    "rightHandSide" : "-m*omega-(g/L)*sin(theta)"
+  } ],
+  "areOdesValid" : true,
+  "unboundParameters" : [ ]
+}

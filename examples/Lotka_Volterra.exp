@@ -1,0 +1,18 @@
+{
+  "name" : "Default experiment name",
+  "model" : {
+    "name" : "Lotka_Volterra.model",
+    "odeList" : [ {
+      "leftHandSide" : "x",
+      "rightHandSide" : "a*x-b*x*y"
+    }, {
+      "leftHandSide" : "y",
+      "rightHandSide" : "d*x*y-g*y"
+    } ],
+    "areOdesValid" : true,
+    "unboundParameters" : [ ]
+  },
+  "parameterValues" : [ 0.1, 0.02, 0.02, 0.4 ],
+  "stateValues" : [ 10.0, 10.0 ],
+  "timeValues" : [ 0.0, 100.0, 0.1 ]
+}
