@@ -50,7 +50,6 @@ public class RightHandSideChecker {
 			reconstructedFormula += operators[operators.length-1];
 		}
 		reconstructedFormula = StdFSubber.powerSubstitute(reconstructedFormula);
-		System.out.println(reconstructedFormula);
 		return reconstructedFormula;
 	}
 

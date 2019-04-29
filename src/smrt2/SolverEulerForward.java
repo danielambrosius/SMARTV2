@@ -53,7 +53,7 @@ public class SolverEulerForward implements Solver {
 		for (int i = 1; i < results.length; i++) {
 			//first element of results contains time so we skip it
 			String odeFormula = odeFormulas[i-1];
-			
+			odeFormula = StdFSubber.powerSubstitute(odeFormula);
 			//use javascript to evaluate the result of the formula
 			try {
 				dxdt = Double.parseDouble(engine.eval(String.format("var P = %s; var S = %s ;%s", parameters, states, odeFormula )).toString());
