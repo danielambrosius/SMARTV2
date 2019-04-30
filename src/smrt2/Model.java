@@ -59,8 +59,8 @@ public class Model{
 	public boolean addOde(String state, String formula) {
 		Ode odeToAdd = new Ode(state, formula);
 		if (!this.getStates().contains(state)){
-		equationList.add(odeToAdd);
-		return true;
+			equationList.add(odeToAdd);
+			return true;
 		}
 		return false;
 		
@@ -124,10 +124,9 @@ public class Model{
 		}
 		for (int i = 0; i < unboundParameters.toArray().length; i++) {
 			if(!params.contains(unboundParameters.get(i)) && !states.contains(unboundParameters.get(i))) {
-				params.add(unboundParameters.get(i));
+				params.add(unboundParameters.get(i)+ " (Unbound)");
 			}else {
 				unboundParameters.remove(unboundParameters.get(i));
-
 			}
 		}
 
