@@ -239,6 +239,7 @@ public class App {
 	}
 
 	public int handleButtonAddParameter(String parameter) {
+		parameter = parameter.replace(" ","");
 		int isAdded = myModel.addParameter(parameter);
 		modelSaved = false;
 		return isAdded;
