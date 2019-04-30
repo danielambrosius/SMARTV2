@@ -1,6 +1,0 @@
-{
-  "leftHandSide" : "F",
-  "rightHandSide" : "H*R",
-  "variables" : [ "H", "R" ],
-  "operators" : [ "", "*" ]
-}
