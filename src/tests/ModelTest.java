@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 import junit.framework.TestCase;
 import smrt2.Model;
-import smrt2.Ode;
 
 public class ModelTest extends TestCase {
 	

@@ -7,7 +7,7 @@ import java.util.List;
 import junit.framework.TestCase;
 import smrt2.EquationParser2;
 
-public class TestEquationParser2 extends TestCase {
+public class EquationParser2Test extends TestCase {
 	private String equation;
 	
 	public void testCreateEquationParser2() {

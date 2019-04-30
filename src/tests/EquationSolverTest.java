@@ -2,7 +2,7 @@ package tests;
 
 import junit.framework.TestCase;
 
-public class TestEquationSolver extends TestCase {
+public class EquationSolverTest extends TestCase {
 	public void testRebuildEquation() {
 		
 	}

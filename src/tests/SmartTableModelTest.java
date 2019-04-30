@@ -7,7 +7,7 @@ import java.util.List;
 import junit.framework.TestCase;
 import smrt2.SmartTableModel;
 
-public class TestSmartTableModel extends TestCase {
+public class SmartTableModelTest extends TestCase {
 	public void testSetUp(){
 		List<String> colNames = new ArrayList<String>();
 		colNames.add("X");

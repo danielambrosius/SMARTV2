@@ -6,7 +6,7 @@ import junit.framework.TestCase;
 import smrt2.Equation;
 import smrt2.Ode;
 
-public class testODE extends TestCase {
+public class OdeTest extends TestCase {
 	private String state = "E";
 	private String equation = "2mc";
 	

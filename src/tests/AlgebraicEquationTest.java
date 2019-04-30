@@ -6,7 +6,7 @@ import junit.framework.TestCase;
 import smrt2.AlgebraicEquation;
 import smrt2.Equation;
 
-public class testAlgebraicEquation extends TestCase {
+public class AlgebraicEquationTest extends TestCase {
 	private String leftHandSide = "a";
 	private String rightHandSide = "2+b";
 	
