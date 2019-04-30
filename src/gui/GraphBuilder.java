@@ -3,39 +3,28 @@ package gui;
 //https://www.developer.com/java/data/working-with-javafx-chart-apis.html
 //credits to: Manoj Debnath
 
-
-
 import javafx.scene.chart.LineChart;
+import javafx.scene.chart.LineChart.SortingPolicy;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.chart.XYChart.Series;
 
 
 
 public class GraphBuilder{
 	
-	private Double[] time;
-	private Double[] data;
-	private String title;
+	private Series<Number, Number> seriesData;
 	
-	public GraphBuilder(Double[] time, Double[] data, String colName) {
-		this.title = colName;
-		this.data = data;
-		this.time = time;
+	public GraphBuilder(Double[] xData, Double[] yData, String title) {
+		this.seriesData = ArraysToSeries(xData, yData);
+		this.seriesData.setName(title);
 	}
-	
-//	public GraphBuilder(int xNumber, Double[][] inputData, String title) {
-//		this.data = inputData;
-//		this.xNumber = xNumber;
-//		this.title = title;
-//	}
 
 	
-
-
-public static XYChart.Series<Number, Number> ArraysToSeries(Double[] time, Double[] data){
+public static XYChart.Series<Number, Number> ArraysToSeries(Double[] xData, Double[] yData){
 	XYChart.Series<Number, Number> chartdata = new XYChart.Series<Number, Number>();
-	for (int i=0; i < data.length; i++) {
-		chartdata.getData().add(new XYChart.Data<Number, Number>(time[i], data[i]));
+	for (int i=0; i < yData.length; i++) {
+		chartdata.getData().add(new XYChart.Data<Number, Number>(xData[i], yData[i]));
 	}
 	return chartdata;
 }
@@ -45,20 +34,13 @@ public LineChart<Number, Number> start() {
     NumberAxis xAxis = new NumberAxis();
     NumberAxis yAxis = new NumberAxis();
     final LineChart<Number, Number> lineChart = new LineChart<Number, Number>(xAxis, yAxis);
-    //int xNumber = 1;
-    lineChart.setTitle("Test");
-    XYChart.Series<Number, Number> seriesData = ArraysToSeries(time, data);
-    seriesData.setName(title);
+   
+	lineChart.setAxisSortingPolicy(SortingPolicy.NONE);
     
     lineChart.getData().add(seriesData);
-    lineChart.setTitle(title);
+    lineChart.setTitle(seriesData.getName());
     
     return lineChart;
-    
-    //primaryStage.setTitle("LineChart example");
-    
-    //StackPane root = new StackPane();
-    //root.getChildren().add(lineChart);
-    //primaryStage.setScene(new Scene(root, 400, 250));
+
 }
 }
