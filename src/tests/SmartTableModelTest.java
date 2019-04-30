@@ -53,4 +53,23 @@ public class SmartTableModelTest extends TestCase {
 		Double[] expected = {3., 45., 70.};
 		assertEquals(Arrays.asList(expected), Arrays.asList(myTable.getRowAt(3)));
 	}
+	
+	public void testGetColumnNames() {
+		List<String> colNames = new ArrayList<String>();
+		colNames.add("X");
+		colNames.add("Y");
+		SmartTableModel myTable = new SmartTableModel(colNames, "table name");
+		
+		String[] result = myTable.getColumnNames();
+		String[] expected = {"Time", "X", "Y"};
+	
+		
+		for (int i = 0; i < expected.length; i++) {
+			assertEquals(result[i], expected[i]);
+		}
+		
+		
+		
+		
+	}
 }

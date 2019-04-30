@@ -3,6 +3,7 @@ package smrt2;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.ComboBoxModel;
 import javax.swing.table.AbstractTableModel;
 
 public class SmartTableModel extends AbstractTableModel {
@@ -59,6 +60,15 @@ public class SmartTableModel extends AbstractTableModel {
 	@Override
 	public String getColumnName(int i){
 		return this.colNames.get(i);
+	}
+
+	public String[] getColumnNames() {
+		String[] newToReturn = new String[getColumnCount()];
+		for(int i = 0; i < getColumnCount(); i++) {
+			newToReturn[i] = getColumnName(i);
+		}
+			
+		return newToReturn;
 	}
 
 

@@ -7,11 +7,18 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
+
+import javafx.embed.swing.JFXPanel;
+import javafx.scene.Scene;
+import javafx.scene.chart.LineChart;
+import javafx.scene.layout.StackPane;
+
 import javax.swing.JMenuBar;
 import java.awt.GridLayout;
 import javax.swing.JTable;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JSplitPane;
 import java.awt.GridBagLayout;
@@ -59,6 +66,34 @@ public class TableViewer extends JFrame {
 			}
 		});
 		mnFile.add(mntmSave);
+		
+		JMenu mnPlot = new JMenu("Plot");
+		menuBar.add(mnPlot);
+		
+		JMenuItem mntmPhasePlane = new JMenuItem("phase plane");
+		mntmPhasePlane.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				phasePlaneSelector pps = new phasePlaneSelector(tableModel);
+				
+				int result = JOptionPane.showConfirmDialog(null, pps, "hello", JOptionPane.OK_CANCEL_OPTION);
+				
+				if(result == JOptionPane.OK_OPTION) {
+					addCustomGraph(pps.getXYnames());
+					
+				}
+				
+				//pps.setVisible(true);
+			}
+		});
+		mnPlot.add(mntmPhasePlane);
+		
+		JMenuItem mntmTimePlot = new JMenuItem("time plot");
+		mntmTimePlot.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//TODO add action
+			}
+		});
+		mnPlot.add(mntmTimePlot);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -111,5 +146,21 @@ public class TableViewer extends JFrame {
 	public void buildTable(){
 		this.table.setModel(this.tableModel);
 	}
+	
+	
+	public void addCustomGraph(int[] xy) {
+		JFXPanel graphPane = new JFXPanel();
+		
+		String plotName = tableModel.getColumnName(xy[0]) + " " + tableModel.getColumnName(xy[1]);
+		tabbedPane.addTab(plotName, null, graphPane, null);
+		StackPane pane = new StackPane();
+		GraphBuilder GB = new GraphBuilder(tableModel.getColumnAt(xy[0]), tableModel.getColumnAt(xy[1]), plotName);
+		LineChart<Number, Number> lineChart = GB.start();
+			    
+	    pane.getChildren().add(lineChart);
+		Scene scene = new Scene(pane);
+		graphPane.setScene(scene);
+	}
+	
 
 }
