@@ -262,5 +262,11 @@ public class App {
 		myModel.removeUnboundParameter(parameter);
 	}
 
+	public void handleDeleteUnboundParameter(String rowParameter) {
+		if (myModel.getUnboundParameters().contains(rowParameter)) {
+			myModel.removeUnboundParameter(rowParameter);
+		}
+	}
+
 }
 

@@ -320,6 +320,17 @@ public class ModelView extends JFrame {
 		panelParameters.add(textFieldParameter);
 		textFieldParameter.setColumns(10);
 		
+		JButton deleteBtn = new JButton("Delete");
+		deleteBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String rowParameter = tableParameters.getModel().getValueAt(tableParameters.getSelectedRow(), 0).toString().replace(" (Unbound)", "");
+				app.handleDeleteUnboundParameter(rowParameter);
+				updateGraphics();
+			}
+		});
+		deleteBtn.setBounds(518, 93, 84, 25);
+		panelParameters.add(deleteBtn);
+		
 		JPanel panelStates = new JPanel();
 		panelStates.setLayout(null);
 		tabbedPane.addTab("States", null, panelStates, null);
