@@ -16,6 +16,7 @@ public class HelpWindow extends JFrame {
 	private JPanel contentPane;
 
 	public HelpWindow(String helpText) {
+		setVisible(true);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();

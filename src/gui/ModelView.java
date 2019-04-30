@@ -2,6 +2,8 @@ package gui;
 import smrt2.App;
 
 import gui.FileChooser;
+import javafx.scene.text.Font;
+
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -24,7 +26,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
@@ -406,6 +412,24 @@ public class ModelView extends JFrame {
 		JButton buttonEditAlgebraicFormula = new JButton("Edit");
 		buttonEditAlgebraicFormula.setBounds(518, 81, 84, 25);
 		panelAlgebraicEquation.add(buttonEditAlgebraicFormula);
+		
+		
+		JButton helpButton = new JButton("?");
+		helpButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					String text = "<html>";
+					text += new BufferedReader(new FileReader("./lib/ModelHelpText.txt")).lines().collect(Collectors.joining("<br>"));
+					new HelpWindow(text);
+				} catch (FileNotFoundException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		helpButton.setToolTipText("Help");
+		helpButton.setBounds(542, 330, 40, 40);
+		panelFormulas.add(helpButton);
+	
 		
 		updateGraphics(); // Makes the graphics nice
 	}
