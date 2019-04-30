@@ -29,10 +29,10 @@ public class ModelTest extends TestCase {
 		Model m = new Model("Name");
 		m.addOde("A", "k");
 		
-		String actual = m.getOdeAtIndex(0).getLeftHandSide();
+		String actual = m.getEquationAtIndex(0).getLeftHandSide();
 		assertEquals("A", actual);
 		
-		actual = m.getOdeAtIndex(0).getRightHandSide();
+		actual = m.getEquationAtIndex(0).getRightHandSide();
 		assertEquals("k", actual);
 	}
 	
@@ -58,7 +58,7 @@ public class ModelTest extends TestCase {
 		m.startNewModel();
 		
 		assertEquals(null, m.getName());
-		assertEquals("[]" , m.getOdeList().toString());
+		assertEquals("[]" , m.getEquationList().toString());
 		assertEquals("[]" , m.getStates().toString());
 		assertEquals("[]" , m.getParameters().toString());
 	}
@@ -77,7 +77,7 @@ public class ModelTest extends TestCase {
 	public void testGetStates(){
 		Model m = new Model("Name");
 		m.addOde("A", "k1*((A+B)+k1)");
-		m.addOde("B", "B-A+k2");
+		m.addAlgEq("B", "B-A+k2");
 		
 		List<String> actual = m.getStates();
 		ArrayList<String> expected = new ArrayList<String>(
@@ -88,7 +88,7 @@ public class ModelTest extends TestCase {
 	public void testGetParameters(){
 		Model m = new Model("Name");
 		m.addOde("A", "k1*((A+B)+k1)");
-		m.addOde("B", "B-A+k2");
+		m.addAlgEq("B", "B-A+k2");
 		
 		List<String> actual = m.getParameters();
 		ArrayList<String> expected = new ArrayList<String>(
@@ -102,6 +102,17 @@ public class ModelTest extends TestCase {
 		m.addOde("A", "e");
 		List<String> actual = m.getStates();
 		assertEquals(actual.toString(), "[A]");
+	}
+	
+	public void testAddAlgEq() {
+		Model m = new Model("Name");
+		m.addAlgEq("A", "k");
+		
+		String actual = m.getEquationAtIndex(0).getLeftHandSide();
+		assertEquals("A", actual);
+		
+		actual = m.getEquationAtIndex(0).getRightHandSide();
+		assertEquals("k", actual);
 	}
 
 }

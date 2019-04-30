@@ -9,8 +9,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Model{
 	
 	private String name;
-	private List<Ode> odeList;
-	private boolean areOdesValid;
+	private List<Equation> equationList;
+	private boolean areEquationsValid;
 	private List<String> unboundParameters;
 	
 	public List<String> getUnboundParameters() {
@@ -26,24 +26,24 @@ public class Model{
 	// Default constructor
 	public Model(String name) {
 		this.name = name;
-		odeList = new ArrayList<Ode>();	
-		this.areOdesValid = true;
+		equationList = new ArrayList<Equation>();	
+		this.areEquationsValid = true;
 		this.unboundParameters = new ArrayList<String>();
 	}
 	
 	@JsonCreator
 	public Model (@JsonProperty("name") String name,
-				  @JsonProperty("odeList") List<Ode> odeList,
-				  @JsonProperty("areOdesValid") boolean areOdesValid,
+				  @JsonProperty("Equation") List<Equation> equationList,
+				  @JsonProperty("areEquationsValid") boolean areEquationsValid,
 				  @JsonProperty("unboundParameters") List<String> unboundParameters) {
 		this.name = name;
-		this.odeList = odeList;
-		this.areOdesValid = areOdesValid;
+		this.equationList = equationList;
+		this.areEquationsValid = areEquationsValid;
 		this.unboundParameters = unboundParameters;
 	}
 	
-	public boolean getAreOdesValid() {
-		return this.areOdesValid;
+	public boolean getAreEquationsValid() {
+		return this.areEquationsValid;
 	}
 	
 	public String getName() {
@@ -57,24 +57,34 @@ public class Model{
 	public boolean addOde(String state, String formula) {
 		Ode odeToAdd = new Ode(state, formula);
 		if (!this.getStates().contains(state)){
-		odeList.add(odeToAdd);
+		equationList.add(odeToAdd);
+		return true;
+		}
+		return false;
+		
+	}
+	
+	public boolean addAlgEq(String leftHandSide, String rightHandSide) {
+		AlgEq algEqToAdd = new AlgEq(leftHandSide, rightHandSide);
+		if (!this.getStates().contains(leftHandSide)){
+		equationList.add(algEqToAdd);
 		return true;
 		}
 		return false;
 		
 	}
 
-	public List<Ode> getOdeList() {
+	public List<Equation> getEquationList() {
 		// Returns list of all Odes
-		return this.odeList;
+		return this.equationList;
 	}
 
 	public String[][] displayOdeList() {
-		int nrOdes = odeList.size();
+		int nrOdes = equationList.size();
 		String[][] displayOdeList = new String[nrOdes][2];
 		boolean allCorrect = true;
-		for (int i = 0; i < odeList.size(); i++) {
-			Equation currentOde = odeList.get(i);
+		for (int i = 0; i < equationList.size(); i++) {
+			Equation currentOde = equationList.get(i);
 			displayOdeList[i][0] = "d" + currentOde.getLeftHandSide() + "/dt";
 			if(currentOde.testRightHandSide()) {
 				displayOdeList[i][1] = currentOde.getRightHandSide();
@@ -83,13 +93,13 @@ public class Model{
 				allCorrect = false;
 			}
 		}
-		this.areOdesValid = allCorrect;
+		this.areEquationsValid = allCorrect;
 		return displayOdeList;
 	}
 
 	public void startNewModel() {
 		setName(null);
-		odeList = new ArrayList<Ode>();	
+		equationList = new ArrayList<Equation>();	
 	}
 	
 	@JsonIgnore
@@ -97,7 +107,7 @@ public class Model{
 		List<String> params = new ArrayList<String>();
 		List<String> states = getStates();
 		String[] variables;
-		for (Equation ode : odeList) {
+		for (Equation ode : equationList) {
 			variables = ode.getVariables();
 			for (String variable : variables) {
 				// Check if variable is not a state and not already in parameters (params) 
@@ -122,32 +132,32 @@ public class Model{
 	@JsonIgnore
 	public List<String> getStates() {
 		List<String> states = new ArrayList<String>();
-		for (Equation ode : odeList) {
+		for (Equation ode : equationList) {
 			states.add(ode.getLeftHandSide());
 		}
 		return states;
 	}
 	
-	public void removeOdeAtIndex(int index) {
-		odeList.remove(index);
+	public void removeEquationAtIndex(int index) {
+		equationList.remove(index);
 	}
 
 
 
-	public Equation getOdeAtIndex(Integer selectedTableRow) {
-		Equation ode = odeList.get(selectedTableRow);
-		return ode;
+	public Equation getEquationAtIndex(Integer selectedTableRow) {
+		Equation myEquation = equationList.get(selectedTableRow);
+		return myEquation;
 		
 	}
 
-	public String[] getVariablesOfOde(int i) {
-		Equation myOde = odeList.get(i);
-		return myOde.getVariables();
+	public String[] getVariablesOfEquation(int i) {
+		Equation myEquation = equationList.get(i);
+		return myEquation.getVariables();
 	}
 
-	public String[] getOperatorsOfOde(int i) {
-		Equation myOde = odeList.get(i);
-		return myOde.getOperators();
+	public String[] getOperatorsOfEquation(int i) {
+		Equation myEquation = equationList.get(i);
+		return myEquation.getOperators();
 	}
 	
 	//0 = added

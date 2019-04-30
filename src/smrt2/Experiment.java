@@ -164,8 +164,8 @@ public class Experiment{
 		
 		for (int i = 0; i < nStates; i++) {
 			String reconstructedFormula = "";
-			String[] currentVariables = model.getVariablesOfOde(i);
-			String[] currentOperators = model.getOperatorsOfOde(i);
+			String[] currentVariables = model.getVariablesOfEquation(i);
+			String[] currentOperators = model.getOperatorsOfEquation(i);
 			
 			// the parser adds a empty string to either the list of variables or list of operators.
 			// the empty string ends up in the list of whatever the formula starts with.

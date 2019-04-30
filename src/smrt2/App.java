@@ -1,6 +1,6 @@
 package smrt2;
 
-import smrt2.AlgebraicEquation;
+import smrt2.AlgEq;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -102,7 +102,7 @@ public class App {
 	
 	public boolean newExperiment() {
 		try {
-			if (myModel.getAreOdesValid()) {
+			if (myModel.getAreEquationsValid()) {
 				closeExperiment();
 				myExperiment = new Experiment(myModel);
 				experimentSaved = false;
@@ -120,7 +120,7 @@ public class App {
 
 	public void handleDeleteOde(Integer tableRow) {
 		if (tableRow != null) {
-			myModel.removeOdeAtIndex(tableRow);
+			myModel.removeEquationAtIndex(tableRow);
 			modelSaved = false;
 		}
 	}
@@ -177,9 +177,9 @@ public class App {
 	}
 
 	public String[] handleEditOde(Integer selectedTableRow) {
-		Equation ode = myModel.getOdeAtIndex(selectedTableRow);
+		Equation ode = myModel.getEquationAtIndex(selectedTableRow);
 		String[] odeArray = ode.toArray();
-		myModel.removeOdeAtIndex(selectedTableRow);
+		myModel.removeEquationAtIndex(selectedTableRow);
 		return odeArray;
 	}
 
@@ -242,7 +242,7 @@ public class App {
 	}
 
 	public boolean handleButtonAddAlgebraicFormula(String variable, String algebraicEquation) {
-		Equation myAlgEq = new AlgebraicEquation(variable, algebraicEquation);
+		Equation myAlgEq = new AlgEq(variable, algebraicEquation);
 		if(myAlgEq.testRightHandSide()) {
 			System.out.println(variable + " = " + algebraicEquation);	
 			//TODO Save the equation somewhere.

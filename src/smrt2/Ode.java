@@ -3,8 +3,6 @@ package smrt2;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import smrt2.EquationParser2;
-
 
 public class Ode extends Equation{
 	
