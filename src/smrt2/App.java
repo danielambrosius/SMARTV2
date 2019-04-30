@@ -1,5 +1,6 @@
 package smrt2;
 
+import smrt2.AlgebraicEquation;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -241,9 +242,14 @@ public class App {
 	}
 
 	public boolean handleButtonAddAlgebraicFormula(String variable, String algebraicEquation) {
-		// TODO Auto-generated method stub
-		System.out.println(variable + " = " + algebraicEquation);
-		return false;
+		Equation myAlgEq = new AlgebraicEquation(variable, algebraicEquation);
+		if(myAlgEq.testRightHandSide()) {
+			System.out.println(variable + " = " + algebraicEquation);	
+			//TODO Save the equation somewhere.
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 }

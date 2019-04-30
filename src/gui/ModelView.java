@@ -362,7 +362,6 @@ public class ModelView extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				String variable = textFieldVariable.getText();
 				String algebraicEquation = textFieldAlgebraicFormula.getText();
-				lblEditMode.setText("");
 				boolean isAdded = app.handleButtonAddAlgebraicFormula(variable, algebraicEquation);
 				if (!isAdded){
 					JOptionPane.showConfirmDialog(null,"Algebraic formula is not added","Warning", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
@@ -370,7 +369,7 @@ public class ModelView extends JFrame {
 					textFieldVariable.setText("");
 					textFieldAlgebraicFormula.setText("");
 				}
-				
+				// TODO update the algebraic formula in the table
 			}
 		});
 		
