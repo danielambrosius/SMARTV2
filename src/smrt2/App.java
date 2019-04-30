@@ -21,16 +21,23 @@ public class App {
 		saverLoader = SaverLoader.getInstance();
 	}
 
-	public boolean handleButtonAddOde(String state, String equation) {
+	public int handleButtonAddOde(String state, String equation) {
 		// Tests if fields are empty before adding to model and updating table.
 		state = state.replace(" ", "");
 		equation = equation.replace(" ", "");
-		boolean isAdded = false;
+		int addState = 0;
 		if (!state.isEmpty() && !equation.isEmpty()) {
-			isAdded = myModel.addOde(state, equation);
+			if (myModel.getUnboundParameters().contains(state)) {
+				addState = 3;
+			}else if (myModel.addOde(state, equation)== false) {
+					addState = 1;
+					modelSaved = false;
+				}
+		}else {
+			addState = 2;
 			modelSaved = false;
 		}
-		return isAdded;
+		return addState;
 	}
 
 	public String[][] displayModelOdeList() {
@@ -249,6 +256,9 @@ public class App {
 		} else {
 			return false;
 		}
+	}
+	public void removeUnboundParameter(String parameter) {
+		myModel.removeUnboundParameter(parameter);
 	}
 
 }

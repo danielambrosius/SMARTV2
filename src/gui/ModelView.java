@@ -24,6 +24,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
+
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
@@ -232,12 +234,22 @@ public class ModelView extends JFrame {
 				String state = StateField.getText();
 				String equation = EquationField.getText();
 				lblEditMode.setText("");
-				boolean isAdded = app.handleButtonAddOde(state, equation);
-				if (!isAdded){
-					JOptionPane.showConfirmDialog(null,"State is not added","Warning", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+				int addState = app.handleButtonAddOde(state, equation);
+				if (addState == 1){
+					JOptionPane.showConfirmDialog(null,"State already exists, formula not added.","Warning", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+				} else if (addState == 2) {
+					JOptionPane.showConfirmDialog(null,"State or equation field empty, formula not added.","Warning", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+				} else if (addState == 3) {
+					int answer = JOptionPane.showConfirmDialog(null,"State is already in pre-defined parameters. Continue?","Warning", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+					if (answer == 0) {
+						app.removeUnboundParameter(state);
+						app.handleButtonAddOde(state, equation);
+						updateGraphics();
+					}
+				} else {
+					updateGraphics();
+					btnAdd.setText("Add");
 				}
-				btnAdd.setText("Add");
-				updateGraphics();
 			}
 		});
 		
