@@ -42,7 +42,7 @@ public class ModelTest extends TestCase {
 		m.addOde("A", "k1");
 		m.addOde("B", "k2");
 		m.addOde("C", "**++++///BC");
-		String[][] actual = m.displayOdeList();
+		String[][] actual = m.displayEquationList();
 		String[][] expected = {{"dA/dt", "k1"}, {"dB/dt", "k2"}, {"dC/dt", "**++++///BC (Incorrect syntax)"}}; 
 		for (int i = 0; i < actual.length; i++) {
 			for (int j = 0; j < actual[i].length; j++) {

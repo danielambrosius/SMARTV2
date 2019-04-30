@@ -34,7 +34,7 @@ public class App {
 	}
 
 	public String[][] displayModelOdeList() {
-		return myModel.displayOdeList();
+		return myModel.displayEquationList();
 	}
 
 	
@@ -244,8 +244,7 @@ public class App {
 	public boolean handleButtonAddAlgebraicFormula(String variable, String algebraicEquation) {
 		Equation myAlgEq = new AlgEq(variable, algebraicEquation);
 		if(myAlgEq.testRightHandSide()) {
-			System.out.println(variable + " = " + algebraicEquation);	
-			//TODO Save the equation somewhere.
+			myModel.addAlgEq(variable, algebraicEquation);
 			return true;
 		} else {
 			return false;

@@ -165,7 +165,7 @@ public class ModelView extends JFrame {
 		
 		JPanel panelFormulas = new JPanel();
 		panelFormulas.setBackground(Color.WHITE);
-		tabbedPane.addTab("Formulas", null, panelFormulas, null);
+		tabbedPane.addTab("ODEs", null, panelFormulas, null);
 		panelFormulas.setLayout(null);
 		
 		StateField = new JTextField();
@@ -369,7 +369,7 @@ public class ModelView extends JFrame {
 					textFieldVariable.setText("");
 					textFieldAlgebraicFormula.setText("");
 				}
-				// TODO update the algebraic formula in the table
+				updateGraphics();
 			}
 		});
 		
@@ -387,7 +387,7 @@ public class ModelView extends JFrame {
 		updateGraphics(); // Makes the graphics nice
 	}
 	
-	public void updateGraphics() {
+	private void updateGraphics() {
 		updateOdeTable();
 		clearTextFields();
 		updateParamTable();
@@ -396,26 +396,25 @@ public class ModelView extends JFrame {
 
 	}
 	
-	public void updateStateTable() {
+	private void updateStateTable() {
 		DefaultTableModel tableModel = (DefaultTableModel) tableStates.getModel();
 		tableModel.setDataVector(app.getStateNames(), varColumnNames);
 		tableStates.setModel(tableModel);
 	}
 	
-	public void updateParamTable() {
+	private void updateParamTable() {
 		DefaultTableModel tableModel = (DefaultTableModel) tableParameters.getModel();
 		tableModel.setDataVector(app.getParameterNames(), varColumnNames);
 		tableParameters.setModel(tableModel);
 	}
 
-	public void updateOdeTable() {
-		// Updating table
+	private void updateOdeTable() {
 		DefaultTableModel tableModel = (DefaultTableModel) tableFormulas.getModel();
 		tableModel.setDataVector(app.displayModelOdeList(), columnNames);
 		tableFormulas.setModel(tableModel);
 	}
 
-	public void clearTextFields() {
+	private void clearTextFields() {
 		StateField.setText("");
 		EquationField.setText("");
 	}

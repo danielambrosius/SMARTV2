@@ -79,22 +79,25 @@ public class Model{
 		return this.equationList;
 	}
 
-	public String[][] displayOdeList() {
-		int nrOdes = equationList.size();
-		String[][] displayOdeList = new String[nrOdes][2];
+	public String[][] displayEquationList() {
+		String[][] displayEquationList = new String[equationList.size()][2];
 		boolean allCorrect = true;
 		for (int i = 0; i < equationList.size(); i++) {
-			Equation currentOde = equationList.get(i);
-			displayOdeList[i][0] = "d" + currentOde.getLeftHandSide() + "/dt";
-			if(currentOde.testRightHandSide()) {
-				displayOdeList[i][1] = currentOde.getRightHandSide();
+			Equation currentEquation = equationList.get(i);
+		if (currentEquation instanceof Ode) {
+			displayEquationList[i][0] = "d" + currentEquation.getLeftHandSide() + "/dt";
+		} else {
+			displayEquationList[i][0] = currentEquation.getLeftHandSide();
+		}
+			if(currentEquation.testRightHandSide()) {
+				displayEquationList[i][1] = currentEquation.getRightHandSide();
 			}else {
-				displayOdeList[i][1] = currentOde.getRightHandSide()+" (Incorrect syntax)";
+				displayEquationList[i][1] = currentEquation.getRightHandSide()+" (Incorrect syntax)";
 				allCorrect = false;
 			}
 		}
 		this.areEquationsValid = allCorrect;
-		return displayOdeList;
+		return displayEquationList;
 	}
 
 	public void startNewModel() {
