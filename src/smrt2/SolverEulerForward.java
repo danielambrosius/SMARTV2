@@ -1,5 +1,7 @@
 package smrt2;
 
+import java.util.List;
+
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
@@ -10,7 +12,7 @@ public class SolverEulerForward implements Solver {
 	 * @see smrt2.Solver#solve(smrt2.SmartTableModel, java.lang.String[], java.lang.Double[], java.lang.Double[], double, double, double)
 	 */
 	@Override
-	public void solve(SmartTableModel S, String[] odeFormulas, Double[] S0, Double[] P, double tStart, double tEnd, double tStep){
+	public void solve(SmartTableModel S, List<Equation> equationList, String[] odeFormulas, Double[] S0, Double[] P, double tStart, double tEnd, double tStep){
 		int nTimesteps = (int) ((tEnd-tStart)/tStep);
 //		Double[][] S = new Double[nTimesteps+1][odeFormulas.length+1];
 		
@@ -23,10 +25,18 @@ public class SolverEulerForward implements Solver {
 		for (int i = 0; i < S0.length; i++) {
 			firstRow[i+1] = S0[i];	
 		}
+		
+		Double[] AlgResults = eulerForward(equationList, odeFormulas, firstRow, P, tStep);
+		
+		for (int i = 1; i < firstRow.length; i++) {
+			if (equationList.get(i-1) instanceof AlgEq) {
+				firstRow[i] = AlgResults[i];
+			}	
+		}
 		S.AddRow(firstRow);
 		
 		for (int i = 1; i <= nTimesteps; i++) {
-			S.AddRow(eulerForward(odeFormulas, S.getRowAt(i-1), P, tStep));
+			S.AddRow(eulerForward(equationList, odeFormulas, S.getRowAt(i-1), P, tStep));
 		}
 	}
 	
@@ -37,7 +47,7 @@ public class SolverEulerForward implements Solver {
 	 * @params P			array of parameter values.
 	 * @params dt			size of the time step.
 	 */
-	private Double[] eulerForward(String[] odeFormulas ,Double[] S, Double[] P, double dt) {
+	private Double[] eulerForward(List<Equation> equationList, String[] formulaList ,Double[] S, Double[] P, double dt) {
 		//start an instance of ScriptEngineManager to create a javascipt engine.
 		ScriptEngineManager mgr = new ScriptEngineManager();
 		ScriptEngine engine = mgr.getEngineByName("JavaScript");
@@ -46,23 +56,36 @@ public class SolverEulerForward implements Solver {
 		String parameters = arrayDoubleToString(P);
 		//create an array to store the results
 		Double[] results = new Double[S.length];
-		double dxdt;
+		double result;
 		
 		results[0] = S[0] + dt; //increment time
 		
 		for (int i = 1; i < results.length; i++) {
 			//first element of results contains time so we skip it
-			String odeFormula = odeFormulas[i-1];
-			odeFormula = StdFSubber.powerSubstitute(odeFormula);
-			//use javascript to evaluate the result of the formula
-			try {
-				dxdt = Double.parseDouble(engine.eval(String.format("var P = %s; var S = %s ;%s", parameters, states, odeFormula )).toString());
-				results[i] = S[i] + dxdt*dt;
-			} catch (NumberFormatException e) {
-				e.printStackTrace();
-			} catch (ScriptException e) {
-				e.printStackTrace();
-			}	
+			String formula = formulaList[i-1];
+			formula = StdFSubber.powerSubstitute(formula);
+			if (equationList.get(i-1) instanceof Ode) {
+				//use javascript to evaluate the result of the formula
+				try {
+					result = Double.parseDouble(engine
+							.eval(String.format("var P = %s; var S = %s ;%s", parameters, states, formula)).toString());
+					results[i] = S[i] + result * dt;
+				} catch (NumberFormatException e) {
+					e.printStackTrace();
+				} catch (ScriptException e) {
+					e.printStackTrace();
+				} 
+			} else {
+				try {
+					result = Double.parseDouble(engine
+							.eval(String.format("var P = %s; var S = %s ;%s", parameters, states, formula)).toString());
+					results[i] = result;
+				} catch (NumberFormatException e) {
+					e.printStackTrace();
+				} catch (ScriptException e) {
+					e.printStackTrace();
+				} 
+			}
 		}
 	return results;
 	}

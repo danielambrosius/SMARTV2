@@ -61,7 +61,7 @@ public class Experiment{
 	 */
 
 	public SolverThread run() {
-		SolverThread t = new SolverThread(tableModel, reconstructFormulas(), this.stateInitialValues, this.parameterValues, 
+		SolverThread t = new SolverThread(tableModel, model.getEquationList(), reconstructFormulas(), this.stateInitialValues, this.parameterValues, 
 					this.tStart, this.tEnd, this.tStep);
 		t.start();
 		return t;

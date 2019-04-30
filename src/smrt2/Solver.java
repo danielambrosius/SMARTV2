@@ -1,5 +1,7 @@
 package smrt2;
 
+import java.util.List;
+
 public interface Solver {
 
 	/**
@@ -12,7 +14,7 @@ public interface Solver {
 	 * @params tEnd 		end time of the simulation
 	 * @params tStep 		size of the time step in the simulation
 	 */
-	void solve(SmartTableModel S, String[] odeFormulas, Double[] S0, Double[] P, double tStart, double tEnd,
+	void solve(SmartTableModel S, List<Equation> equationList, String[] odeFormulas, Double[] S0, Double[] P, double tStart, double tEnd,
 			double tStep);
 
 }
