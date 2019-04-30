@@ -1,0 +1,18 @@
+{
+  "name" : "Default experiment name",
+  "model" : {
+    "name" : "Competing_Species.model",
+    "odeList" : [ {
+      "leftHandSide" : "N1",
+      "rightHandSide" : "r1*N1*(K1-N1-a12*N2)/K1"
+    }, {
+      "leftHandSide" : "N2",
+      "rightHandSide" : "R2*N2*(K2-N2-a21*N1)/K2"
+    } ],
+    "areOdesValid" : true,
+    "unboundParameters" : [ ]
+  },
+  "parameterValues" : [ 1.045, 450.0, 3.8, 1.105, 130.0, 0.4 ],
+  "stateValues" : [ 60.0, 60.0 ],
+  "timeValues" : [ 0.0, 30.0, 1.0 ]
+}
