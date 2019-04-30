@@ -1,0 +1,21 @@
+Model Help:
+
+Ode tab:
+-For adding ordinary differential equations to your model.
+-Parameter t is predefined as time.
+-Possible operators; +, -, *, /, (, ), ^(power), **(power).
+-Special functions; sin(x), tan(x), cos(x), log(x), ln(x), sqrt(x), log2(x), log10(x).
+-Special parameter; t = time at step.
+-Incorrect syntax; appended to formulas the program does not support.
+
+Parameter tab:
+-For adding parameters manually or checking what parameters the program has identified in the current model
+-Only unbound parameters can be deleted.
+-Unbound; Parameters are not yet included in any formula.
+
+State tab:
+-For seeing what states the program has identified in the current model.
+
+Equation tab:
+-For adding normal equations or constants to your model.
+-for operators see Ode tab.
