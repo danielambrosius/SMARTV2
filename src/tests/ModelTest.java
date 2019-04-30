@@ -114,5 +114,39 @@ public class ModelTest extends TestCase {
 		actual = m.getEquationAtIndex(0).getRightHandSide();
 		assertEquals("k", actual);
 	}
+	
+	public void testReconstuctFormulas(){
+		Model m = new Model("Name");
+		m.addOde("A", "k1*((A+B)+k1)");
+		m.addOde("B", "B-A+k2");
+		
+		String[] actual = m.reconstructFormulas();
+		String[] expected = {"P[0]*((S[1]+S[2])+P[0])", "S[2]-S[1]+P[1]"};
+		assertEquals(Arrays.asList(expected), Arrays.asList(actual));
+	}
+	
+	public void testReconstuctFormulasTime(){
+		Model m = new Model("Name");
+		m.addOde("C", "x+b");
+		m.addOde("A", "k1*((A+t+t+t+B)+k1)");
+		m.addOde("B", "B-A+k2");
+
+		
+		String[] actual = m.reconstructFormulas();
+		String[] expected = {"P[0]+P[1]", "P[2]*((S[2]+S[0]+S[0]+S[0]+S[3])+P[2])", "S[3]-S[2]+P[3]"};
+		assertTrue(Arrays.equals(expected, actual));
+	}
+	
+	public void testReconstuctFormulas2(){
+		// testing for a known bug
+		Model m = new Model("Name");
+		m.addOde("A", "2+k1");
+		m.addOde("B", "k1+2");
+		m.addOde("c", "(2+k1)*2");
+		
+		String[] actual = m.reconstructFormulas();
+		String[] expected = {"2+P[0]", "P[0]+2", "(2+P[0])*2"};
+		assertEquals(Arrays.asList(expected), Arrays.asList(actual));
+	}
 
 }

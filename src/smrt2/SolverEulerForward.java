@@ -12,21 +12,21 @@ public class SolverEulerForward implements Solver {
 	 * @see smrt2.Solver#solve(smrt2.SmartTableModel, java.lang.String[], java.lang.Double[], java.lang.Double[], double, double, double)
 	 */
 	@Override
-	public void solve(SmartTableModel S, List<Equation> equationList, String[] odeFormulas, Double[] S0, Double[] P, double tStart, double tEnd, double tStep){
+	public void solve(SmartTableModel S, Model myModel, Double[] S0, Double[] P, double tStart, double tEnd, double tStep){
 		int nTimesteps = (int) ((tEnd-tStart)/tStep);
-//		Double[][] S = new Double[nTimesteps+1][odeFormulas.length+1];
+		String[] formulaList = myModel.reconstructFormulas();
+		List<Equation> equationList = myModel.getEquationList();
 		
 		//make first variable of first row 0 because we start at t = 0;
-		Double[] firstRow = new Double[odeFormulas.length+1];
+		Double[] firstRow = new Double[formulaList.length+1];
 		firstRow[0] = tStart;
-//		S[0][0] = tStart;
 	
 		//add the initial conditions as the first row;
 		for (int i = 0; i < S0.length; i++) {
 			firstRow[i+1] = S0[i];	
 		}
 		
-		Double[] AlgResults = eulerForward(equationList, odeFormulas, firstRow, P, tStep);
+		Double[] AlgResults = eulerForward(equationList, formulaList, firstRow, P, tStep);
 		
 		for (int i = 1; i < firstRow.length; i++) {
 			if (equationList.get(i-1) instanceof AlgEq) {
@@ -36,7 +36,7 @@ public class SolverEulerForward implements Solver {
 		S.AddRow(firstRow);
 		
 		for (int i = 1; i <= nTimesteps; i++) {
-			S.AddRow(eulerForward(equationList, odeFormulas, S.getRowAt(i-1), P, tStep));
+			S.AddRow(eulerForward(equationList, formulaList, S.getRowAt(i-1), P, tStep));
 		}
 	}
 	

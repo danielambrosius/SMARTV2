@@ -1,9 +1,7 @@
 package smrt2;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -61,7 +59,7 @@ public class Experiment{
 	 */
 
 	public SolverThread run() {
-		SolverThread t = new SolverThread(tableModel, model.getEquationList(), reconstructFormulas(), this.stateInitialValues, this.parameterValues, 
+		SolverThread t = new SolverThread(this.tableModel, this.model, this.stateInitialValues, this.parameterValues, 
 					this.tStart, this.tEnd, this.tStep);
 		t.start();
 		return t;
@@ -149,99 +147,6 @@ public class Experiment{
 		return (String[]) model.getStates().toArray(new String[0]);
 	}
 	
-	/**
-	 * Returns a String[] containing user specified formulas in solver compatible syntax.
-	 * Parameters and states are replaced by references to arrays that will store the data.
-	 */
-	public String[] reconstructFormulas() {
-		int nStates = model.getStates().size(); //number of states
-		//create a list to store the results
-		//each state has a corresponding formula so they have the same length
-		String[] reconstuctedFormulaList = new String[nStates];
-		//create a HashMap that translates variable names to array references that will hold the data.
-		Map<String,String> varDict = buildParamDict();
-		varDict.putAll(buildStatesDict()); //combine both HashMaps for convenience.
-		
-		for (int i = 0; i < nStates; i++) {
-			String reconstructedFormula = "";
-			String[] currentVariables = model.getVariablesOfEquation(i);
-			String[] currentOperators = model.getOperatorsOfEquation(i);
-			
-			// the parser adds a empty string to either the list of variables or list of operators.
-			// the empty string ends up in the list of whatever the formula starts with.
-			// this information is used to reconstruct the formula in the correct order.
-			if (currentVariables[0].isEmpty()){
-				// the list that contains the empty string could be larger so index on the length of the other list 
-				for (int j = 0; j < currentOperators.length; j++) {
-					if(varDict.get(currentVariables[j]) != null) {
-						reconstructedFormula += varDict.get(currentVariables[j]) + currentOperators[j];
-					} else {
-						reconstructedFormula += currentOperators[j];
-					}
-				}
-			}
-			
-			//check if ode equation has an operator
-			else if (currentOperators.length > 0) {
-				for (int j = 0; j < currentVariables.length; j++) {
-					reconstructedFormula += currentOperators[j] + varDict.get(currentVariables[j]);
-				}
-			}
-			
-			// if the variable list was larger that the operator list the last variable needs to be added and vice versa 
-			if (currentVariables.length > currentOperators.length){
-				if (varDict.get(currentVariables[currentVariables.length-1]) != null) {
-					reconstructedFormula += varDict.get(currentVariables[currentVariables.length-1]);
-				}
-			}
-			
-			if (currentVariables.length < currentOperators.length){
-				reconstructedFormula += currentOperators[currentOperators.length-1];
-			}
-		
-		reconstuctedFormulaList[i] = reconstructedFormula;
-		}
-	return reconstuctedFormulaList;	
-	}
-
-	/**
-	 * Returns a HashMap that links a parameter name to a reference of an index in array P.
-	 * Array P will hold user specified parameter values.
-	 * This method is used by the reconstructFormula method.
-	 */
-	private Map<String, String> buildParamDict() {
-		Map<String,String> paramDict = new HashMap<String,String>();
-		List<String> params = model.getParameters();
-		params.removeAll(Arrays.asList("", null));
-		if(params.size() > 0) {
-			for (int i = 0; i < params.size();i++) {
-				String value = "P" + "[" + i + "]";
-				
-				paramDict.put(params.get(i), value);
-			}
-		}
-		
-		return paramDict;
-	}
-
-	/**
-	 * Returns a HashMap that links a state name to a reference of an index in array S.
-	 * Array S contains the solutions of the model at the previous step in time.
-	 * This method is used by the reconstructFormula method.
-	 */
-	private Map<String, String> buildStatesDict(){
-		Map<String, String> statesDict = new HashMap<String, String>();
-		List<String> states = model.getStates();
-		
-		
-		for (int i = 0; i < states.size(); i++) {
-			String value = "S" + "[" + (i+1) + "]";
-			
-			statesDict.put(states.get(i), value);
-		}
-		statesDict.put("t", "S[0]");
-	return statesDict;
-	}
 	@JsonIgnore
 	public SmartTableModel getTableModel() {
 		return tableModel;
