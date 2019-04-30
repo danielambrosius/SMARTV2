@@ -1,0 +1,18 @@
+{
+  "name" : "Default experiment name",
+  "model" : {
+    "name" : "Brusselator.model",
+    "odeList" : [ {
+      "leftHandSide" : "X",
+      "rightHandSide" : "a+X*X*Y-b*X-X"
+    }, {
+      "leftHandSide" : "Y",
+      "rightHandSide" : "b*X-X*X*Y"
+    } ],
+    "areOdesValid" : true,
+    "unboundParameters" : [ ]
+  },
+  "parameterValues" : [ 1.0, 3.0 ],
+  "stateValues" : [ 1.0, 1.0 ],
+  "timeValues" : [ 0.0, 30.0, 0.1 ]
+}

@@ -1,0 +1,12 @@
+{
+  "name" : "Brusselator.model",
+  "odeList" : [ {
+    "leftHandSide" : "X",
+    "rightHandSide" : "a+X*X*Y-b*X-X"
+  }, {
+    "leftHandSide" : "Y",
+    "rightHandSide" : "b*X-X*X*Y"
+  } ],
+  "areOdesValid" : true,
+  "unboundParameters" : [ ]
+}
