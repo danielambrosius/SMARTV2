@@ -1,21 +1,48 @@
 package smrt2;
 
-public interface Equation {
+public class Equation {
 
-	String getLeftHandSide();
+	protected String rightHandSide;
+	protected String leftHandSide;
+	protected String[] variables;
+	protected String[] operators;
 
-	void setLeftHandSide(String leftHandSide);
+	public Equation() {
+		super();
+	}
 
-	String getRightHandSide();
+	public String getLeftHandSide() {
+		return this.leftHandSide;
+	}
 
-	void setRightHandSide(String rightHandSide);
+	public void setLeftHandSide(String leftHandSide) {
+		this.leftHandSide = leftHandSide;
+	}
 
-	String[] getVariables();
+	public String getRightHandSide() {
+		return this.rightHandSide;
+	}
 
-	String[] getOperators();
+	public void setRightHandSide(String rightHandSide) {
+		this.rightHandSide = rightHandSide;
+	}
 
-	String[] toArray();
+	public String[] getVariables() {
+		return this.variables;
+	}
 
-	boolean testRightHandSide();
+	public String[] getOperators() {
+		return this.operators;
+	}
+
+	public String[] toArray() {
+		String[] AlgebraicEquationArray = {this.getLeftHandSide(),this.getRightHandSide()};
+		return AlgebraicEquationArray;
+	}
+
+	public boolean testRightHandSide() {
+		RightHandSideChecker tester = new RightHandSideChecker();
+		return tester.test(this.getVariables(), this.getOperators());
+	}
 
 }
