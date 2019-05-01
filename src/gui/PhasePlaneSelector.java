@@ -24,7 +24,7 @@ import javax.swing.JComboBox;
 
 
 
-public class phasePlaneSelector extends JPanel {
+public class PhasePlaneSelector extends JPanel {
 	/**
 	 * 
 	 */
@@ -36,7 +36,7 @@ public class phasePlaneSelector extends JPanel {
 	/**
 	 * Create the dialog.
 	 */
-	public phasePlaneSelector(SmartTableModel tableModel) {
+	public PhasePlaneSelector(SmartTableModel tableModel) {
 
 		setBounds(100, 100, 450, 300);
 

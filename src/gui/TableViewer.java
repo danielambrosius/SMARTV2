@@ -73,7 +73,7 @@ public class TableViewer extends JFrame {
 		JMenuItem mntmPhasePlane = new JMenuItem("phase plane");
 		mntmPhasePlane.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				phasePlaneSelector pps = new phasePlaneSelector(tableModel);
+				PhasePlaneSelector pps = new PhasePlaneSelector(tableModel);
 				
 				int result = JOptionPane.showConfirmDialog(null, pps, "hello", JOptionPane.OK_CANCEL_OPTION);
 				
