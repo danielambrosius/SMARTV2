@@ -96,7 +96,6 @@ public class TableViewer extends JFrame {
 				int result = JOptionPane.showConfirmDialog(null, mss, "hello", JOptionPane.OK_CANCEL_OPTION);
 				
 				if(result == JOptionPane.OK_OPTION) {
-					System.out.println(Arrays.toString(mss.getStateNames()));
 					addMultipleStateGraph(mss.getStateNames());
 					
 				}
