@@ -161,7 +161,9 @@ public class App {
 		List<String> states = myModel.getStates();
 		String[][] stateArray = new String[states.size()][3];
 		for (int i = 0; i < states.size(); i++) {
-			stateArray[i] = new String[] {states.get(i), "", ""};
+			String key = states.get(i);
+			String[] unitDescription = myModel.getDescriptionFromKey(key);
+			stateArray[i] = new String[] {key, unitDescription[0], unitDescription[1]};
 		}
 		return stateArray;
 	}
@@ -170,7 +172,9 @@ public class App {
 		List<String> parameter = myModel.getParameters();
 		String[][] parameterArray = new String[parameter.size()][3];
 		for (int i = 0; i < parameter.size(); i++) {
-			parameterArray[i] = new String[] {parameter.get(i), "", ""};
+			String key = parameter.get(i);
+			String[] unitDescription = myModel.getDescriptionFromKey(key);
+			parameterArray[i] = new String[] {key, unitDescription[0], unitDescription[1]};
 		}
 		return parameterArray;
 	}
@@ -272,6 +276,10 @@ public class App {
 		if (myModel.getUnboundParameters().contains(rowParameter)) {
 			myModel.removeUnboundParameter(rowParameter);
 		}
+	}
+
+	public void addDescriptionToVarTable(String key, String unit, String description) {
+		myModel.addDescriptionToVarTable(key, unit, description);
 	}
 
 }

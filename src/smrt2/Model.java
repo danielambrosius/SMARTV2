@@ -30,6 +30,9 @@ public class Model{
 				varDescription.putIfAbsent(var, placeHolder);
 			}
 		}
+		for (String var : unboundParameters) {
+			varDescription.putIfAbsent(var, placeHolder);
+		}
 	}
 	
 	public void addDescriptionToVarTable(String key, String unit, String description) {
@@ -64,6 +67,7 @@ public class Model{
 				  @JsonProperty("Equation") List<Equation> equationList,
 				  @JsonProperty("areEquationsValid") boolean areEquationsValid,
 				  @JsonProperty("unboundParameters") List<String> unboundParameters) {
+		//TODO add descriptions to json
 		this.name = name;
 		this.equationList = equationList;
 		this.areEquationsValid = areEquationsValid;
@@ -147,7 +151,7 @@ public class Model{
 		}
 		for (int i = 0; i < unboundParameters.toArray().length; i++) {
 			if(!params.contains(unboundParameters.get(i)) && !states.contains(unboundParameters.get(i))) {
-				params.add(unboundParameters.get(i)+ " (Unbound)");
+				params.add(unboundParameters.get(i));
 			}else {
 				unboundParameters.remove(unboundParameters.get(i));
 			}
@@ -207,6 +211,7 @@ public class Model{
 			return 2;
 		}		
 		unboundParameters.add(parameter);
+		updateVarTable();
 		return 0;
 	}
 	

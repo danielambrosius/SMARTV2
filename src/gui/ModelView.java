@@ -356,6 +356,19 @@ public class ModelView extends JFrame {
 		deleteBtn.setBounds(518, 93, 84, 25);
 		panelParameters.add(deleteBtn);
 		
+		JButton btnSubmitUnitdescription = new JButton("Submit");
+		btnSubmitUnitdescription.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				handleUnitDescriptionSubmit(tableParameters);
+			}
+		});
+		btnSubmitUnitdescription.setBounds(520, 345, 84, 25);
+		panelParameters.add(btnSubmitUnitdescription);
+		
+		JLabel lblUnitdescription = new JLabel("Unit/Description");
+		lblUnitdescription.setBounds(526, 325, 76, 14);
+		panelParameters.add(lblUnitdescription);
+		
 		JPanel panelStates = new JPanel();
 		panelStates.setLayout(null);
 		tabbedPane.addTab("Dependent variables", null, panelStates, null);
@@ -363,13 +376,26 @@ public class ModelView extends JFrame {
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPane.setBounds(22, 23, 569, 347);
+		scrollPane.setBounds(22, 23, 484, 347);
 		panelStates.add(scrollPane);
 		
 		TableModel stateParamModel = new DefaultTableModel(null,varColumnNames);
 		tableStates = new JTable(stateParamModel);
 		tableStates.setFillsViewportHeight(true);
 		scrollPane.setViewportView(tableStates);
+		
+		JButton button = new JButton("Submit");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				handleUnitDescriptionSubmit(tableStates);
+			}
+		});
+		button.setBounds(520, 345, 84, 25);
+		panelStates.add(button);
+		
+		JLabel label_1 = new JLabel("Unit/Description");
+		label_1.setBounds(526, 325, 76, 14);
+		panelStates.add(label_1);
 		
 //		textFieldVariable = new JTextField();
 //		textFieldVariable.setText("");
@@ -406,6 +432,25 @@ public class ModelView extends JFrame {
 		updateGraphics(); // Makes the graphics nice
 	}
 	
+	protected void handleUnitDescriptionSubmit(JTable table) {
+		String key;
+		String unit;
+		String description;
+		
+		if (table.getCellEditor() != null) {
+			table.getCellEditor().stopCellEditing();
+		}
+		TableModel input = table.getModel();
+		for (int i = 0; i < input.getRowCount(); i++) {
+			key = (String) input.getValueAt(i, 0);
+			unit = (String) input.getValueAt(i, 1);
+			description = (String) input.getValueAt(i, 2);
+			app.addDescriptionToVarTable(key, unit, description);
+		}
+		updateGraphics();
+	}
+
+
 	private void updateGraphics() {
 		updateOdeTable();
 		clearTextFields();
