@@ -1,5 +1,6 @@
 package tests;
 
+import java.util.Arrays;
 import java.util.List;
 
 import junit.framework.TestCase;
@@ -101,5 +102,15 @@ public class ExperimentTest extends TestCase {
 				assertEquals(expected[i][j], actual.getValueAt(i, j));
 			}
 		}
+	}
+	
+	public void testGetTimeValues() {
+		Model mo = new Model("Name");
+		mo.addOde("A", "k1");
+		mo.addOde("B", "k2*A");
+		Experiment ex = new Experiment(mo, null);
+		ex.setTimeFrame(0, 0.1, 50);
+		assertEquals(Arrays.toString(new double[] {0.0,0.1,50.0}),
+				Arrays.toString(ex.getTimeValues()));
 	}
 }

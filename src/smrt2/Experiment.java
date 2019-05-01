@@ -1,7 +1,6 @@
 package smrt2;
 
 import java.util.Arrays;
-import java.util.List;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -77,21 +76,40 @@ public class Experiment{
 		this.tEnd = tEnd;
 		this.tStep = tStep;		
 	}
-
+	
+	/**
+	 * Used to get the three time values in a list of doubles.
+	 * @return: array of doubles containing: tStart, tEnd, tStep.
+	 */
 	public double[] getTimeValues() {
 		double [] timeValues = {this.tStart, this.tEnd, this.tStep};
 		return timeValues;
 	}
 
+	/**
+	 * Used to set a parameter value at a index that corresponds to the index of the name in
+	 * the models getParameters() function.
+	 * @param i: index of the value.
+	 * @param value: the value to change to.
+	 */
 	public void setParameterValue(int i, double value) {
 		parameterValues[i] = value;		
 	}
 
-	public double getParameterValue(int pos) {
-		double value = parameterValues[pos];
+	/**
+	 * Uses an index to get a value from the parameter array.
+	 * @param i: index to get value at
+	 * @return: double of the value requested.
+	 */
+	public double getParameterValue(int i) {
+		double value = parameterValues[i];
 		return value;
 	}
 	
+	/**
+	 * used to get the instance of a model that is bound to the experiment.
+	 * @return: the instance of the model associated whit the experiment.
+	 */
 	public Model getModel() {
 		return this.model;
 	}
@@ -99,25 +117,47 @@ public class Experiment{
 	private void setName(String name) {
 		this.name = name;
 	}
-
+	
+	/**
+	 * Used to get the name of the experiment for saving purposes.
+	 * @return: String containing the name.
+	 */
 	public String getName() {
 		return this.name;
 	}
 	
+	/**
+	 * Used to set a state value at a index that corresponds to the index of the name in
+	 * the models getStates() function.
+	 * @param i: index of the value.
+	 * @param value: the value to change to.
+	 */
 	public void setStateValue(int i, double value) {
 		stateInitialValues[i] = value;		
 	}
 
+	/**
+	 * Uses an index to get a value from the state array.
+	 * @param i: index to get value at
+	 * @return: double of the value requested.
+	 */
 	public double getStateValue(int pos) {
 		double value = stateInitialValues[pos];
 		return value;
 	}
-
+	/**
+	 * Used to get the table model associated whit the experiment.
+	 * @return: a SmartTableModel instance of the used table model.
+	 */
 	@JsonIgnore
 	public SmartTableModel getTableModel() {
 		return tableModel;
 	}
-
+	
+	/**
+	 * Used to reset the associated table model to when reruning an experiment whit the same
+	 * experiment class.
+	 */
 	public void resetTable() {
 		this.tableModel = new SmartTableModel(this.model.getStates(), this.name);
 		
