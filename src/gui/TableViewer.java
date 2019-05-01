@@ -29,6 +29,7 @@ import java.awt.event.ActionListener;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 import java.awt.event.ActionEvent;
 
@@ -89,8 +90,17 @@ public class TableViewer extends JFrame {
 		
 		JMenuItem mntmTimePlot = new JMenuItem("time plot");
 		mntmTimePlot.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//TODO add action
+			public void actionPerformed(ActionEvent arg0) {
+				MultipleStateSelector mss = new MultipleStateSelector(tableModel);
+				
+				int result = JOptionPane.showConfirmDialog(null, mss, "hello", JOptionPane.OK_CANCEL_OPTION);
+				
+				if(result == JOptionPane.OK_OPTION) {
+					System.out.println(Arrays.toString(mss.getStateNames()));
+					addMultipleStateGraph(mss.getStateNames());
+					
+				}
+
 			}
 		});
 		mnPlot.add(mntmTimePlot);
@@ -155,6 +165,25 @@ public class TableViewer extends JFrame {
 		tabbedPane.addTab(plotName, null, graphPane, null);
 		StackPane pane = new StackPane();
 		GraphBuilder GB = new GraphBuilder(tableModel.getColumnAt(xy[0]), tableModel.getColumnAt(xy[1]), plotName);
+		LineChart<Number, Number> lineChart = GB.start();
+			    
+	    pane.getChildren().add(lineChart);
+		Scene scene = new Scene(pane);
+		graphPane.setScene(scene);
+	}
+	
+	public void addMultipleStateGraph(int[] statesToPlot) {
+		JFXPanel graphPane = new JFXPanel();
+		
+		String plotName = "";
+		for(int i : statesToPlot) {
+			plotName += tableModel.getColumnName(i)+" ";
+		}		
+
+		
+		tabbedPane.addTab(plotName, null, graphPane, null);
+		StackPane pane = new StackPane();
+		GraphBuilder GB = new GraphBuilder(tableModel, statesToPlot);
 		LineChart<Number, Number> lineChart = GB.start();
 			    
 	    pane.getChildren().add(lineChart);
