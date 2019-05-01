@@ -146,6 +146,17 @@ public class Model{
 		return states;
 	}
 	
+	@JsonIgnore
+	public List<String> getOdeStates() {
+		List<String> states = new ArrayList<String>();
+		for (Equation ode : equationList) {
+			if (ode instanceof Ode) {
+				states.add(ode.getLeftHandSide());
+			}
+		}
+		return states;
+	}
+	
 	public void removeEquationAtIndex(int index) {
 		equationList.remove(index);
 	}

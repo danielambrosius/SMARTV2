@@ -148,5 +148,15 @@ public class ModelTest extends TestCase {
 		String[] expected = {"2+P[0]", "P[0]+2", "(2+P[0])*2"};
 		assertEquals(Arrays.asList(expected), Arrays.asList(actual));
 	}
+	
+	public void testgetOdeStates() {
+		Model m = new Model("Name");
+		m.addOde("A", "k1*((A+t+t+t+B)+k1)");
+		m.addAlgEq("B", "B-A+k2");
+		m.addOde("C", "x+b");
+		List<String> actual = m.getOdeStates();
+		List<String> expected = Arrays.asList("A","C");
+		assertEquals(actual.toString(), expected.toString());
+	}
 
 }

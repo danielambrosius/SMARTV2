@@ -1,9 +1,11 @@
 package smrt2;
 
 import smrt2.AlgEq;
+import smrt2.Ode;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+
 
 import gui.SolverThread;
 
@@ -196,14 +198,14 @@ public class App {
 
 
 	public String[][] getStateNamesValues() {
-		List<String> stateNames = myModel.getStates();
+		List<String> stateNames = myModel.getOdeStates();
 		String[][] stateNamesValues = new String[stateNames.size()][2];
 		for (int i = 0; stateNames.size() != i; i++ ) {
 			stateNamesValues[i][0] = "" + stateNames.get(i);
 			stateNamesValues[i][1] = "" + myExperiment.getStateValue(i);
-		}
+			} 
 		return stateNamesValues;
-	}
+	}	
 
 	public boolean checkIfDouble(String value) {
 		try {
