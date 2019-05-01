@@ -19,7 +19,7 @@ public class EquationParser2Test extends TestCase {
 	public void testParseVariables() {
 		equation = "-k1+k2";
 		EquationParser2 myParser2 = new EquationParser2();
-		myParser2.parseVariables(equation);
+		myParser2.parseVariablesForTest(equation);
 		String[] expectedList = new String[]  {"","k1","k2"};
 		assertEquals(Arrays.toString(expectedList), Arrays.toString(myParser2.getVariables(equation)));
 	}

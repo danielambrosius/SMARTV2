@@ -1,0 +1,14 @@
+{
+  "name" : "Test JSON model",
+  "areEquationsValid" : true,
+  "unboundParameters" : [ "L" ],
+  "equationList" : [ {
+    "@class" : "smrt2.Ode",
+    "leftHandSide" : "H",
+    "rightHandSide" : "x + 4k2"
+  }, {
+    "@class" : "smrt2.Ode",
+    "leftHandSide" : "B",
+    "rightHandSide" : "r^2 * 5"
+  } ]
+}

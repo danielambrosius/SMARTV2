@@ -1,0 +1,21 @@
+When starting the SmartV2 application, the user is prompted to open a 
+new model or an existing model. Upon clicking "New model" button, the 
+user is asked to provide a name for the new model. Upon clicking "Open 
+model" button, LoadFile selector window will open in starting in the 
+"data" folder. Only files with the ".exp" extension are visible and 
+can be selected. Clicking the "Open" button will load the selected model
+and continue to the application. Clicking the "Cancel" button will open 
+a model with default "untitled" name.
+
+The SmartV2 application window reflects the name of the currently active
+model.
+
+As explained in 2. ModelView the SaveFile window is opened in the menu 
+bar. In the SaveFile window the user must provide a file name to save 
+the experiment under. If there is already a file with an identical name 
+in the same folder, the user is prompted and asked to allow overwriting 
+of that file. When clicking "OK" the old file will be overwritten with 
+the new save file. When clicking "Cancel" the user will be sent back to 
+the SaveFile window. Experiments are saved with ".exp" extensions 
+automatically appended if not already present. When the experiment is 
+saved, it is saved with it's corresponding model in one file.

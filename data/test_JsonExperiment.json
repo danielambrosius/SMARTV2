@@ -1,0 +1,20 @@
+{
+  "name" : "Test experiment for JSON saving",
+  "model" : {
+    "name" : "Test JSON model",
+    "areEquationsValid" : true,
+    "unboundParameters" : [ "L" ],
+    "equationList" : [ {
+      "@class" : "smrt2.Ode",
+      "leftHandSide" : "H",
+      "rightHandSide" : "x + 4k2"
+    }, {
+      "@class" : "smrt2.Ode",
+      "leftHandSide" : "B",
+      "rightHandSide" : "r^2 * 5"
+    } ]
+  },
+  "parameterValues" : [ 1.0, 1.0, 1.0, 1.0 ],
+  "stateValues" : [ 1.0, 1.0 ],
+  "timeValues" : [ 0.0, 10.0, 1.0 ]
+}

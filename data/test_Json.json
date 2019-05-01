@@ -1,0 +1,5 @@
+{
+  "@class" : "smrt2.Ode",
+  "leftHandSide" : "F",
+  "rightHandSide" : "H*R"
+}

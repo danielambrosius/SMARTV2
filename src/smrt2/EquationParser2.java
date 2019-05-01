@@ -10,23 +10,19 @@ public class EquationParser2 {
 	private String[] variables;
 	private String[] operators;
 	//regex pattern to split on all operators 
-	
 	private final String consideredOperators = "(\\+|\\-|\\*|\\/|=|>|<|>=|<=|&|\\||%|!|\\^|\\(|\\)|sin\\(|cos\\(|tan\\(|log\\(|ln\\(|log10\\(|log2\\(|sqrt\\(|abs\\()+";
-	//regex pattern to split on all non operators.
-	//private final String consideredVariables = "";
 
-//	public EquationParser2(String equation) {
-//		this.equation = equation;
-//		this.variables = parseVariables();
-//		this.operators = parseOperators();
-//	}
-
-	public String[] parseVariables(String equation) {
+	
+	public String[] parseVariablesForTest(String equation) {
+		return parseVariables(equation);
+	}
+	
+	private String[] parseVariables(String equation) {
 		variables = equation.split(consideredOperators);
 		//variables = removeUnwantedMatches(variables);
 		return variables;
 	}
-
+	
 	public String[] getVariables(String equation) {
 		return objectToStringArray(parse(equation).get(0).toArray());
 	}
@@ -35,7 +31,8 @@ public class EquationParser2 {
 		return objectToStringArray(parse(equation).get(1).toArray());
 	}
 
-	public String[] parseOperators(String equation) {
+	
+	private String[] parseOperators(String equation) {
 		Pattern MY_PATTERN = Pattern.compile(consideredOperators);
 		Matcher m = MY_PATTERN.matcher(equation);
 		List<String> operatorList = new ArrayList<String>();
@@ -105,13 +102,5 @@ public class EquationParser2 {
 				.toArray(String[]::new);
 		return stringArray;
 	}
-
-//	public String[] removeUnwantedMatches(String[] variableList) {
-//		//stream that will remove empty matches and - sign using filters.
-//		List<String> nonEmptyList = Arrays.asList(variableList).
-//				stream().filter(i -> !i.equals("") && !i.equals("-")).
-//				collect(Collectors.toList()); 
-//		return nonEmptyList.toArray(new String[nonEmptyList.size()]);
-//	}
-
+	
 }
