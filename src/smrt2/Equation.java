@@ -1,5 +1,11 @@
 package smrt2;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
+
+// To enable deserialisation using correct subtype when stored polymorphically
+@JsonTypeInfo(use=JsonTypeInfo.Id.CLASS, include=JsonTypeInfo.As.PROPERTY, property="@class")
 public class Equation {
 
 	protected String rightHandSide;
@@ -27,10 +33,12 @@ public class Equation {
 		this.rightHandSide = rightHandSide;
 	}
 
+	@JsonIgnore
 	public String[] getVariables() {
 		return this.variables;
 	}
-
+	
+	@JsonIgnore
 	public String[] getOperators() {
 		return this.operators;
 	}

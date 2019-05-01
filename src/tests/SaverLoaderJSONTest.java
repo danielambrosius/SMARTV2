@@ -2,6 +2,7 @@ package tests;
 
 import java.util.Arrays;
 import junit.framework.TestCase;
+import smrt2.AlgEq;
 import smrt2.Equation;
 import smrt2.Experiment;
 import smrt2.Model;
@@ -38,6 +39,23 @@ public class SaverLoaderJSONTest extends TestCase {
 		
 		Model mObserved = (Model) mySl.load(savePath, Model.class);
 		assertTrue(m.getStates().equals(mObserved.getStates()));
+	}
+	
+	public void testSaveLoadModelWithMixOfAlgAndOde() {
+		String savePath = "./data/test_JsonModelWithODEAndAlgEQ.json";
+		Model m = new Model("Test JSON model");
+		m.addOde("H", "x + 4k2");
+		m.addOde("B", "r^2 * 5");
+		m.addAlgEq("R", "x + 5 * k2");
+		m.addParameter("L");
+		
+		SaverLoader mySl = SaverLoader.getInstance();
+		mySl.save(savePath, m);
+		
+		Model mObserved = (Model) mySl.load(savePath, Model.class);
+		for (int i = 0; i < m.getEquationList().size(); i++) {
+			assertEquals(m.getEquationAtIndex(i).getClass(), mObserved.getEquationAtIndex(i).getClass());
+		}
 	}
 	
 	
