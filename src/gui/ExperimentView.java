@@ -17,7 +17,11 @@ import smrt2.App;
 import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 
@@ -137,6 +141,22 @@ public class ExperimentView extends JFrame {
 		textTimeEnd.setBounds(370, 352, 60, 22);
 		contentPane.add(textTimeEnd);
 		textTimeEnd.setColumns(10);
+		
+		JButton helpButton = new JButton("?");
+		helpButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					String text = "<html>";
+					text += new BufferedReader(new FileReader("./lib/ExperimentHelpText.txt")).lines().collect(Collectors.joining("<br>"));
+					new HelpWindow(text);
+				} catch (FileNotFoundException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		helpButton.setToolTipText("Help");
+		helpButton.setBounds(492, 361, 40, 40);
+		contentPane.add(helpButton);
 	}
 	
 	public void safeEdit() {
