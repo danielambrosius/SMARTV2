@@ -147,5 +147,37 @@ public class ModelTest extends TestCase {
 		List<String> expected = Arrays.asList("A","C");
 		assertEquals(actual.toString(), expected.toString());
 	}
+	
+	public void testVarDescription() {
+		Model m = new Model("Name");
+		m.addAlgEq("B", "B-k2");
+		m.addOde("C", "x+b");
+		for (String state : m.getStates()) {
+			String[] expected = {"", ""};
+			String[] actual = m.getDescriptionFromKey(state);
+			assertEquals(Arrays.asList(expected), Arrays.asList(actual));
+		}
+		for (String parameter : m.getParameters()) {
+			String[] expected = {"", ""};
+			String[] actual = m.getDescriptionFromKey(parameter);
+			assertEquals(Arrays.asList(expected), Arrays.asList(actual));
+		}	
+	}
+	
+	public void testAddAndGetDescription() {
+		Model m = new Model("Name");
+		m.addAlgEq("B", "B-k2");
+		m.addOde("C", "x+b");
+		
+		String key = "B";
+		String unit = "m/s";
+		String description = "The speed of the red car!";
+		String[] expected = {unit, description};
+		m.addDescriptionToVarTable(key, unit, description);
+		
+		String[] actual = m.getDescriptionFromKey(key);
+		assertEquals(Arrays.asList(expected), Arrays.asList(actual));
+		
+	}
 
 }

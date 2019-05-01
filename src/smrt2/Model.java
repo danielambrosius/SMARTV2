@@ -16,9 +16,31 @@ public class Model{
 	private List<Equation> equationList;
 	private boolean areEquationsValid;
 	private List<String> unboundParameters;
+	private Map<String, String[]> varDescription = new HashMap<String, String[]>();
 	
 	public List<String> getUnboundParameters() {
 		return unboundParameters;
+	}
+	
+	private void updateVarTable() {
+		String[] placeHolder = {"", ""};
+		for (Equation equation : equationList) {
+			varDescription.putIfAbsent(equation.getLeftHandSide(), placeHolder);
+			for (String var : equation.getVariables()) {
+				varDescription.putIfAbsent(var, placeHolder);
+			}
+		}
+	}
+	
+	public void addDescriptionToVarTable(String key, String unit, String description) {
+		if(varDescription.containsKey(key)) {
+			String[] value = {unit, description};
+			varDescription.replace(key, value);
+		}
+	}
+	
+	public String[] getDescriptionFromKey(String key) {
+		return varDescription.get(key);
 	}
 	
 	public void removeUnboundParameter(String parameter) {
@@ -64,6 +86,7 @@ public class Model{
 		Ode odeToAdd = new Ode(state, formula);
 		if (!this.getStates().contains(state)){
 			equationList.add(odeToAdd);
+			updateVarTable();
 			return true;
 		}
 		return false;
@@ -73,8 +96,9 @@ public class Model{
 	public boolean addAlgEq(String leftHandSide, String rightHandSide) {
 		AlgEq algEqToAdd = new AlgEq(leftHandSide, rightHandSide);
 		if (!this.getStates().contains(leftHandSide)){
-		equationList.add(algEqToAdd);
-		return true;
+			equationList.add(algEqToAdd);
+			updateVarTable();
+			return true;
 		}
 		return false;
 		
