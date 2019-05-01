@@ -8,11 +8,18 @@ import javax.script.ScriptException;
 
 public class SolverEulerForward implements Solver {
 
-	/* (non-Javadoc)
-	 * @see smrt2.Solver#solve(smrt2.SmartTableModel, java.lang.String[], java.lang.Double[], java.lang.Double[], double, double, double)
+	/** 
+	 * Appends the tableModel with the solutions of the provided equations in the specified time frame.
+	 * @params tableModel	Reference to the tableModel that stores all of the data
+	 * @params myModel		Model of the system that the solver is going to solve
+	 * @params S0			array of initial conditions for the dependent variables, in the same order as the model.equationList.
+	 * @params P			array of parameter values.
+	 * @params tStart		begin time point.
+	 * @params tEnd			end time point.
+	 * @params tStep		size of the time step.
 	 */
 	@Override
-	public void solve(SmartTableModel S, Model myModel, Double[] S0, Double[] P, double tStart, double tEnd, double tStep){
+	public void solve(SmartTableModel tableModel, Model myModel, Double[] S0, Double[] P, double tStart, double tEnd, double tStep){
 		int nTimesteps = (int) ((tEnd-tStart)/tStep);
 		String[] formulaList = myModel.reconstructFormulas();
 		List<Equation> equationList = myModel.getEquationList();
@@ -33,21 +40,22 @@ public class SolverEulerForward implements Solver {
 				firstRow[i] = AlgResults[i];
 			}	
 		}
-		S.AddRow(firstRow);
+		tableModel.AddRow(firstRow);
 		
 		for (int i = 1; i <= nTimesteps; i++) {
-			S.AddRow(eulerForward(equationList, formulaList, S.getRowAt(i-1), P, tStep));
+			tableModel.AddRow(eulerForward(equationList, formulaList, tableModel.getRowAt(i-1), P, tStep));
 		}
 	}
 	
 	/**
 	 * Returns the result of array S in the next point in time with time step dt.
-	 * @params odeFormulas	array of strings that describe the ode formulas.
+	 * @params equationList	list of equation classes, used to determine the type of an equation.
+	 * @params formulaArray	array of reconstructed formula in with parameters and states are replaced with indexes to array S & P
 	 * @params S			array of the state of the system at the previous point in time S[0] should reference time
 	 * @params P			array of parameter values.
 	 * @params dt			size of the time step.
 	 */
-	private Double[] eulerForward(List<Equation> equationList, String[] formulaList ,Double[] S, Double[] P, double dt) {
+	private Double[] eulerForward(List<Equation> equationList, String[] formulaArray ,Double[] S, Double[] P, double dt) {
 		//start an instance of ScriptEngineManager to create a javascipt engine.
 		ScriptEngineManager mgr = new ScriptEngineManager();
 		ScriptEngine engine = mgr.getEngineByName("JavaScript");
@@ -62,30 +70,23 @@ public class SolverEulerForward implements Solver {
 		
 		for (int i = 1; i < results.length; i++) {
 			//first element of results contains time so we skip it
-			String formula = formulaList[i-1];
+			String formula = formulaArray[i-1];
 			formula = StdFSubber.powerSubstitute(formula);
-			if (equationList.get(i-1) instanceof Ode) {
-				//use javascript to evaluate the result of the formula
-				try {
-					result = Double.parseDouble(engine
-							.eval(String.format("var P = %s; var S = %s ;%s", parameters, states, formula)).toString());
+			//use javascript to evaluate the result of the formula
+			try {
+				result = Double.parseDouble(engine.eval(String.format("var P = %s; var S = %s ;%s", 
+						parameters, states, formula)).toString());
+				//handle ODEs differently from AlgEq
+				if (equationList.get(i-1) instanceof Ode){ 
 					results[i] = S[i] + result * dt;
-				} catch (NumberFormatException e) {
-					e.printStackTrace();
-				} catch (ScriptException e) {
-					e.printStackTrace();
-				} 
-			} else {
-				try {
-					result = Double.parseDouble(engine
-							.eval(String.format("var P = %s; var S = %s ;%s", parameters, states, formula)).toString());
+				} else { //if not an Ode it must be an AlgEq
 					results[i] = result;
-				} catch (NumberFormatException e) {
-					e.printStackTrace();
-				} catch (ScriptException e) {
-					e.printStackTrace();
-				} 
-			}
+				}
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+			} catch (ScriptException e) {
+				e.printStackTrace();
+			}	
 		}
 	return results;
 	}
