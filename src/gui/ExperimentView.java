@@ -155,7 +155,7 @@ public class ExperimentView extends JFrame {
 			}
 		});
 		helpButton.setToolTipText("Help");
-		helpButton.setBounds(492, 361, 40, 40);
+		helpButton.setBounds(492, 361, 45, 45);
 		contentPane.add(helpButton);
 	}
 	
