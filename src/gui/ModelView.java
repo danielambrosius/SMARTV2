@@ -427,7 +427,7 @@ public class ModelView extends JFrame {
 			}
 		});
 		helpButton.setToolTipText("Help");
-		helpButton.setBounds(542, 330, 40, 40);
+		helpButton.setBounds(542, 330, 45, 45);
 		panelFormulas.add(helpButton);
 	
 		
