@@ -1,5 +1,7 @@
 package tests;
 
+import java.util.List;
+
 import junit.framework.TestCase;
 import smrt2.Experiment;
 import smrt2.Model;
@@ -15,13 +17,17 @@ public class ExperimentTest extends TestCase {
 		assertNotNull(e);
 	}
 	
-	
 	public void testGetValueFromParameter() throws Exception {
 		m = new Model();
 		m.addOde("A", "k");
 		e = new Experiment(m);
-		int pos=e.getParameterPosition("k");
-		double got = e.getParameterValue(pos);
+		double got = 0;
+		List<String> paramNames = m.getParameters();
+		for (int j = 0; j < paramNames.size(); j++) {
+			if (paramNames.get(j).equals("k")) {
+				got = e.getParameterValue(j);
+			}
+		}
 		assertEquals(1.0, got);
 	}
 	
@@ -29,17 +35,30 @@ public class ExperimentTest extends TestCase {
 		m = new Model();
 		m.addOde("A", "k");
 		e = new Experiment(m);
-		int pos = e.getParameterPosition("k");
-		e.setParameterValue(pos, 1.96);
-		double got = e.getParameterValue((e.getParameterPosition("k")));
+		String[] paramValArray = new String[] {"1.96"};
+		for (int i = 0; i < paramValArray.length; i++ ) {
+			e.setParameterValue(i, Double.parseDouble(paramValArray[i]));
+		}
+		double got = 0;
+		List<String> paramNames = m.getParameters();
+		for (int j = 0; j < paramNames.size(); j++) {
+			if (paramNames.get(j).equals("k")) {
+				got = e.getParameterValue(j);
+			}
+		}
 		assertEquals(1.96, got);
 	}
 	public void testGetInitialFromState() throws Exception {
 		m = new Model();
 		m.addOde("A", "k");
 		e = new Experiment(m);
-		int pos=e.getStatePosition("A");
-		double got = e.getStateValue(pos);
+		double got = 0;
+		List<String> stateNames = m.getStates();
+		for (int j = 0; j < stateNames.size(); j++) {
+			if (stateNames.get(j).equals("A")) {
+				got = e.getStateValue(j);
+			}
+		}
 		assertEquals(1.0, got);
 	}
 	
@@ -47,9 +66,17 @@ public class ExperimentTest extends TestCase {
 		m = new Model();
 		m.addOde("A", "k");
 		e = new Experiment(m);
-		int pos = e.getStatePosition("A");
-		e.setStateValue(pos, 25.09);
-		double got = e.getStateValue((e.getStatePosition("A")));
+		String[] stateValArray = new String[] {"25.09"};
+		for (int i = 0; i < stateValArray.length; i++ ) {
+			e.setStateValue(i, Double.parseDouble(stateValArray[i]));
+		}
+		double got = 0;
+		List<String> stateNames = m.getStates();
+		for (int j = 0; j < stateNames.size(); j++) {
+			if (stateNames.get(j).equals("A")) {
+				got = e.getStateValue(j);
+			}
+		}
 		assertEquals(25.09, got);
 	}
 	

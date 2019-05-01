@@ -87,31 +87,16 @@ public class Experiment{
 		parameterValues[i] = value;		
 	}
 
-	public int getParameterPosition(String name) throws Exception {
-		List<String> parameters= model.getParameters();
-		for (int i = 0; i < parameters.size(); i++) {
-			if (parameters.get(i).equals(name)) {
-				return i;
-			}
-		}
-		throw new Exception("Parameter Name not found");	
-	}
-
 	public double getParameterValue(int pos) {
 		double value = parameterValues[pos];
 		return value;
-	}
-	
-	public Double[] getParameterValues() {
-		return this.parameterValues;
 	}
 	
 	public Model getModel() {
 		return this.model;
 	}
 	
-	public void setName(String name) {
-		//TODO check if name is valid
+	private void setName(String name) {
 		this.name = name;
 	}
 
@@ -122,31 +107,12 @@ public class Experiment{
 	public void setStateValue(int i, double value) {
 		stateInitialValues[i] = value;		
 	}
-	
-	@JsonIgnore
-	public int getStatePosition(String name) throws Exception {
-		List<String> states= model.getStates();
-		for (int i = 0; i < states.size(); i++) {
-			if (states.get(i).equals(name)) {
-				return i;
-			}
-		}
-		throw new Exception("State Name not found");
-	}
 
 	public double getStateValue(int pos) {
 		double value = stateInitialValues[pos];
 		return value;
 	}
-	public Double[] getStateValues() {
-		return this.stateInitialValues;
-	}
 
-	@JsonIgnore
-	public String[] getStateNames() {
-		return (String[]) model.getStates().toArray(new String[0]);
-	}
-	
 	@JsonIgnore
 	public SmartTableModel getTableModel() {
 		return tableModel;

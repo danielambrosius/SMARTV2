@@ -2,7 +2,6 @@ package tests;
 
 import java.util.Arrays;
 import junit.framework.TestCase;
-import smrt2.AlgEq;
 import smrt2.Equation;
 import smrt2.Experiment;
 import smrt2.Model;
@@ -73,11 +72,16 @@ public class SaverLoaderJSONTest extends TestCase {
 		mySl.save(savePath, e);
 		
 		Experiment eObs = (Experiment) mySl.load(savePath, Experiment.class);
-		
+		Model mObs=eObs.getModel();
 		assertTrue(Arrays.equals(e.getTimeValues(), eObs.getTimeValues()));
 		assertTrue(e.getName().equals(eObs.getName()));
-		assertTrue(Arrays.equals(e.getStateNames(), eObs.getStateNames()));
-		assertTrue(Arrays.equals(e.getParameterValues(), eObs.getParameterValues()));
-		assertTrue(Arrays.equals(e.getStateValues(), eObs.getStateValues()));
+		for(int i=0; i==m.getParameters().size(); i++) {
+			assertTrue(e.getParameterValue(i)==eObs.getParameterValue(i));
+			assertTrue(m.getParameters().get(i)==mObs.getParameters().get(i));
+		}
+		for(int i=0; i==m.getStates().size(); i++) {
+			assertTrue(e.getStateValue(i)==eObs.getStateValue(i));
+			assertTrue(m.getStates().get(i)==mObs.getStates().get(i));
+		}
 	}
 }
