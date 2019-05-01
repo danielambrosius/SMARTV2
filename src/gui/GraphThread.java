@@ -34,7 +34,7 @@ public class GraphThread extends Thread {
 			JFXPanel graphPane = new JFXPanel();
 			tabbedPane.addTab(tableModel.getColumnName(i), null, graphPane, null);
 			StackPane pane = new StackPane();
-			GraphBuilder GB = new GraphBuilder(tableModel.getColumnAt(0), tableModel.getColumnAt(i), tableModel.getColumnName(i));
+			GraphBuilder GB = new GraphBuilder(tableModel, new int[]{i});
 			LineChart<Number, Number> lineChart = GB.start();
 				    
 		    pane.getChildren().add(lineChart);

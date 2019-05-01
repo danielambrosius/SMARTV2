@@ -23,13 +23,21 @@ public class GraphBuilder{
 	private Series<Number, Number> seriesData;
 	private ObservableList<XYChart.Series<Number, Number>> data;
 	private String title;
+	private String xName;
+	private String yName;
 	
-	public GraphBuilder(Double[] xData, Double[] yData, String title) {
+	public GraphBuilder(SmartTableModel tableModel, int[] xy, String title) {
+		Double[] xData = tableModel.getColumnAt(xy[0]);
+		Double[] yData = tableModel.getColumnAt(xy[1]);
 		data = FXCollections.observableArrayList();
 		Series<Number, Number> seriesData = ArraysToSeries(xData, yData);
 		seriesData.setName(title);
 		this.data.add(seriesData);
 		this.title = title;
+		xName = tableModel.getColumnName(xy[0]);
+		yName = tableModel.getColumnName(xy[1]);
+		 
+		
 	}
 	
 	public GraphBuilder(SmartTableModel tableModel, int[] toPlot) {
@@ -39,6 +47,8 @@ public class GraphBuilder{
 		for (int i : toPlot) {
 			title += " " + tableModel.getColumnName(i);
 		}
+		xName = "Time";
+		yName = title;
 	}
 
 	
@@ -62,13 +72,15 @@ public class GraphBuilder{
 	public LineChart<Number, Number> start() {
 	    NumberAxis xAxis = new NumberAxis();
 	    NumberAxis yAxis = new NumberAxis();
+
 	    final LineChart<Number, Number> lineChart = new LineChart<Number, Number>(xAxis, yAxis);
 	   
 		lineChart.setAxisSortingPolicy(SortingPolicy.NONE);
 	    
 	    lineChart.setData(data);
 		lineChart.setTitle(title);
-	    
+	    xAxis.setLabel(xName);
+	    yAxis.setLabel(yName);
 	    return lineChart;
 	
 	}

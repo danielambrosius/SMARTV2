@@ -163,7 +163,7 @@ public class TableViewer extends JFrame {
 		String plotName = tableModel.getColumnName(xy[0]) + " " + tableModel.getColumnName(xy[1]);
 		tabbedPane.addTab(plotName, null, graphPane, null);
 		StackPane pane = new StackPane();
-		GraphBuilder GB = new GraphBuilder(tableModel.getColumnAt(xy[0]), tableModel.getColumnAt(xy[1]), plotName);
+		GraphBuilder GB = new GraphBuilder(tableModel, xy, plotName);
 		LineChart<Number, Number> lineChart = GB.start();
 			    
 	    pane.getChildren().add(lineChart);
