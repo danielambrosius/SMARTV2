@@ -7,6 +7,7 @@ import javafx.scene.text.Font;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -17,6 +18,7 @@ import javax.swing.JLabel;
 import java.awt.GridLayout;
 import java.awt.Color;
 import javax.swing.JTextField;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -52,9 +54,7 @@ public class ModelView extends JFrame {
 	private JTable tableParameters;
 	private JTable tableStates;
 	private JTextField textFieldParameter;
-	private JTextField textFieldVariable;
-	private JTextField textFieldAlgebraicFormula;
-	private JTable tableAlgebraicFormulas;
+	private final ButtonGroup buttonGroup = new ButtonGroup();
 
 	/**
 	 * Launch the application.
@@ -173,34 +173,30 @@ public class ModelView extends JFrame {
 		
 		JPanel panelFormulas = new JPanel();
 		panelFormulas.setBackground(Color.WHITE);
-		tabbedPane.addTab("ODEs", null, panelFormulas, null);
+		tabbedPane.addTab("Formulas", null, panelFormulas, null);
 		panelFormulas.setLayout(null);
 		
 		StateField = new JTextField();
-		StateField.setBounds(44, 46, 76, 22);
+		StateField.setBounds(22, 46, 76, 22);
 		panelFormulas.add(StateField);
 		StateField.setColumns(10);
 		
-		JLabel lblState = new JLabel("State Variable");
-		lblState.setBounds(44, 24, 91, 16);
+		JLabel lblState = new JLabel("Dependent Variable");
+		lblState.setBounds(22, 29, 123, 16);
 		panelFormulas.add(lblState);
 		
 		EquationField = new JTextField();
-		EquationField.setBounds(179, 46, 320, 22);
+		EquationField.setBounds(179, 46, 327, 22);
 		panelFormulas.add(EquationField);
 		EquationField.setColumns(10);
 		
-		JLabel lblDifferentialEquation = new JLabel("Differential equation");
-		lblDifferentialEquation.setBounds(179, 24, 228, 16);
+		JLabel lblDifferentialEquation = new JLabel("Equation");
+		lblDifferentialEquation.setBounds(179, 29, 228, 16);
 		panelFormulas.add(lblDifferentialEquation);
 		
-		JLabel label = new JLabel("/dt   = ");
-		label.setBounds(132, 49, 62, 16);
+		JLabel label = new JLabel("=");
+		label.setBounds(143, 49, 9, 16);
 		panelFormulas.add(label);
-		
-		JLabel lblDdt = new JLabel("d ");
-		lblDdt.setBounds(22, 49, 17, 16);
-		panelFormulas.add(lblDdt);
 		
 		
 		Object rowData[][] = { { "example state name", "example formula"} };
@@ -227,20 +223,32 @@ public class ModelView extends JFrame {
 		// Set table lay-out
 		tableFormulas.getColumnModel().getColumn(0).setMaxWidth(100);
 		tableFormulas.setBorder(new LineBorder(new Color(0, 0, 0)));
-		tableFormulas.setBounds(22, 88, 484, 282);
+		tableFormulas.setBounds(22, 118, 484, 252);
 		panelFormulas.add(tableFormulas);
 		
 		JLabel lblEditMode = new JLabel("");
 		lblEditMode.setBounds(379, 17, 99, 16);
 		panelFormulas.add(lblEditMode);
 		
+		JRadioButton rdbtnOde = new JRadioButton("ODE");
+		buttonGroup.add(rdbtnOde);
+		rdbtnOde.setSelected(true);
+		rdbtnOde.setBounds(120, 85, 53, 25);
+		panelFormulas.add(rdbtnOde);
+		
+		JRadioButton rdbtnAlgebraicEquation = new JRadioButton("Algebraic Equation");
+		buttonGroup.add(rdbtnAlgebraicEquation);
+		rdbtnAlgebraicEquation.setBounds(189, 85, 135, 25);
+		panelFormulas.add(rdbtnAlgebraicEquation);	
+		
 		btnAdd = new JButton("Add");
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String state = StateField.getText();
 				String equation = EquationField.getText();
+				boolean isOde = rdbtnOde.isSelected();
 				lblEditMode.setText("");
-				int addState = app.handleButtonAddOde(state, equation);
+				int addState = app.handleButtonAddFormula(state, equation, isOde);
 				if (addState == 1){
 					JOptionPane.showConfirmDialog(null,"State already exists, formula not added.","Warning", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 				} else if (addState == 2) {
@@ -249,7 +257,7 @@ public class ModelView extends JFrame {
 					int answer = JOptionPane.showConfirmDialog(null,"State is already in pre-defined parameters. Continue?","Warning", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
 					if (answer == 0) {
 						app.removeUnboundParameter(state);
-						app.handleButtonAddOde(state, equation);
+						app.handleButtonAddFormula(state, equation, isOde);
 						updateGraphics();
 					}
 				} else {
@@ -287,6 +295,11 @@ public class ModelView extends JFrame {
 		});
 		btnEdit.setBounds(518, 81, 84, 25);
 		panelFormulas.add(btnEdit);
+		
+		JLabel lblEquationType = new JLabel("Equation type: ");
+//		lblEquationType.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblEquationType.setBounds(22, 85, 86, 25);
+		panelFormulas.add(lblEquationType);
 		
 		JPanel panelParameters = new JPanel();
 		tabbedPane.addTab("Parameters", null, panelParameters, null);
@@ -339,7 +352,7 @@ public class ModelView extends JFrame {
 		
 		JPanel panelStates = new JPanel();
 		panelStates.setLayout(null);
-		tabbedPane.addTab("States", null, panelStates, null);
+		tabbedPane.addTab("Dependent variables", null, panelStates, null);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -352,66 +365,19 @@ public class ModelView extends JFrame {
 		tableStates.setFillsViewportHeight(true);
 		scrollPane.setViewportView(tableStates);
 		
-		JPanel panelAlgebraicEquation = new JPanel();
-		panelAlgebraicEquation.setLayout(null);
-		panelAlgebraicEquation.setBackground(Color.WHITE);
-		tabbedPane.addTab("Algebraic equations", null, panelAlgebraicEquation, null);
-		
-		textFieldVariable = new JTextField();
-		textFieldVariable.setText("");
-		textFieldVariable.setColumns(10);
-		textFieldVariable.setBounds(44, 46, 76, 22);
-		panelAlgebraicEquation.add(textFieldVariable);
-		
-		JLabel lblVariable = new JLabel("Variable");
-		lblVariable.setBounds(44, 24, 91, 16);
-		panelAlgebraicEquation.add(lblVariable);
-		
-		textFieldAlgebraicFormula = new JTextField();
-		textFieldAlgebraicFormula.setText("");
-		textFieldAlgebraicFormula.setColumns(10);
-		textFieldAlgebraicFormula.setBounds(179, 46, 320, 22);
-		panelAlgebraicEquation.add(textFieldAlgebraicFormula);
-		
-		JLabel lblAlgebraicEquation = new JLabel("Algebraic equation");
-		lblAlgebraicEquation.setBounds(179, 24, 228, 16);
-		panelAlgebraicEquation.add(lblAlgebraicEquation);
-		
-		JLabel labelEqualSign = new JLabel("=");
-		labelEqualSign.setBounds(132, 49, 62, 16);
-		panelAlgebraicEquation.add(labelEqualSign);
-		
-		tableAlgebraicFormulas = new JTable((TableModel) null);
-		tableAlgebraicFormulas.setBorder(new LineBorder(new Color(0, 0, 0)));
-		tableAlgebraicFormulas.setBounds(22, 88, 484, 282);
-		panelAlgebraicEquation.add(tableAlgebraicFormulas);
-		
-		JButton buttonAddAlgebraicFormula = new JButton("Add");
-		buttonAddAlgebraicFormula.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				String variable = textFieldVariable.getText();
-				String algebraicEquation = textFieldAlgebraicFormula.getText();
-				boolean isAdded = app.handleButtonAddAlgebraicFormula(variable, algebraicEquation);
-				if (!isAdded){
-					JOptionPane.showConfirmDialog(null,"Algebraic formula is not added","Warning", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
-				}else {
-					textFieldVariable.setText("");
-					textFieldAlgebraicFormula.setText("");
-				}
-				updateGraphics();
-			}
-		});
-		
-		buttonAddAlgebraicFormula.setBounds(518, 45, 84, 25);
-		panelAlgebraicEquation.add(buttonAddAlgebraicFormula);
-		
-		JButton buttonDeleteAlgebraicFormula = new JButton("Delete");
-		buttonDeleteAlgebraicFormula.setBounds(518, 118, 84, 25);
-		panelAlgebraicEquation.add(buttonDeleteAlgebraicFormula);
-		
-		JButton buttonEditAlgebraicFormula = new JButton("Edit");
-		buttonEditAlgebraicFormula.setBounds(518, 81, 84, 25);
-		panelAlgebraicEquation.add(buttonEditAlgebraicFormula);
+//		textFieldVariable = new JTextField();
+//		textFieldVariable.setText("");
+//		textFieldVariable.setColumns(10);
+//		textFieldVariable.setBounds(44, 46, 76, 22);
+//		
+//		textFieldAlgebraicFormula = new JTextField();
+//		textFieldAlgebraicFormula.setText("");
+//		textFieldAlgebraicFormula.setColumns(10);
+//		textFieldAlgebraicFormula.setBounds(179, 46, 320, 22);
+//		
+//		tableAlgebraicFormulas = new JTable((TableModel) null);
+//		tableAlgebraicFormulas.setBorder(new LineBorder(new Color(0, 0, 0)));
+//		tableAlgebraicFormulas.setBounds(22, 88, 484, 282);
 		
 		
 		JButton helpButton = new JButton("?");

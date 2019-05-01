@@ -21,23 +21,27 @@ public class App {
 		saverLoader = SaverLoader.getInstance();
 	}
 
-	public int handleButtonAddOde(String state, String equation) {
+	public int handleButtonAddFormula(String state, String equation, Boolean isOde) {
 		// Tests if fields are empty before adding to model and updating table.
 		state = state.replace(" ", "");
 		equation = equation.replace(" ", "");
-		int addState = 0;
-		if (!state.isEmpty() && !equation.isEmpty()) {
-			if (myModel.getUnboundParameters().contains(state)) {
-				addState = 3;
-			}else if (myModel.addOde(state, equation)== false) {
-					addState = 1;
-					modelSaved = false;
-				}
-		}else {
-			addState = 2;
-			modelSaved = false;
+		if (state.isEmpty() && equation.isEmpty()){
+			return 2;//Formula is not added because state or equation is empty.
 		}
-		return addState;
+		if (myModel.getUnboundParameters().contains(state)) {
+			return 3; //Formula is not added because state was unbound parameter.
+		}
+		boolean added;
+		if(isOde) {
+			added = myModel.addOde(state, equation);
+		} else {
+			added = myModel.addAlgEq(state, equation);
+		}
+		if (added) {
+			return 0; // Formula is added
+		} else {
+			return 1; //Formula is not added because State was already defined.
+		}
 	}
 
 	public String[][] displayModelOdeList() {
