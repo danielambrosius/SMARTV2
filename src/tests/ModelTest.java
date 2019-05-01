@@ -51,17 +51,6 @@ public class ModelTest extends TestCase {
 		}
 	}
 	
-	public void testStartNewModel() throws Exception {
-		Model m = new Model("Name");
-		m.addOde("A", "k1");
-		m.setName("Kees");
-		m.startNewModel();
-		
-		assertEquals(null, m.getName());
-		assertEquals("[]" , m.getEquationList().toString());
-		assertEquals("[]" , m.getStates().toString());
-		assertEquals("[]" , m.getParameters().toString());
-	}
 	public void testFindParameters() {
 		Model m = new Model("Name");
 		m.addOde("A", "k1*A+B");

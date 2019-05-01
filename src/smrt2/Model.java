@@ -105,11 +105,6 @@ public class Model{
 		this.areEquationsValid = allCorrect;
 		return displayEquationList;
 	}
-
-	public void startNewModel() {
-		setName(null);
-		equationList = new ArrayList<Equation>();	
-	}
 	
 	@JsonIgnore
 	public List<String> getParameters() {
@@ -160,8 +155,6 @@ public class Model{
 	public void removeEquationAtIndex(int index) {
 		equationList.remove(index);
 	}
-
-
 
 	public Equation getEquationAtIndex(Integer selectedTableRow) {
 		Equation myEquation = equationList.get(selectedTableRow);
