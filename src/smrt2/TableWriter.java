@@ -41,7 +41,6 @@ public class TableWriter {
 	        csv.close();
 	        return true;
 	    } catch (IOException e) {
-	    	//TODO add error message
 	    	return false;
 	    }
 	}
