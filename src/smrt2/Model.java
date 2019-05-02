@@ -121,7 +121,7 @@ public class Model{
 	 */
 	public boolean addOde(String state, String formula) {
 		Ode odeToAdd = new Ode(state, formula);
-		if (!this.getStates().contains(state)){
+		if (!this.getDependentVariables().contains(state)){
 			equationList.add(odeToAdd);
 			updateVarTable();
 			return true;
@@ -137,7 +137,7 @@ public class Model{
 	 */
 	public boolean addAlgEq(String leftHandSide, String rightHandSide) {
 		AlgEq algEqToAdd = new AlgEq(leftHandSide, rightHandSide);
-		if (!this.getStates().contains(leftHandSide)){
+		if (!this.getDependentVariables().contains(leftHandSide)){
 			equationList.add(algEqToAdd);
 			updateVarTable();
 			return true;
@@ -185,7 +185,7 @@ public class Model{
 	@JsonIgnore
 	public List<String> getParameters() {
 		List<String> params = new ArrayList<String>();
-		List<String> states = getStates();
+		List<String> states = getDependentVariables();
 		String[] variables;
 		for (Equation ode : equationList) {
 			variables = ode.getVariables();
@@ -208,16 +208,16 @@ public class Model{
 		return params;
 	}
 	/**
-	 * Used to get all the states from the model
+	 * Used to get all the dependent variables from the model
 	 * @return a list of all the state names
 	 */
 	@JsonIgnore
-	public List<String> getStates() {
-		List<String> states = new ArrayList<String>();
+	public List<String> getDependentVariables() {
+		List<String> dependentVariables = new ArrayList<String>();
 		for (Equation ode : equationList) {
-			states.add(ode.getLeftHandSide());
+			dependentVariables.add(ode.getLeftHandSide());
 		}
-		return states;
+		return dependentVariables;
 	}
 	
 	/**
@@ -225,7 +225,7 @@ public class Model{
 	 * @return a list of the Ode states names
 	 */
 	@JsonIgnore
-	public List<String> getOdeStates() {
+	public List<String> getStates() {
 		List<String> states = new ArrayList<String>();
 		for (Equation ode : equationList) {
 			if (ode instanceof Ode) {
@@ -283,11 +283,11 @@ public class Model{
 	 * 1 = parameter to be added is already a parameter
 	 * 2 =parameter to be added is already a state
 	 */
-	public int addParameter(String parameter) {
+	public int addUnboundParameter(String parameter) {
 		if(getParameters().contains(parameter)) {
 			return 1;
 		}
-		if(getStates().contains(parameter)) {
+		if(getDependentVariables().contains(parameter)) {
 			return 2;
 		}		
 		unboundParameters.add(parameter);
@@ -300,7 +300,7 @@ public class Model{
 	 * @return a String[] containing user specified formulas in solver compatible syntax.
 	 */
 	public String[] reconstructFormulas() {
-		int nStates = getStates().size();
+		int nStates = getDependentVariables().size();
 		//each state has a corresponding formula so they have the same length
 		String[] reconstuctedFormulaList = new String[nStates];
 		Map<String,String> varDict = buildParamDict();
@@ -375,7 +375,7 @@ public class Model{
 	 */
 	private Map<String, String> buildStatesDict(){
 		Map<String, String> statesDict = new HashMap<String, String>();
-		List<String> states = getStates();
+		List<String> states = getDependentVariables();
 		
 		
 		for (int i = 0; i < states.size(); i++) {

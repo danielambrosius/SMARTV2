@@ -194,7 +194,7 @@ public class App {
 	 * name, unit and description.  
 	 */
 	public String[][] getStateNames() {
-		List<String> states = myModel.getStates();
+		List<String> states = myModel.getDependentVariables();
 		String[][] stateArray = new String[states.size()][3];
 		for (int i = 0; i < states.size(); i++) {
 			String key = states.get(i);
@@ -258,7 +258,7 @@ public class App {
 	 * name and value 
 	 */
 	public String[][] getStateNamesValues() {
-		List<String> stateNames = myModel.getOdeStates();
+		List<String> stateNames = myModel.getStates();
 		String[][] stateNamesValues = new String[stateNames.size()][2];
 		for (int i = 0; stateNames.size() != i; i++ ) {
 			stateNamesValues[i][0] = "" + stateNames.get(i);
@@ -338,7 +338,7 @@ public class App {
 	 */
 	public int handleButtonAddParameter(String parameter) {
 		parameter = parameter.replace(" ","");
-		int isAdded = myModel.addParameter(parameter);
+		int isAdded = myModel.addUnboundParameter(parameter);
 		modelSaved = false;
 		return isAdded;
 	}

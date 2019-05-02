@@ -41,7 +41,7 @@ public class Experiment{
 		setTimeFrame(0, 10, 1); //default timeframe values
 		
 		//Create an array for initial conditions of states and fill it with default values
-		stateInitialValues = new Double[m.getStates().size()];
+		stateInitialValues = new Double[m.getDependentVariables().size()];
 		Arrays.fill(stateInitialValues, 1.0);
 		
 		//Create an array to store the parameter values, with default values
@@ -49,7 +49,7 @@ public class Experiment{
 		Arrays.fill(parameterValues, 1.0);
 		
 		//Instantiate the table model
-		tableModel = new SmartTableModel(m.getStates(), this.name);
+		tableModel = new SmartTableModel(m.getDependentVariables(), this.name);
 	}
 	
 	/**
@@ -159,7 +159,7 @@ public class Experiment{
 	 * experiment class.
 	 */
 	public void resetTable() {
-		this.tableModel = new SmartTableModel(this.model.getStates(), this.name);
+		this.tableModel = new SmartTableModel(this.model.getDependentVariables(), this.name);
 		
 	}
 }

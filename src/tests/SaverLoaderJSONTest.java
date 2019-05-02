@@ -31,13 +31,13 @@ public class SaverLoaderJSONTest extends TestCase {
 		Model m = new Model("Test JSON model");
 		m.addOde("H", "x + 4k2");
 		m.addOde("B", "r^2 * 5");
-		m.addParameter("L");
+		m.addUnboundParameter("L");
 		
 		SaverLoader mySl = SaverLoader.getInstance();
 		mySl.save(savePath, m);
 		
 		Model mObserved = (Model) mySl.load(savePath, Model.class);
-		assertTrue(m.getStates().equals(mObserved.getStates()));
+		assertTrue(m.getDependentVariables().equals(mObserved.getDependentVariables()));
 	}
 	
 	public void testSaveLoadModelWithMixOfAlgAndOde() {
@@ -46,7 +46,7 @@ public class SaverLoaderJSONTest extends TestCase {
 		m.addOde("H", "x + 4k2");
 		m.addOde("B", "r^2 * 5");
 		m.addAlgEq("R", "x + 5 * k2");
-		m.addParameter("L");
+		m.addUnboundParameter("L");
 		
 		SaverLoader mySl = SaverLoader.getInstance();
 		mySl.save(savePath, m);
@@ -63,7 +63,7 @@ public class SaverLoaderJSONTest extends TestCase {
 		Model m = new Model("Test JSON model");
 		m.addOde("H", "x + 4k2");
 		m.addOde("B", "r^2 * 5");
-		m.addParameter("L");
+		m.addUnboundParameter("L");
 		
 		Experiment e = new Experiment(m, "Test experiment for JSON saving");
 		
@@ -79,9 +79,9 @@ public class SaverLoaderJSONTest extends TestCase {
 			assertTrue(e.getParameterValue(i)==eObs.getParameterValue(i));
 			assertTrue(m.getParameters().get(i)==mObs.getParameters().get(i));
 		}
-		for(int i=0; i==m.getStates().size(); i++) {
+		for(int i=0; i==m.getDependentVariables().size(); i++) {
 			assertTrue(e.getStateValue(i)==eObs.getStateValue(i));
-			assertTrue(m.getStates().get(i)==mObs.getStates().get(i));
+			assertTrue(m.getDependentVariables().get(i)==mObs.getDependentVariables().get(i));
 		}
 	}
 }

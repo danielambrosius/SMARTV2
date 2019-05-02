@@ -68,7 +68,7 @@ public class ModelTest extends TestCase {
 		m.addOde("A", "k1*((A+B)+k1)");
 		m.addAlgEq("B", "B-A+k2");
 		
-		List<String> actual = m.getStates();
+		List<String> actual = m.getDependentVariables();
 		ArrayList<String> expected = new ArrayList<String>(
 			    Arrays.asList("A","B"));
 		assertEquals(expected, actual);
@@ -89,7 +89,7 @@ public class ModelTest extends TestCase {
 		Model m = new Model("Name");
 		m.addOde("A", "k1*((A+B)+k1)");
 		m.addOde("A", "e");
-		List<String> actual = m.getStates();
+		List<String> actual = m.getDependentVariables();
 		assertEquals(actual.toString(), "[A]");
 	}
 	
@@ -143,7 +143,7 @@ public class ModelTest extends TestCase {
 		m.addOde("A", "k1*((A+t+t+t+B)+k1)");
 		m.addAlgEq("B", "B-A+k2");
 		m.addOde("C", "x+b");
-		List<String> actual = m.getOdeStates();
+		List<String> actual = m.getStates();
 		List<String> expected = Arrays.asList("A","C");
 		assertEquals(actual.toString(), expected.toString());
 	}
@@ -152,7 +152,7 @@ public class ModelTest extends TestCase {
 		Model m = new Model("Name");
 		m.addAlgEq("B", "B-k2");
 		m.addOde("C", "x+b");
-		for (String state : m.getStates()) {
+		for (String state : m.getDependentVariables()) {
 			String[] expected = {"", ""};
 			String[] actual = m.getDescriptionFromKey(state);
 			assertEquals(Arrays.asList(expected), Arrays.asList(actual));

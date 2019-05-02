@@ -54,7 +54,7 @@ public class ExperimentTest extends TestCase {
 		m.addOde("A", "k");
 		e = new Experiment(m);
 		double got = 0;
-		List<String> stateNames = m.getStates();
+		List<String> stateNames = m.getDependentVariables();
 		for (int j = 0; j < stateNames.size(); j++) {
 			if (stateNames.get(j).equals("A")) {
 				got = e.getStateValue(j);
@@ -72,7 +72,7 @@ public class ExperimentTest extends TestCase {
 			e.setStateValue(i, Double.parseDouble(stateValArray[i]));
 		}
 		double got = 0;
-		List<String> stateNames = m.getStates();
+		List<String> stateNames = m.getDependentVariables();
 		for (int j = 0; j < stateNames.size(); j++) {
 			if (stateNames.get(j).equals("A")) {
 				got = e.getStateValue(j);
