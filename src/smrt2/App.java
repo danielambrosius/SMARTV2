@@ -337,14 +337,18 @@ public class App {
 	/**
 	 * Used to add a unbound parameter to the model.
 	 * @param parameter: name of the parameter.
-	 * @return: 0, 1 or 2. 0 if the parameter is added. 1 if the parameter already exists
-	 * and 2 if the parameter is an existing state.
+	 * @return: 0, 1, 2 or 3. 0 if the parameter is added. 1 if the parameter already exists
+	 * and 2 if the parameter is an existing state. 3 if the unbound parameter given is 
+	 * an empty string.
 	 */
 	public int handleButtonAddParameter(String parameter) {
 		parameter = parameter.replace(" ","");
-		int isAdded = myModel.addUnboundParameter(parameter);
-		modelSaved = false;
-		return isAdded;
+		if (!parameter.isEmpty()) {
+			int isAdded = myModel.addUnboundParameter(parameter);
+			modelSaved = false;
+			return isAdded;
+		}
+		return 3;
 	}
 
 	/**
