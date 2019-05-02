@@ -1,0 +1,46 @@
+Opening the ModelView
+=====================
+*Precondition: None*
+*Actor: Modeler*
+*Covers use cases: [Add a new differential equation, 
+					Show state variables, 
+					Save the model, 
+					Start new model, 
+					Model name, 
+					User should be able to input numbers, 
+					Edit existing formula, 
+					The user can add an algebraic equation, 
+					Save model default by model name]
+##Creating a model
+	1. Run the ModelView.class
+		_You are presented with a prompt including 3 buttons: "Open Experiment","Open model" and "New model"._
+		
+	2. Click the option 'New model'.
+		_You are presented with a window with a single text field for the name of the model. 
+		Buttons include "OK" and "Cancel"._
+	3. type 'test' as the name of your new model and click 'OK'.
+		_You are presented with the model view. The name of your model is shown in the title bar. 
+		In the menu bar there are drop down options for "Model":["New...","Open...","Save..."] and "Experiment":["New...","Open...","Save..."].
+		Underneath that is a tabbed pane with "Formulas", "Parameters" and "Dependent variables".
+		By default you are in the "Formulas" tab.
+		In the "Formulas" tab you see a textfield for "Dependent variable" and "Equation".
+		On the right hand side, there are buttons to "Add", "Edit" and "Delete" a formula from the formula table.
+		Underneath the text fields, there are two radio buttons for "Equation type": "ODE" and "Algebraic equations".
+		By default, the "ODE" radio button is selected. 
+		Right now the formula table should be empty.
+		On the lower right side, there is a "?" button._
+	4. When you see the model window, enter the Dependent variable: 'A' and Equation: "k1++4" and click "Add".
+		_Your state "dA/dt" and equation "k1++4" are now shown in the formula table. Appended to the equation is "(incorrect syntax)"._
+	5. Select the equation in the formula table and click the "Edit" button.
+		_On top of the equation field, you can see a label with "Edit mode...". 
+		The State and Equation are shown in the "Dependent variable" and "Equation" text field respectively._
+	6. Remove a single "+" from the equation and click "OK".
+		_The equation "k1+4" for State "A" is now shown in the equation table without the "(incorrect syntax)"._
+	7. Click on the "Algebraic Equation" radiobutton. and type "B" in the "Dependant variable" field and "A+k2+4" in the "Equation" field.
+	   Next, click "Add".
+		_Your state "B" and equation "A+k2+4" are now shown in the formula table._
+	8. Click on "Model" -> "Save..." in the menu bar.
+		_A file-chooser window appears showing the default directory ./data with the model name in the "Save as:" field and the default file format "Model files".
+		At the bottom of the file-chooser there is a button "Save" and "Cancel"._
+	9. Click "Save".
+		_The file ./data/test.model is created._

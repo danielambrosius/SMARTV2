@@ -1,7 +1,0 @@
-When the program is opened it asks the user if he wants to open or make 
-a new model. 
-- 	When he clicks new model, the user is asked to give the new
-	model a name. When he clicks cancel, the model will be untitled. 
-	Then the model view opens (see 2. ModelView.txt). 
--	When he clicks open model, the program opens a model file chooser
-	(see 3. ModelOpening&Saving.txt).
