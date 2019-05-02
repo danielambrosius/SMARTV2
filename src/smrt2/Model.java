@@ -30,12 +30,14 @@ public class Model{
 	public Model (@JsonProperty("name") String name,
 				  @JsonProperty("Equation") List<Equation> equationList,
 				  @JsonProperty("areEquationsValid") boolean areEquationsValid,
-				  @JsonProperty("unboundParameters") List<String> unboundParameters) {
+				  @JsonProperty("unboundParameters") List<String> unboundParameters,
+				  @JsonProperty("varDescription") Map<String, String[]> varDescription ) {
 		//TODO add descriptions to json
 		this.name = name;
 		this.equationList = equationList;
 		this.areEquationsValid = areEquationsValid;
 		this.unboundParameters = unboundParameters;
+		this.varDescription = varDescription;
 	}
 	
 	/**
@@ -79,6 +81,10 @@ public class Model{
 	 */
 	public String[] getDescriptionFromKey(String key) {
 		return varDescription.get(key);
+	}
+	
+	public Map<String, String[]> getVarDescription() {
+		return this.varDescription;
 	}
 	
 	/**

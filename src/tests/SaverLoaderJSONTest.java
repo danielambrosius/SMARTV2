@@ -57,6 +57,36 @@ public class SaverLoaderJSONTest extends TestCase {
 		}
 	}
 	
+	public void testSaveLoadModelWithUnitsAndDescriptions() {
+		String savePath = "./data/test_JsonModelWithUnitsAndDescriptions.json";
+		Model m = new Model("Test JSON model");
+		m.addOde("H", "x + 4k2");
+		m.addAlgEq("R", "x + 5 * k2");
+		
+		String[] keys = {"H", "k2"};
+		String[] units = {"m/s", "m^2/(s*K)"};
+		String[] desc = {"state H", "k2 param"};
+		
+		m.addDescriptionToVarTable(keys[0], units[0], desc[0]);
+		m.addDescriptionToVarTable(keys[1], units[1], desc[1]);
+		
+		SaverLoader mySl = SaverLoader.getInstance();
+		mySl.save(savePath, m);
+		
+		Model mObserved = (Model) mySl.load(savePath, Model.class);
+		
+		for (int i = 0; i < keys.length; i++) {
+			String[] observed = mObserved.getDescriptionFromKey(keys[i]);
+			
+			String obsUnit = observed[0];
+			String obsDescription = observed[1];
+			assertEquals(units[i], obsUnit);
+			assertEquals(desc[i], obsDescription);
+		}
+		
+		
+	}
+	
 	
 	public void testSaveLoadExperiment() {
 		String savePath = "./data/test_JsonExperiment.json";
@@ -75,11 +105,11 @@ public class SaverLoaderJSONTest extends TestCase {
 		Model mObs=eObs.getModel();
 		assertTrue(Arrays.equals(e.getTimeValues(), eObs.getTimeValues()));
 		assertTrue(e.getName().equals(eObs.getName()));
-		for(int i=0; i==m.getParameters().size(); i++) {
+		for(int i=0; i < m.getParameters().size(); i++) {
 			assertTrue(e.getParameterValue(i)==eObs.getParameterValue(i));
 			assertTrue(m.getParameters().get(i)==mObs.getParameters().get(i));
 		}
-		for(int i=0; i==m.getDependentVariables().size(); i++) {
+		for(int i=0; i < m.getStates().size(); i++) {
 			assertTrue(e.getStateValue(i)==eObs.getStateValue(i));
 			assertTrue(m.getDependentVariables().get(i)==mObs.getDependentVariables().get(i));
 		}
