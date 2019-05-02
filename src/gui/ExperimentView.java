@@ -159,7 +159,7 @@ public class ExperimentView extends JFrame {
 		contentPane.add(helpButton);
 	}
 	
-	public void safeEdit() {
+	private void safeEdit() {
 		String errorMessage = "";
 		if (stateTable.getCellEditor() != null) {
 			stateTable.getCellEditor().stopCellEditing();
@@ -208,25 +208,25 @@ public class ExperimentView extends JFrame {
 		updateGraphics();
 	}
 	
-	public void updateGraphics() {
+	private void updateGraphics() {
 		stateTableUpdate();
 		parameterTableUpdate();
 		timeLabelsUpdate();
 	}
 	
-	public void stateTableUpdate() {
+	private void stateTableUpdate() {
 		DefaultTableModel tableModel = (DefaultTableModel) stateTable.getModel();
 		tableModel.setDataVector(myApp.getStateNamesValues(), stateColumnNames);
 		stateTable.setModel(tableModel);
 	}
 	
-	public void parameterTableUpdate() {
+	private void parameterTableUpdate() {
 		DefaultTableModel tableModel = (DefaultTableModel) parameterTable.getModel();
 		tableModel.setDataVector(myApp.getParameterNamesValues(), parameterColumnNames);
 		parameterTable.setModel(tableModel);
 	}
 	
-	public void timeLabelsUpdate() {
+	private void timeLabelsUpdate() {
 		double[] timeValues = myApp.getTimeValues();
 		textTimeStart.setText(""+ timeValues[0]);
 		textTimeEnd.setText(""+ timeValues[1]);
