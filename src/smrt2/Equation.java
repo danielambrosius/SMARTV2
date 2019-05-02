@@ -27,37 +27,69 @@ public class Equation {
 		}
 	}
 
+	/**
+	 * Used to get the left hand side of the equation
+	 * @return the left hand side of the equation
+	 */
 	public String getLeftHandSide() {
 		return this.leftHandSide;
 	}
 
+	/**
+	 * Used to set the left hand side of the equation
+	 * @param leftHandSide a string of the left hand side of the equation
+	 */
 	public void setLeftHandSide(String leftHandSide) {
 		this.leftHandSide = leftHandSide;
 	}
 
+	/**
+	 * Used to get the right hand side of the equation
+	 * @return the right hand side of the equation
+	 */
 	public String getRightHandSide() {
 		return this.rightHandSide;
 	}
 
+	/**
+	 * Used to set the right hand side of the equation
+	 * @param rightHandSide the right hand side of the equation
+	 */
 	public void setRightHandSide(String rightHandSide) {
 		this.rightHandSide = rightHandSide;
 	}
 
+	/**
+	 * Used to get the variables from the equation
+	 * @return a string array with the variables
+	 */
 	@JsonIgnore
 	public String[] getVariables() {
 		return this.variables;
 	}
 	
+	/**
+	 * Used to get the operators from the equation
+	 * @return a string array with the operators
+	 */
 	@JsonIgnore
 	public String[] getOperators() {
 		return this.operators;
 	}
 
+	/**
+	 * TODO I dont understand this pleas look at it.
+	 * @return
+	 */
 	public String[] toArray() {
 		String[] AlgebraicEquationArray = {this.getLeftHandSide(),this.getRightHandSide()};
 		return AlgebraicEquationArray;
 	}
 
+	/**
+	 * Used to test the right hand side of the equation
+	 * @return a boolean if the right hand side of the equation is readable for the solver
+	 */
 	public boolean testRightHandSide() {
 		RightHandSideChecker tester = new RightHandSideChecker();
 		return tester.test(this.getVariables(), this.getOperators());
