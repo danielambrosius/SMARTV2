@@ -1,7 +1,5 @@
 package smrt2;
 
-import smrt2.AlgEq;
-import smrt2.Ode;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;

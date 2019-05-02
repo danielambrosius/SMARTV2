@@ -1,6 +1,5 @@
 package gui;
 
-import smrt2.TableWriter;
 import smrt2.SmartTableModel;
 
 import javax.swing.JFrame;
@@ -20,17 +19,11 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
-import javax.swing.JSplitPane;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import javax.swing.JProgressBar;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.concurrent.TimeUnit;
 import java.awt.event.ActionEvent;
 
 

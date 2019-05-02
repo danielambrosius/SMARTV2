@@ -1,24 +1,11 @@
 package gui;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
 import smrt2.SmartTableModel;
 
-import java.awt.GridLayout;
 import java.awt.GridBagLayout;
-import javax.swing.JTextField;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 

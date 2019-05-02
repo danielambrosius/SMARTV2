@@ -2,8 +2,6 @@ package gui;
 import smrt2.App;
 
 import gui.FileChooser;
-import javafx.scene.text.Font;
-
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -31,7 +29,6 @@ import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.swing.JScrollPane;

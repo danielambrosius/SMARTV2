@@ -1,9 +1,6 @@
 package gui;
 
-import java.util.List;
-
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 
 //https://www.developer.com/java/data/working-with-javafx-chart-apis.html

@@ -1,8 +1,5 @@
 package gui;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -15,12 +12,9 @@ import javax.swing.JRadioButton;
 import java.awt.Insets;
 import javax.swing.JTextField;
 import javax.swing.JButton;
-import javax.swing.border.LineBorder;
-
 import smrt2.TableWriter;
 import smrt2.SmartTableModel;
 
-import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 

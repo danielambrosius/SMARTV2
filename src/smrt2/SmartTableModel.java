@@ -3,7 +3,6 @@ package smrt2;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.ComboBoxModel;
 import javax.swing.table.AbstractTableModel;
 
 public class SmartTableModel extends AbstractTableModel {
