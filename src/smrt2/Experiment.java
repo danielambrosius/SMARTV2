@@ -27,11 +27,11 @@ public class Experiment{
 	public Experiment(@JsonProperty("name") String name,
 					  @JsonProperty("model") Model model,
 					  @JsonProperty("parameterValues") Double[] parameterValues,
-					  @JsonProperty("stateValues") Double[] stateValues,
+					  @JsonProperty("stateIntialValues") Double[] stateIntialValues,
 					  @JsonProperty("timeValues") Double[] timeValues) {
 		this(model, name);
 		this.parameterValues = parameterValues;
-		this.stateInitialValues = stateValues;
+		this.stateInitialValues = stateIntialValues;
 		this.tStart = timeValues[0];
 		this.tEnd = timeValues[1];
 		this.tStep = timeValues[2];
@@ -181,5 +181,15 @@ public class Experiment{
 			colNames.set(i, colName);
 		}
 		return colNames;
+	}
+	
+	// Used to serialize
+	public Double[] getParameterValues() {
+		return this.parameterValues;
+	}
+	
+	// Used to serialize
+	public Double[] getStateIntialValues() {
+		return this.stateInitialValues;
 	}
 }

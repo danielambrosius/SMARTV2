@@ -96,7 +96,7 @@ public class SaverLoaderJSONTest extends TestCase {
 		m.addUnboundParameter("L");
 		
 		Experiment e = new Experiment(m, "Test experiment for JSON saving");
-		
+
 		SaverLoader mySl = SaverLoader.getInstance();
 		
 		mySl.save(savePath, e);
@@ -106,12 +106,12 @@ public class SaverLoaderJSONTest extends TestCase {
 		assertTrue(Arrays.equals(e.getTimeValues(), eObs.getTimeValues()));
 		assertTrue(e.getName().equals(eObs.getName()));
 		for(int i=0; i < m.getParameters().size(); i++) {
-			assertTrue(e.getParameterValue(i)==eObs.getParameterValue(i));
-			assertTrue(m.getParameters().get(i)==mObs.getParameters().get(i));
+			assertEquals(e.getParameterValue(i), eObs.getParameterValue(i));
+			assertEquals(m.getParameters().get(i), mObs.getParameters().get(i));
 		}
 		for(int i=0; i < m.getStates().size(); i++) {
-			assertTrue(e.getStateValue(i)==eObs.getStateValue(i));
-			assertTrue(m.getDependentVariables().get(i)==mObs.getDependentVariables().get(i));
+			assertEquals(e.getStateValue(i), eObs.getStateValue(i));
+			assertEquals(m.getDependentVariables().get(i), mObs.getDependentVariables().get(i));
 		}
 	}
 }

@@ -1,22 +1,21 @@
 {
   "name" : "Test JSON model",
   "areEquationsValid" : true,
-  "unboundParameters" : [ "L" ],
+  "unboundParameters" : [ ],
   "varDescription" : {
-    "B" : [ "", "" ],
-    "r" : [ "", "" ],
-    "H" : [ "", "" ],
+    "R" : [ "", "" ],
+    "k2" : [ "m^2/(s*K)", "k2 param" ],
+    "H" : [ "m/s", "state H" ],
     "x" : [ "", "" ],
-    "4k2" : [ "", "" ],
-    "L" : [ "", "" ]
+    "4k2" : [ "", "" ]
   },
   "equationList" : [ {
     "@class" : "smrt2.Ode",
     "leftHandSide" : "H",
     "rightHandSide" : "x + 4k2"
   }, {
-    "@class" : "smrt2.Ode",
-    "leftHandSide" : "B",
-    "rightHandSide" : "r^2 * 5"
+    "@class" : "smrt2.AlgEq",
+    "leftHandSide" : "R",
+    "rightHandSide" : "x + 5 * k2"
   } ]
 }

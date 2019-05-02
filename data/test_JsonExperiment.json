@@ -4,6 +4,14 @@
     "name" : "Test JSON model",
     "areEquationsValid" : true,
     "unboundParameters" : [ "L" ],
+    "varDescription" : {
+      "B" : [ "", "" ],
+      "r" : [ "", "" ],
+      "H" : [ "", "" ],
+      "x" : [ "", "" ],
+      "4k2" : [ "", "" ],
+      "L" : [ "", "" ]
+    },
     "equationList" : [ {
       "@class" : "smrt2.Ode",
       "leftHandSide" : "H",
@@ -15,6 +23,6 @@
     } ]
   },
   "parameterValues" : [ 1.0, 1.0, 1.0, 1.0 ],
-  "stateValues" : [ 1.0, 1.0 ],
+  "stateIntialValues" : [ 1.0, 1.0 ],
   "timeValues" : [ 0.0, 10.0, 1.0 ]
 }
