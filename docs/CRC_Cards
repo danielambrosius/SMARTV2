@@ -1,0 +1,23 @@
+CRC Cards
+=========
+
+## ModelView
+
+|Responsibilities               |Collaborators                |
+|-------------------------------|-----------------------------|
+|Provides main interface        |App					      |
+|Designate save- loadPath       |FileChooser				  |
+
+## Model
+
+|Responsibilities               |Collaborators                |
+|-------------------------------|-----------------------------|
+|Hold equations			        |Equation				      |
+|Reconstruct solvable formulas  |							  |
+
+## SaverLoader
+
+|Responsibilities               |Collaborators                |
+|-------------------------------|-----------------------------|
+|Serialize and store instances  |App					      |
+|Load and deserialize instances |App					      |
