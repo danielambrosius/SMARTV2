@@ -88,7 +88,7 @@ public class PhasePlaneSelector extends JPanel {
 
 	}
 	
-	public int[] getXYnames() {
+	protected int[] getXYnames() {
 		int[] selected = {comboBoxX.getSelectedIndex(), comboBoxY.getSelectedIndex()};
 		
 		return selected;

@@ -142,22 +142,22 @@ public class TableViewer extends JFrame {
 		setVisible(true);		
 	}
 	
-	public void buildProgressBar(double[] timeValues) {
+	protected void buildProgressBar(double[] timeValues) {
 		ProgressThread pt = new ProgressThread(progressBar, this.tableModel, timeValues);
 		pt.start();
 	}
 
-	public void buildGraph(SolverThread st) {
+	protected void buildGraph(SolverThread st) {
 		GraphThread t = new GraphThread(st, tabbedPane, this.tableModel);
 		t.start();
 	}
 	
-	public void buildTable(){
+	protected void buildTable(){
 		this.table.setModel(this.tableModel);
 	}
 	
 	
-	public void addCustomGraph(int[] xy) {
+	private void addCustomGraph(int[] xy) {
 		JFXPanel graphPane = new JFXPanel();
 		
 		String plotName = tableModel.getColumnName(xy[0]) + " " + tableModel.getColumnName(xy[1]);
@@ -171,7 +171,7 @@ public class TableViewer extends JFrame {
 		graphPane.setScene(scene);
 	}
 	
-	public void addMultipleStateGraph(int[] statesToPlot) {
+	private void addMultipleStateGraph(int[] statesToPlot) {
 		JFXPanel graphPane = new JFXPanel();
 		
 		String plotName = "";

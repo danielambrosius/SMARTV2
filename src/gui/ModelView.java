@@ -432,7 +432,7 @@ public class ModelView extends JFrame {
 		updateGraphics(); // Makes the graphics nice
 	}
 	
-	protected void handleUnitDescriptionSubmit(JTable table) {
+	private void handleUnitDescriptionSubmit(JTable table) {
 		String key;
 		String unit;
 		String description;

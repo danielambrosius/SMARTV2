@@ -20,7 +20,6 @@ import smrt2.SmartTableModel;
 
 public class GraphBuilder{
 	
-	private Series<Number, Number> seriesData;
 	private ObservableList<XYChart.Series<Number, Number>> data;
 	private String title;
 	private String xName;

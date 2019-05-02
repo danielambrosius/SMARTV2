@@ -34,26 +34,7 @@ public class TableSaver extends JFrame {
 	private JRadioButton rdBtnCustom;
 	private JButton btnOk;
 	private SmartTableModel tableModel;
-//
-//	/**
-//	 * Launch the application.
-//	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					SeperatorSelector frame = new SeperatorSelector();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
-//
-//	/**
-//	 * Create the frame.
-//	 */
+
 	public TableSaver(SmartTableModel tableModel) {
 		this.tableModel = tableModel;
 		buildInterface();

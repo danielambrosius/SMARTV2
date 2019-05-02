@@ -28,10 +28,6 @@ public class MultipleStateSelector extends JPanel {
 
             private static final long serialVersionUID = 1L;
 
-            /*@Override
-            public Class getColumnClass(int column) {
-            return getValueAt(0, column).getClass();
-            }*/
             @Override
             public Class getColumnClass(int column) {
                 switch (column) {
@@ -47,20 +43,7 @@ public class MultipleStateSelector extends JPanel {
         this.add(scrollPane);
     }
 
-//    public static void main(String[] args) {
-//        SwingUtilities.invokeLater(new Runnable() {
-//
-//            @Override
-//            public void run() {
-//                MultipleStateSelector frame = new MultipleStateSelector();
-//                frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-//                frame.pack();
-//                frame.setLocation(150, 150);
-//                frame.setVisible(true);
-//            }
-//        });
-//    }
-    public int[] getStateNames() {
+    protected int[] getStateNames() {
     	
     	List<Integer> selectedStates = new ArrayList<Integer>();
     	for(int i=0; i < data.length ; i++) {
