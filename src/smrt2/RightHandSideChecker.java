@@ -24,13 +24,13 @@ public class RightHandSideChecker {
 		
 		if (variables.length > 0 && variables[0].isEmpty()){
 			// the list that contains the empty string could be larger so index on the length of the other list 
-			for (int j = 0; j < operators.length; j++) {
+			reconstructedFormula += operators[0];
+			for (int j = 1; j < operators.length; j++) {
 				if(operators[j].startsWith("Math")) {
-					
 					reconstructedFormula += operators[j];
 				}else {
 					reconstructedFormula += dummyNumber + operators[j];
-				}
+				} 
 			}
 		}
 		
@@ -58,6 +58,7 @@ public class RightHandSideChecker {
 		ScriptEngine engine = mgr.getEngineByName("JavaScript");
 
 		try {
+			System.out.println(reconstructedFormula);
 			engine.eval(reconstructedFormula);
 		} catch (ScriptException e) {
 			return false;
