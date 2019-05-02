@@ -11,9 +11,9 @@ public class RightHandSideCheckerTest extends TestCase {
 		Ode myOde = new Ode("A", "(a-b)/c");
 		
 		String[] variables = myOde.getVariables();
-		System.out.println(Arrays.asList(variables));
+//		System.out.println(Arrays.asList(variables));
 		String[] operators = myOde.getOperators();
-		System.out.println(Arrays.asList(operators));
+//		System.out.println(Arrays.asList(operators));
 		RightHandSideChecker checker = new RightHandSideChecker();
 		assertTrue(checker.test(variables, operators));
 	}
@@ -22,9 +22,9 @@ public class RightHandSideCheckerTest extends TestCase {
 		Ode myOde = new Ode("A", "2*(a-b)/c");
 		
 		String[] variables = myOde.getVariables();
-		System.out.println(Arrays.asList(variables));
+//		System.out.println(Arrays.asList(variables));
 		String[] operators = myOde.getOperators();
-		System.out.println(Arrays.asList(operators));
+//		System.out.println(Arrays.asList(operators));
 		RightHandSideChecker checker = new RightHandSideChecker();
 		assertTrue(checker.test(variables, operators));
 	}
@@ -33,9 +33,9 @@ public class RightHandSideCheckerTest extends TestCase {
 		Ode myOde = new Ode("A", "(b%%c)");
 		
 		String[] variables = myOde.getVariables();
-		System.out.println(Arrays.asList(variables));
+//		System.out.println(Arrays.asList(variables));
 		String[] operators = myOde.getOperators();
-		System.out.println(Arrays.asList(operators));
+//		System.out.println(Arrays.asList(operators));
 		RightHandSideChecker checker = new RightHandSideChecker();
 		assertFalse(checker.test(variables, operators));
 	}

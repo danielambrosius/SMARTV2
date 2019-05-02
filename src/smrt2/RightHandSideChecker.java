@@ -58,7 +58,6 @@ public class RightHandSideChecker {
 		ScriptEngine engine = mgr.getEngineByName("JavaScript");
 
 		try {
-			System.out.println(reconstructedFormula);
 			engine.eval(reconstructedFormula);
 		} catch (ScriptException e) {
 			return false;
