@@ -12,6 +12,11 @@ public class StdFSubber {
 	private static String[] targetOperators = {"log","**"}; 
 	private static Map<String,String> groupingDict = new HashMap<String,String>();
 	
+	/**
+	 * Method for substituting a standard function for a version that java script can read
+	 * @param odeOperator; the operator to be substituted
+	 * @return: the substituted operator
+	 */
 	public static String substitute(String odeOperator) {
 		for (int i = 0; i < subOperators.length; i++) {
 			odeOperator = odeOperator.replace(subOperators[i],targetOperators[i]);
@@ -22,6 +27,12 @@ public class StdFSubber {
 		return odeOperator;
 	}
 	
+	/**
+	 * Method for substituting a power sign (** or ^) for a version that java script
+	 * can read
+	 * @param odeFormula; formula containing a power operator.
+	 * @return: the substituted formula.
+	 */
 	public static String powerSubstitute(String odeFormula) {
 		Pattern MY_PATTERN = Pattern.compile("[^A-z]?(\\(.+?\\))");
 		Matcher m = MY_PATTERN.matcher(odeFormula);
