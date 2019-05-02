@@ -1,6 +1,8 @@
 package smrt2;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 
@@ -13,8 +15,16 @@ public class Equation {
 	protected String[] variables;
 	protected String[] operators;
 
-	public Equation() {
-		super();
+	
+	public Equation(String leftHandSide, String rightHandSide){
+		
+		this.rightHandSide = rightHandSide;
+		this.leftHandSide = leftHandSide;
+		if (this.rightHandSide != null) {
+			EquationParser2 parser = new EquationParser2();
+			this.variables = parser.getVariables(rightHandSide);
+			this.operators = parser.getOperators(rightHandSide);
+		}
 	}
 
 	public String getLeftHandSide() {
