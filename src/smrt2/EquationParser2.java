@@ -12,21 +12,25 @@ public class EquationParser2 {
 	//regex pattern to split on all operators 
 	private final String consideredOperators = "(\\+|\\-|\\*|\\/|=|>|<|>=|<=|&|\\||%|!|\\^|\\(|\\)|sin\\(|cos\\(|tan\\(|log\\(|ln\\(|log10\\(|log2\\(|sqrt\\(|abs\\()+";
 
-	
-	public String[] parseVariablesForTest(String equation) {
-		return parseVariables(equation);
-	}
-	
 	private String[] parseVariables(String equation) {
 		variables = equation.split(consideredOperators);
-		//variables = removeUnwantedMatches(variables);
 		return variables;
 	}
 	
+	/**
+	 * Used to get the variables from a equation
+	 * @param equation: string representing an equation
+	 * @return: an array of strings containing all parameters.
+	 */
 	public String[] getVariables(String equation) {
 		return objectToStringArray(parse(equation).get(0).toArray());
 	}
 
+	/**
+	 * Used to get the operators from a equation
+	 * @param equation: string representing an equation
+	 * @return: an array of strings containing all operators.
+	 */
 	public String[] getOperators(String equation) {
 		return objectToStringArray(parse(equation).get(1).toArray());
 	}
@@ -47,7 +51,7 @@ public class EquationParser2 {
 		return operators;
 	}
 	
-	public List<List<String>> parse(String equation){
+	private List<List<String>> parse(String equation){
 		equation = equation.replace(" ", "");
 		List<String> parsedVariables = new ArrayList<String>(Arrays.asList(parseVariables(equation)));
 		List<String> parsedOperators = new ArrayList<String>(Arrays.asList(parseOperators(equation)));
@@ -95,12 +99,25 @@ public class EquationParser2 {
 		results.add(parsedOperators);
 		return results;
 	}
-
-	public String[] objectToStringArray(Object[] objectArray) {
+	
+	private String[] objectToStringArray(Object[] objectArray) {
 		String stringArray[] = Arrays.stream(objectArray)
 				.map(Object::toString)
 				.toArray(String[]::new);
 		return stringArray;
 	}
+	
+	public String[] parseVariablesForTest(String equation) {
+		return parseVariables(equation);
+	}
+	
+	public List<List<String>> parseForTest(String equation){
+		return parse(equation);
+	}
+	
+	public String[] objectToStringArrayForTest(Object[] objectArray) {
+		return objectToStringArray(objectArray);
+	}
+	
 	
 }
