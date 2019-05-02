@@ -11,6 +11,13 @@ public class TableWriter {
 		exportToCSV(tableModel,filePath, seperator);
 	}
 
+	/**
+	 * used to save the results in the table to a file that is readable by other programs
+	 * @param model is the a table model containing the data to be saved
+	 * @param pathToExportTo is the location where to save the program with the name of the file
+	 * @param seperator is the seperator of columns that is used in the file
+	 * @return is a boolean that represents if the data file is saved 
+	 */
 	public boolean exportToCSV(SmartTableModel model,
 	        String pathToExportTo, String seperator) {
 
