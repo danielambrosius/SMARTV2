@@ -18,6 +18,30 @@ public class Model{
 	private List<String> unboundParameters;
 	private Map<String, String[]> varDescription = new HashMap<String, String[]>();
 	
+	// Default constructor
+	public Model(String name) {
+		this.name = name;
+		equationList = new ArrayList<Equation>();	
+		this.areEquationsValid = true;
+		this.unboundParameters = new ArrayList<String>();
+	}
+		
+	@JsonCreator
+	public Model (@JsonProperty("name") String name,
+				  @JsonProperty("Equation") List<Equation> equationList,
+				  @JsonProperty("areEquationsValid") boolean areEquationsValid,
+				  @JsonProperty("unboundParameters") List<String> unboundParameters) {
+		//TODO add descriptions to json
+		this.name = name;
+		this.equationList = equationList;
+		this.areEquationsValid = areEquationsValid;
+		this.unboundParameters = unboundParameters;
+	}
+	
+	/**
+	 * Used to get unbound parameters from the model
+	 * @return a List with the unbound Parameters
+	 */
 	public List<String> getUnboundParameters() {
 		return unboundParameters;
 	}
@@ -34,7 +58,13 @@ public class Model{
 			varDescription.putIfAbsent(var, placeHolder);
 		}
 	}
-	
+	 /**
+	  * Used to add the description to the variable table
+	  * @param key is the name of the variable
+	  * @param unit is the unit of the variable
+	  * @param description is the description of the variable
+	  */
+	//TODO look at this description
 	public void addDescriptionToVarTable(String key, String unit, String description) {
 		if(varDescription.containsKey(key)) {
 			String[] value = {unit, description};
@@ -42,45 +72,53 @@ public class Model{
 		}
 	}
 	
+	/**
+	 * Used to get the description of a variable from the model
+	 * @param key is a string of the parameter or variable
+	 * @return is the description of the variable
+	 */
 	public String[] getDescriptionFromKey(String key) {
 		return varDescription.get(key);
 	}
 	
+	/**
+	 * Used to remove a unbound parameter from the model
+	 * @param parameter is the name of the unbound parameter that has to be deleted
+	 */
 	public void removeUnboundParameter(String parameter) {
 		unboundParameters.remove(parameter);
 	}
-	// Default constructor
-	public Model(String name) {
-		this.name = name;
-		equationList = new ArrayList<Equation>();	
-		this.areEquationsValid = true;
-		this.unboundParameters = new ArrayList<String>();
-	}
 	
-	@JsonCreator
-	public Model (@JsonProperty("name") String name,
-				  @JsonProperty("Equation") List<Equation> equationList,
-				  @JsonProperty("areEquationsValid") boolean areEquationsValid,
-				  @JsonProperty("unboundParameters") List<String> unboundParameters) {
-		//TODO add descriptions to json
-		this.name = name;
-		this.equationList = equationList;
-		this.areEquationsValid = areEquationsValid;
-		this.unboundParameters = unboundParameters;
-	}
-	
+	/**
+	 * Used to check if all the equations in the model are correct.
+	 * @return a boolean which represents if all equations valid
+	 */
 	public boolean getAreEquationsValid() {
 		return this.areEquationsValid;
 	}
 	
+	/**
+	 * Used to get the name of the model 
+	 * @return the name of the model
+	 */
 	public String getName() {
 		return this.name;
 	}
 
+	/**
+	 * Used to set the name of the model
+	 * @param name of that the model should have
+	 */
 	public void setName(String name) {
 		this.name = name;	
 	}
 	
+	/**
+	 * Used to add an Ode to the model
+	 * @param state is the right handside of the ode
+	 * @param formula is the left handside of the ode 
+	 * @return returns boolean true if the Ode is added to the model
+	 */
 	public boolean addOde(String state, String formula) {
 		Ode odeToAdd = new Ode(state, formula);
 		if (!this.getStates().contains(state)){
@@ -89,9 +127,14 @@ public class Model{
 			return true;
 		}
 		return false;
-		
 	}
 	
+	/**
+	 * Used to add an algebraic equation to the model
+	 * @param leftHandSide is the left hand side of the algebraic equation
+	 * @param rightHandSide is the right hand side of the algebraic equation
+	 * @return the boolean true if the algebraic equation is added to the model
+	 */
 	public boolean addAlgEq(String leftHandSide, String rightHandSide) {
 		AlgEq algEqToAdd = new AlgEq(leftHandSide, rightHandSide);
 		if (!this.getStates().contains(leftHandSide)){
@@ -100,14 +143,20 @@ public class Model{
 			return true;
 		}
 		return false;
-		
 	}
 
+	/**
+	 * Used to get the full equation list from the model
+	 * @return the list of equations of the model
+	 */
 	public List<Equation> getEquationList() {
-		// Returns list of all Odes
 		return this.equationList;
 	}
 
+	/**
+	 * Used to get the Odes in the correct way to show to the user
+	 * @return a string array with the equation list with the user lay-out
+	 */
 	public String[][] displayEquationList() {
 		String[][] displayEquationList = new String[equationList.size()][2];
 		boolean allCorrect = true;
@@ -129,6 +178,10 @@ public class Model{
 		return displayEquationList;
 	}
 	
+	/**
+	 * Used to get the parameters from the model
+	 * @return a list of the parameter names
+	 */
 	@JsonIgnore
 	public List<String> getParameters() {
 		List<String> params = new ArrayList<String>();
@@ -154,7 +207,10 @@ public class Model{
 
 		return params;
 	}
-	
+	/**
+	 * Used to get all the states from the model
+	 * @return a list of all the state names
+	 */
 	@JsonIgnore
 	public List<String> getStates() {
 		List<String> states = new ArrayList<String>();
@@ -164,6 +220,10 @@ public class Model{
 		return states;
 	}
 	
+	/**
+	 * Used to get the Ode states from the model
+	 * @return a list of the Ode states names
+	 */
 	@JsonIgnore
 	public List<String> getOdeStates() {
 		List<String> states = new ArrayList<String>();
@@ -175,29 +235,54 @@ public class Model{
 		return states;
 	}
 	
+	/**
+	 * Used to remove a equation from the model at a certain index of the 
+	 * equation list
+	 * @param index is the number of the equation to be removed from the model
+	 */
 	public void removeEquationAtIndex(int index) {
 		equationList.remove(index);
 	}
 
+	/**
+	 * Used to get the equation at a certain index of the equation list
+	 * @param selectedTableRow is the index of the equation in the list
+	 * @return the equation at that index
+	 */
 	public Equation getEquationAtIndex(Integer selectedTableRow) {
 		Equation myEquation = equationList.get(selectedTableRow);
 		return myEquation;
-		
 	}
 
+	/**
+	 * Used to get the variables from a certain equation
+	 * @param i is the index of the equation in the list
+	 * @return the string array with the variables of the equation
+	 */
 	public String[] getVariablesOfEquation(int i) {
 		Equation myEquation = equationList.get(i);
 		return myEquation.getVariables();
 	}
 
+	/**
+	 * Used to get the operators of a certain equation
+	 * @param i is the index of the equation in the list
+	 * @return the string array with the operators of the equation
+	 */
 	public String[] getOperatorsOfEquation(int i) {
 		Equation myEquation = equationList.get(i);
 		return myEquation.getOperators();
 	}
 	
-	//0 = added
-	//1 = is already Parameter
-	//2 = is already State
+	/**
+	 * used to add a parameter to the model
+	 * @param parameter
+	 * @return a number that corresponds with the reason 
+	 * 		   of the parameter not added.
+	 * 0 = parameter is added
+	 * 1 = parameter to be added is already a parameter
+	 * 2 =parameter to be added is already a state
+	 */
 	public int addParameter(String parameter) {
 		if(getParameters().contains(parameter)) {
 			return 1;
@@ -210,27 +295,27 @@ public class Model{
 		return 0;
 	}
 	
-	/**
-	 * Returns a String[] containing user specified formulas in solver compatible syntax.
-	 * Parameters and states are replaced by references to arrays that will store the data.
+	/** 
+	 * Parameters and states in the formulas are replaced by references to arrays that will store the data.
+	 * @return a String[] containing user specified formulas in solver compatible syntax.
 	 */
 	public String[] reconstructFormulas() {
-		int nStates = getStates().size(); //number of states
-		//create a list to store the results
+		int nStates = getStates().size();
 		//each state has a corresponding formula so they have the same length
 		String[] reconstuctedFormulaList = new String[nStates];
-		//create a HashMap that translates variable names to array references that will hold the data.
 		Map<String,String> varDict = buildParamDict();
-		varDict.putAll(buildStatesDict()); //combine both HashMaps for convenience.
+		varDict.putAll(buildStatesDict()); 
 		
 		for (int i = 0; i < nStates; i++) {
 			String reconstructedFormula = "";
 			String[] currentVariables = getVariablesOfEquation(i);
 			String[] currentOperators = getOperatorsOfEquation(i);
 			
-			// the parser adds a empty string to either the list of variables or list of operators.
-			// the empty string ends up in the list of whatever the formula starts with.
-			// this information is used to reconstruct the formula in the correct order.
+			/** 
+			 * the parser adds a empty string to either the list of variables or list of operators.
+			 * the empty string ends up in the list of whatever the formula starts with.
+			 * this information is used to reconstruct the formula in the correct order.
+			 */
 			if (currentVariables[0].isEmpty()){
 				// the list that contains the empty string could be larger so index on the length of the other list 
 				for (int j = 0; j < currentOperators.length; j++) {
@@ -266,9 +351,8 @@ public class Model{
 	}
 
 	/**
-	 * Returns a HashMap that links a parameter name to a reference of an index in array P.
-	 * Array P will hold user specified parameter values.
-	 * This method is used by the reconstructFormula method.
+	 * This method is used by the reconstructFormula method to build a dictionary for the parameters
+	 * @return a HashMap that links a parameter name to a reference of an index in array P.
 	 */
 	private Map<String, String> buildParamDict() {
 		Map<String,String> paramDict = new HashMap<String,String>();
@@ -286,9 +370,8 @@ public class Model{
 	}
 
 	/**
-	 * Returns a HashMap that links a state name to a reference of an index in array S.
-	 * Array S contains the solutions of the model at the previous step in time.
-	 * This method is used by the reconstructFormula method.
+	 * This method is used by the reconstructFormula method to build a dictionary for the undefined states
+	 * @return a HashMap that links a state name to a reference of an index in array S.
 	 */
 	private Map<String, String> buildStatesDict(){
 		Map<String, String> statesDict = new HashMap<String, String>();
