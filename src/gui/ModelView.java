@@ -38,15 +38,12 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
 public class ModelView extends JFrame {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JTextField StateField;
 	private JTextField EquationField;
 	private JTable tableFormulas;
 	private JButton btnAdd;
-	private App app = new App(); //TODO: Why does this not work in the constructor??
+	private App app;
 	private Integer selectedTableRow;
 	
 	private String[] columnNames= {"State", "Equation"};
@@ -72,11 +69,15 @@ public class ModelView extends JFrame {
 		});
 	}
 
-
-	/**
-	 * Create the frame.
-	 */
 	public ModelView() {
+		this.app = new App();
+		buildGui();
+	}
+	
+	/**
+	 * Method to create the main gui of the program.
+	 */	
+	public void buildGui() {
 		setResizable(false);		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 625, 486);
@@ -158,7 +159,6 @@ public class ModelView extends JFrame {
 				app.openExperiment(filePath);
 				updateGraphics();
 				new ExperimentView(app);
-				
 			}
 		});
 		mnExperiment.add(mntmOpen_1);
@@ -207,7 +207,6 @@ public class ModelView extends JFrame {
 		
 		Object rowData[][] = { { "example state name", "example formula"} };
 		
-		// Creating table from default table model
 		TableModel tableModel = new DefaultTableModel(rowData, columnNames);
 		tableFormulas = new JTable(tableModel);
 		tableFormulas.addMouseListener(new MouseAdapter() {
@@ -218,15 +217,12 @@ public class ModelView extends JFrame {
 			}
 		});
 		
-		
-		// Center the text in the cells
 		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
 		centerRenderer.setHorizontalAlignment(JLabel.CENTER);
 		for (int x = 0; x < tableFormulas.getColumnModel().getColumnCount(); x++) {
 			tableFormulas.getColumnModel().getColumn(x).setCellRenderer(centerRenderer);
 		}
 		
-		// Set table lay-out
 		tableFormulas.getColumnModel().getColumn(0).setMaxWidth(100);
 		tableFormulas.setBorder(new LineBorder(new Color(0, 0, 0)));
 		tableFormulas.setBounds(22, 118, 484, 252);
@@ -285,8 +281,7 @@ public class ModelView extends JFrame {
 			}
 		});
 		btnDelete.setBounds(518, 118, 84, 25);
-		panelFormulas.add(btnDelete);
-		
+		panelFormulas.add(btnDelete);	
 		
 		JButton btnEdit = new JButton("Edit");
 		btnEdit.addActionListener(new ActionListener() {
@@ -305,7 +300,6 @@ public class ModelView extends JFrame {
 		panelFormulas.add(btnEdit);
 		
 		JLabel lblEquationType = new JLabel("Equation type: ");
-//		lblEquationType.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		lblEquationType.setBounds(22, 85, 86, 25);
 		panelFormulas.add(lblEquationType);
 		
@@ -399,21 +393,6 @@ public class ModelView extends JFrame {
 		label_1.setBounds(526, 325, 76, 14);
 		panelStates.add(label_1);
 		
-//		textFieldVariable = new JTextField();
-//		textFieldVariable.setText("");
-//		textFieldVariable.setColumns(10);
-//		textFieldVariable.setBounds(44, 46, 76, 22);
-//		
-//		textFieldAlgebraicFormula = new JTextField();
-//		textFieldAlgebraicFormula.setText("");
-//		textFieldAlgebraicFormula.setColumns(10);
-//		textFieldAlgebraicFormula.setBounds(179, 46, 320, 22);
-//		
-//		tableAlgebraicFormulas = new JTable((TableModel) null);
-//		tableAlgebraicFormulas.setBorder(new LineBorder(new Color(0, 0, 0)));
-//		tableAlgebraicFormulas.setBounds(22, 88, 484, 282);
-		
-		
 		JButton helpButton = new JButton("?");
 		helpButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -430,8 +409,7 @@ public class ModelView extends JFrame {
 		helpButton.setBounds(542, 330, 45, 45);
 		panelFormulas.add(helpButton);
 	
-		
-		updateGraphics(); // Makes the graphics nice
+		updateGraphics();
 	}
 	
 	private void handleUnitDescriptionSubmit(JTable table) {
@@ -452,14 +430,12 @@ public class ModelView extends JFrame {
 		updateGraphics();
 	}
 
-
 	private void updateGraphics() {
 		updateOdeTable();
 		clearTextFields();
 		updateParamTable();
 		updateStateTable();
 		this.setTitle("SmartV2 - Model - "+ app.getModelName());
-
 	}
 	
 	private void updateStateTable() {
