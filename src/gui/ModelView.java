@@ -262,7 +262,7 @@ public class ModelView extends JFrame {
 				} else if (addState == 3) {
 					int answer = JOptionPane.showConfirmDialog(null,"State is already in pre-defined parameters. Continue?","Warning", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
 					if (answer == 0) {
-						app.removeUnboundParameter(state);
+						app.handleDeleteUnboundParameter(state);
 						app.handleButtonAddFormula(state, equation, isOde);
 						updateGraphics();
 					}
