@@ -10,7 +10,7 @@ public class ModelTest extends TestCase {
 	
 	
 	public void testModelCreation() {
-		Model m = new Model();
+		Model m = new Model("");
 		assertNotNull(m);
 	}
 	

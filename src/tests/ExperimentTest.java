@@ -13,13 +13,13 @@ public class ExperimentTest extends TestCase {
 	private Experiment e;
 	
 	public void testExperimentCreation() {
-		m = new Model();
+		m = new Model("");
 		e = new Experiment(m);
 		assertNotNull(e);
 	}
 	
 	public void testGetValueFromParameter() throws Exception {
-		m = new Model();
+		m = new Model("");
 		m.addOde("A", "k");
 		e = new Experiment(m);
 		double got = 0;
@@ -33,7 +33,7 @@ public class ExperimentTest extends TestCase {
 	}
 	
 	public void testChangeParameterValue() throws Exception {
-		m = new Model();
+		m = new Model("");
 		m.addOde("A", "k");
 		e = new Experiment(m);
 		String[] paramValArray = new String[] {"1.96"};
@@ -50,7 +50,7 @@ public class ExperimentTest extends TestCase {
 		assertEquals(1.96, got);
 	}
 	public void testGetInitialFromState() throws Exception {
-		m = new Model();
+		m = new Model("");
 		m.addOde("A", "k");
 		e = new Experiment(m);
 		double got = 0;
@@ -64,7 +64,7 @@ public class ExperimentTest extends TestCase {
 	}
 	
 	public void testChangeInitialStateValue() throws Exception {
-		m = new Model();
+		m = new Model("");
 		m.addOde("A", "k");
 		e = new Experiment(m);
 		String[] stateValArray = new String[] {"25.09"};

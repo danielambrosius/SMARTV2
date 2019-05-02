@@ -49,11 +49,6 @@ public class Model{
 	public void removeUnboundParameter(String parameter) {
 		unboundParameters.remove(parameter);
 	}
-	//Constructor for anonymous instance.
-	public Model() {
-		this(null);
-	}
-	
 	// Default constructor
 	public Model(String name) {
 		this.name = name;
