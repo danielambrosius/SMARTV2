@@ -292,11 +292,13 @@ public class ModelView extends JFrame {
 		btnEdit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String[] odeArray = app.handleEditOde(selectedTableRow);
-				StateField.setText(odeArray[0]);
-				lblEditMode.setText("Edit mode...");
-				EquationField.setText(odeArray[1]);
-				selectedTableRow = null;
-				btnAdd.setText("OK");
+				if (odeArray != null) {
+					StateField.setText(odeArray[0]);
+					lblEditMode.setText("Edit mode...");
+					EquationField.setText(odeArray[1]);
+					selectedTableRow = null;
+					btnAdd.setText("OK");
+				}
 			}
 		});
 		btnEdit.setBounds(518, 81, 84, 25);

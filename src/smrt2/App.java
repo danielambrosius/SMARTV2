@@ -244,12 +244,16 @@ public class App {
 	 * @param selectedTableRow: integer that is the number of the row that has to be changed.
 	 * @return
 	 */
-	//IS BROKEN!!!!!!!!!!!!!!!!!!!
 	public String[] handleEditOde(Integer selectedTableRow) {
-		Equation ode = myModel.getEquationAtIndex(selectedTableRow);
-		String[] odeArray = ode.toArray();
-		myModel.removeEquationAtIndex(selectedTableRow);
-		return odeArray;
+		String[] odeArray;
+		if (selectedTableRow != null) {
+			Equation ode = myModel.getEquationAtIndex(selectedTableRow);
+			odeArray = ode.toArray();
+			myModel.removeEquationAtIndex(selectedTableRow);
+			return odeArray;
+		}
+		return null;
+		
 	}
 
 	/**
