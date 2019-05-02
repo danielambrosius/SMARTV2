@@ -21,6 +21,11 @@ public class StdFSubber {
 		for (int i = 0; i < subOperators.length; i++) {
 			odeOperator = odeOperator.replace(subOperators[i],targetOperators[i]);
 		}
+		odeOperator = replacingFunctions(odeOperator);
+		return odeOperator;
+	}
+
+	private static String replacingFunctions(String odeOperator) {
 		for (String function : standardFunctions) {
 			odeOperator = odeOperator.replace(function, "Math."+function);
 		}
