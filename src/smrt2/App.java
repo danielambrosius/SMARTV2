@@ -227,13 +227,14 @@ public class App {
 	 */
 	public String[][] getParameterNamesValues() {
 		List<String> parameterNames = myModel.getParameters();
-		String[][] paramNamesValues = new String[parameterNames.size()][2];
+		String[][] paramNamesValues = new String[parameterNames.size()][3];
 		for (int i = 0; parameterNames.size() != i; i++ ) {
 			if(parameterNames.get(i).isEmpty()) {
 					
 			}
 			paramNamesValues[i][0] = "" + parameterNames.get(i);
 			paramNamesValues[i][1] = "" + myExperiment.getParameterValue(i);
+			paramNamesValues[i][2] = myExperiment.getModel().getDescriptionFromKey(parameterNames.get(i))[0];
 		}
 		return paramNamesValues;
 		
@@ -263,10 +264,11 @@ public class App {
 	 */
 	public String[][] getStateNamesValues() {
 		List<String> stateNames = myModel.getStates();
-		String[][] stateNamesValues = new String[stateNames.size()][2];
+		String[][] stateNamesValues = new String[stateNames.size()][3];
 		for (int i = 0; stateNames.size() != i; i++ ) {
 			stateNamesValues[i][0] = "" + stateNames.get(i);
 			stateNamesValues[i][1] = "" + myExperiment.getStateValue(i);
+			stateNamesValues[i][2] = myExperiment.getModel().getDescriptionFromKey(stateNames.get(i))[0];
 			} 
 		return stateNamesValues;
 	}	

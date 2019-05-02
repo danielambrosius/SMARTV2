@@ -1,6 +1,8 @@
 package smrt2;
 
 import java.util.Arrays;
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -49,7 +51,7 @@ public class Experiment{
 		Arrays.fill(parameterValues, 1.0);
 		
 		//Instantiate the table model
-		tableModel = new SmartTableModel(m.getDependentVariables(), this.name);
+		this.tableModel = new SmartTableModel(generateColnames(), this.name);
 	}
 	
 	/**
@@ -159,7 +161,25 @@ public class Experiment{
 	 * experiment class.
 	 */
 	public void resetTable() {
-		this.tableModel = new SmartTableModel(this.model.getDependentVariables(), this.name);
+		this.tableModel = new SmartTableModel(generateColnames(), this.name);
 		
+	}
+	
+	private List<String> generateColnames() {
+		// Add units to the colNames
+		List<String> colNames = this.model.getStates();
+		String colName;
+		String unit;
+		
+		for (int i = 0; i < colNames.size(); i++) {
+			colName = colNames.get(i);
+			unit = this.model.getDescriptionFromKey(colName)[0];
+			if (!unit.isEmpty()) {
+				colName += " (" + unit + ")";
+			}
+			
+			colNames.set(i, colName);
+		}
+		return colNames;
 	}
 }

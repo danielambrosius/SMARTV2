@@ -34,8 +34,8 @@ public class ExperimentView extends JFrame {
 	private JPanel contentPane;
 	private JTable parameterTable;
 	private JTable stateTable;
-	private final String[] parameterColumnNames = {"Parameter","value"};
-	private final String[] stateColumnNames = {"State","value"};
+	private final String[] parameterColumnNames = {"Parameter","Value","Unit"};
+	private final String[] stateColumnNames = {"Dependant Variable","Value","Unit"};
 	private App myApp;
 	private JTextField textTimeStep;
 	private JTextField textTimeStart;
@@ -71,7 +71,7 @@ public class ExperimentView extends JFrame {
 		scrollPaneParameters.setBounds(32, 35, 430, 132);
 		contentPane.add(scrollPaneParameters);
 		
-		Object rowData[][] = { { "example name", "example value"} };
+		Object rowData[][] = { { "example name", "example value", "example unit"} };
 		
 		// Creating table from default table model
 		TableModel tableParamModel = new DefaultTableModel(rowData, parameterColumnNames);
