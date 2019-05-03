@@ -244,10 +244,11 @@ public class App {
 	 * @return
 	 */
 	public String[] handleEditOde(Integer selectedTableRow) {
-		String[] odeArray;
+		String[] odeArray = new String[2];
 		if (selectedTableRow != null) {
 			Equation ode = myModel.getEquationAtIndex(selectedTableRow);
-			odeArray = ode.toArray();
+			odeArray[0] = ode.getLeftHandSide();
+			odeArray[1] = ode.getRightHandSide();
 			myModel.removeEquationAtIndex(selectedTableRow);
 			return odeArray;
 		}

@@ -76,15 +76,6 @@ public class Equation {
 	}
 
 	/**
-	 * TODO I dont understand this pleas look at it.
-	 * @return
-	 */
-	public String[] toArray() {
-		String[] AlgebraicEquationArray = {this.getLeftHandSide(),this.getRightHandSide()};
-		return AlgebraicEquationArray;
-	}
-
-	/**
 	 * Used to test the right hand side of the equation
 	 * @return a boolean if the right hand side of the equation is readable for the solver
 	 */
