@@ -28,6 +28,7 @@ public class TableWriterTest extends TestCase {
 	}
 	
 	public void testExportToCSV() {
+		String testPath = "./data/csvTestFile.csv";
 		SmartTableModel tm = new SmartTableModel(makeColumnNames(),"name");
 		Double[] row1 = {1.9,2.5};
 		Double[] row2 = {2.2,5.6};
@@ -35,11 +36,13 @@ public class TableWriterTest extends TestCase {
 		tm.AddRow(row2);
 		String expected = "Time,State,\n" + 
 				"1.9,2.5,\n2.2,5.6,";
+		
+		TableWriter tb = new TableWriter(tm, testPath, ",");
 		try {
-			BufferedReader read = new BufferedReader(new FileReader("./data/csvTestFile.csv"));
+			BufferedReader read = new BufferedReader(new FileReader(testPath));
 			String actual = read.lines().collect(Collectors.joining("\n"));
 			assertEquals(expected, actual);
-			read.close();
+			//read.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
