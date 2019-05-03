@@ -44,7 +44,7 @@ public class ModelView extends JFrame {
 	private Integer selectedTableRow;
 	
 	private String[] columnNames= {"State", "Equation"};
-	private String[] varColumnNames = {"Parameter", "Unit", "Description"};
+	private String[] varColumnNames = {"Name", "Unit", "Description"};
 	private JTable tableParameters;
 	private JTable tableStates;
 	private JTextField textFieldParameter;
@@ -266,11 +266,11 @@ public class ModelView extends JFrame {
 				lblEditMode.setText("");
 				int addState = app.handleButtonAddFormula(state, equation, isOde);
 				if (addState == 1){
-					JOptionPane.showConfirmDialog(null,"State already exists, formula not added.","Warning", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showConfirmDialog(null,"Dependent variable already exists, formula not added.","Warning", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 				} else if (addState == 2) {
-					JOptionPane.showConfirmDialog(null,"State or equation field empty, formula not added.","Warning", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showConfirmDialog(null,"Dependent variable or equation field empty, formula not added.","Warning", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 				} else if (addState == 3) {
-					int answer = JOptionPane.showConfirmDialog(null,"State is already in pre-defined parameters. Continue?","Warning", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+					int answer = JOptionPane.showConfirmDialog(null,"Dependent variable is already in pre-defined parameters. Continue?","Warning", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
 					if (answer == 0) {
 						app.handleDeleteUnboundParameter(state);
 						app.handleButtonAddFormula(state, equation, isOde);

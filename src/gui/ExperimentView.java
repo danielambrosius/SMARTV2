@@ -61,8 +61,8 @@ public class ExperimentView extends JFrame {
 		lblParameters.setBounds(22, 6, 76, 16);
 		contentPane.add(lblParameters);
 		
-		JLabel lblStates = new JLabel("States");
-		lblStates.setBounds(22, 178, 56, 16);
+		JLabel lblStates = new JLabel("Depentent variables");
+		lblStates.setBounds(22, 178, 97, 14);
 		contentPane.add(lblStates);
 		
 		JScrollPane scrollPaneParameters = new JScrollPane();
