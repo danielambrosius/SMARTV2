@@ -167,7 +167,7 @@ public class Experiment{
 	
 	private List<String> generateColnames() {
 		// Add units to the colNames
-		List<String> colNames = this.model.getStates();
+		List<String> colNames = this.model.getDependentVariables();
 		String colName;
 		String unit;
 		
