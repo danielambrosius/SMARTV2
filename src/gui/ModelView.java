@@ -67,6 +67,7 @@ public class ModelView extends JFrame {
 	}
 
 	public ModelView() {
+		setResizable(false);
 		this.app = new App();
 		buildGui();
 	}
@@ -75,7 +76,6 @@ public class ModelView extends JFrame {
 	 * Method to create the main gui of the program.
 	 */	
 	public void buildGui() {
-		setResizable(false);		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 625, 486);
 		
@@ -211,11 +211,11 @@ public class ModelView extends JFrame {
 		EquationField.setColumns(10);
 		
 		JLabel lblDifferentialEquation = new JLabel("Equation");
-		lblDifferentialEquation.setBounds(179, 29, 228, 16);
+		lblDifferentialEquation.setBounds(196, 29, 211, 16);
 		panelFormulas.add(lblDifferentialEquation);
 		
 		JLabel label = new JLabel("=");
-		label.setBounds(143, 49, 9, 16);
+		label.setBounds(141, 49, 36, 16);
 		panelFormulas.add(label);
 		
 		
@@ -249,12 +249,12 @@ public class ModelView extends JFrame {
 		JRadioButton rdbtnOde = new JRadioButton("ODE");
 		buttonGroup.add(rdbtnOde);
 		rdbtnOde.setSelected(true);
-		rdbtnOde.setBounds(120, 85, 53, 25);
+		rdbtnOde.setBounds(120, 85, 70, 25);
 		panelFormulas.add(rdbtnOde);
 		
 		JRadioButton rdbtnAlgebraicEquation = new JRadioButton("Algebraic Equation");
 		buttonGroup.add(rdbtnAlgebraicEquation);
-		rdbtnAlgebraicEquation.setBounds(189, 85, 135, 25);
+		rdbtnAlgebraicEquation.setBounds(189, 85, 317, 25);
 		panelFormulas.add(rdbtnAlgebraicEquation);	
 		
 		btnAdd = new JButton("Add");
