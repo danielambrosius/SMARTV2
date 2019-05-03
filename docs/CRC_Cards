@@ -30,3 +30,14 @@ CRC Cards
 |Hold the values for parameters |App				  		  |
 |Hold state initial values		|App						  |
 |Run the experiment				|SolverThread				  |
+
+## App
+
+|Responsibilities               |Collaborators                |
+|-------------------------------|-----------------------------|
+|Handle input from ModelView    |ModelView, Model             |
+|Handle input from ExperimentView|ExperimentView, Experiment  |
+|Handle saving/loading requests |SaverLoader, ModelView       |
+|Create Experiment instance     |Experiment, ModelVieuw       |
+|Hold Experiment instance       |Experiment                   |
+|Create Model instance          |Model, ModelView             |
