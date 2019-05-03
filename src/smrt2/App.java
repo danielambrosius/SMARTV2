@@ -263,12 +263,17 @@ public class App {
 	 */
 	public String[][] getStateNamesValues() {
 		List<String> stateNames = myModel.getStates();
+		List<Equation> equationList = myModel.getEquationList();
 		String[][] stateNamesValues = new String[stateNames.size()][3];
-		for (int i = 0; stateNames.size() != i; i++ ) {
-			stateNamesValues[i][0] = "" + stateNames.get(i);
-			stateNamesValues[i][1] = "" + myExperiment.getStateValue(i);
-			stateNamesValues[i][2] = myExperiment.getModel().getDescriptionFromKey(stateNames.get(i))[0];
-			} 
+		int i = 0;
+		for (int j = 0; j < equationList.size(); j++) {
+			if (equationList.get(j) instanceof Ode) {
+				stateNamesValues[i][0] = "" + stateNames.get(i);
+				stateNamesValues[i][1] = "" + myExperiment.getStateValue(i);
+				stateNamesValues[i][2] = myExperiment.getModel().getDescriptionFromKey(stateNames.get(i))[0];
+				i++;
+			}
+		}
 		return stateNamesValues;
 	}	
 

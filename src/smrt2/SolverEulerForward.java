@@ -1,5 +1,6 @@
 package smrt2;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.script.ScriptEngine;
@@ -28,17 +29,17 @@ public class SolverEulerForward implements Solver {
 		Double[] firstRow = new Double[formulaList.length+1];
 		firstRow[0] = tStart;
 	
-		//add the initial conditions as the first row;
-		for (int i = 0; i < S0.length; i++) {
-			firstRow[i+1] = S0[i];	
-		}
-		
-		Double[] AlgResults = eulerForward(equationList, formulaList, firstRow, P, tStep);
-		
+		Double[] dummyValues = new Double[formulaList.length+1];
+		Arrays.fill(dummyValues, 1.0);
+		Double[] AlgResults = eulerForward(equationList, formulaList, dummyValues, P, tStep);
+		int j = 0;
 		for (int i = 1; i < firstRow.length; i++) {
 			if (equationList.get(i-1) instanceof AlgEq) {
 				firstRow[i] = AlgResults[i];
-			}	
+			} else {
+				firstRow[i] = S0[j];
+				j++;
+			}
 		}
 		tableModel.AddRow(firstRow);
 		

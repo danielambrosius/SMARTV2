@@ -41,7 +41,7 @@ public class SolverTest extends TestCase {
 		myModel.addOde("A", "k1");
 		myModel.addAlgEq("B", "k1");
 		SmartTableModel S = new SmartTableModel(colNames, "Test_tablemodel");
-		Double[] S0 = {0., 0.};
+		Double[] S0 = {0.};
 		Double[] P = {1.};
 		double tStart = 0;
 		double tEnd = 10;
