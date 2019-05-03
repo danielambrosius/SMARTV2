@@ -1,0 +1,22 @@
+{
+  "name" : "test.model",
+  "areEquationsValid" : true,
+  "unboundParameters" : [ ],
+  "varDescription" : {
+    "A" : [ "m", "" ],
+    "B" : [ "km", "Example" ],
+    "C" : [ "", "" ],
+    "k1" : [ "m/s", "" ],
+    "k2" : [ "km/u", "" ],
+    "k3" : [ "", "" ]
+  },
+  "equationList" : [ {
+    "@class" : "smrt2.Ode",
+    "leftHandSide" : "A",
+    "rightHandSide" : "k1+4"
+  }, {
+    "@class" : "smrt2.AlgEq",
+    "leftHandSide" : "B",
+    "rightHandSide" : "A+k2+4"
+  } ]
+}
