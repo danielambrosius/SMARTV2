@@ -21,3 +21,12 @@ CRC Cards
 |-------------------------------|-----------------------------|
 |Serialize and store instances  |App					      |
 |Load and deserialize instances |App					      |
+
+## Experiment
+
+|Responsibilities               |Collaborators                |
+|-------------------------------|-----------------------------|
+|Hold the time settings		    |App					      |
+|Hold the values for parameters |App				  		  |
+|Hold state initial values		|App						  |
+|Run the experiment				|SolverThread				  |
