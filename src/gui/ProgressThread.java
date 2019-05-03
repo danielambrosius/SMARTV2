@@ -23,7 +23,7 @@ public class ProgressThread extends Thread {
 			n = (tableModel.getRowCount()/ maxLenght) *100;
 			progressBar.setValue((int) n);
 			try {
-				this.sleep(100);
+				Thread.sleep(100);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

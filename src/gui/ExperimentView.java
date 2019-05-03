@@ -18,8 +18,8 @@ import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 import java.awt.event.ActionEvent;
@@ -147,9 +147,11 @@ public class ExperimentView extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					String text = "<html>";
-					text += new BufferedReader(new FileReader("./lib/ExperimentHelpText.txt")).lines().collect(Collectors.joining("<br>"));
+					BufferedReader reader = new BufferedReader(new FileReader("./lib/ExperimentHelpText.txt"));
+					text += reader.lines().collect(Collectors.joining("<br>"));
 					new HelpWindow(text);
-				} catch (FileNotFoundException e1) {
+					reader.close();
+				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
 			}
