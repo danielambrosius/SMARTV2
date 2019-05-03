@@ -1,9 +1,12 @@
-This software project was primarily written as part of the course Software Engineering
-at Wageningen University and Research. 
+This software project was primarily written as part of the course Software Engineering (INF-32306) at Wageningen University and Research. 
 
 Contributors:
-
-[PLEASE PUT NAMES HERE]
+ - Shashi Badloe
+ - Daniel Prince
+ - Daniël Slingerland
+ - Dennie Te Molder
+ - Bram Van Wersch
+ - Tim Bosman
 
 
 License:
