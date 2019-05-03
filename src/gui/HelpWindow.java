@@ -16,6 +16,9 @@ public class HelpWindow extends JFrame {
 	private JPanel contentPane;
 
 	public HelpWindow(String helpText) {
+		final String html = "<html><body style='width: %1spx'>%1s";
+		String text = String.format(html, 300, helpText);
+		
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -33,7 +36,7 @@ public class HelpWindow extends JFrame {
 		textLabel.setOpaque(true);
 		textLabel.setBackground(Color.WHITE);
 		scrollPane.setViewportView(textLabel);
-		textLabel.setText(helpText);
+		textLabel.setText(text);
 	}
 
 }

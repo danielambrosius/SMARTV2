@@ -29,6 +29,7 @@ import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.stream.Collectors;
 
 import javax.swing.JScrollPane;
@@ -168,6 +169,23 @@ public class ModelView extends JFrame {
 			}
 		});
 		mnExperiment.add(mntmSave_1);
+		
+		JMenuItem mntmAbout = new JMenuItem("About...");
+		mntmAbout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					String text = "<html>";
+					BufferedReader reader = new BufferedReader(new FileReader("./lib/AboutText.txt"));
+					text += reader.lines().collect(Collectors.joining("<br>"));
+					new HelpWindow(text);
+					reader.close();
+					
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		menuBar.add(mntmAbout);
 		
 		getContentPane().setLayout(new GridLayout(1, 0, 0, 0));
 		
@@ -398,9 +416,12 @@ public class ModelView extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					String text = "<html>";
-					text += new BufferedReader(new FileReader("./lib/ModelHelpText.txt")).lines().collect(Collectors.joining("<br>"));
+					BufferedReader reader = new BufferedReader(new FileReader("./lib/ModelHelpText.txt"));
+					text += reader.lines().collect(Collectors.joining("<br>"));
 					new HelpWindow(text);
-				} catch (FileNotFoundException e1) {
+					reader.close();
+					
+				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
 			}
